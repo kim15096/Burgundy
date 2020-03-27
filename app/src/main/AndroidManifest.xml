@@ -20,6 +20,8 @@
         </activity>
 
         <activity android:name=".login.Login"/>
+        <activity android:name=".login.LoginPage"/>
+        <activity android:name=".login.Register"/>
     </application>
 
 
