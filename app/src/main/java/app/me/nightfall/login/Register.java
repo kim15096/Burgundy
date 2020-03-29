@@ -2,6 +2,7 @@ package app.me.nightfall.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -10,10 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 import app.me.nightfall.R;
 import app.me.nightfall.home.Home;
@@ -29,7 +32,6 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_act);
 
-        firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
 
 
@@ -38,10 +40,14 @@ public class Register extends AppCompatActivity {
 
     public void register(View view){
 
-        String email = findViewById(R.id.register_email).toString().trim();
-        String password = findViewById(R.id.register_password).toString().trim();
+        MaterialEditText email_et = findViewById(R.id.register_email);
+        MaterialEditText password_et = findViewById(R.id.register_password);
+        String email = email_et.getText().toString().trim();
+        String password = password_et.getText().toString().trim();
 
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
+        Snackbar.make(view, email, Snackbar.LENGTH_SHORT).show();
+
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                            @Override
                                            public void onComplete(@NonNull Task<AuthResult> task) {
@@ -53,7 +59,14 @@ public class Register extends AppCompatActivity {
 
                                                    findViewById(R.id.register_pbar).setVisibility(View.VISIBLE);
 
-                                                   testChange();
+                                                   //test from here
+                                                   new Handler().postDelayed(new Runnable() {
+                                                       @Override
+                                                       public void run() {
+                                                           testChange();
+                                                       }
+                                                   }, 3000);
+
 
 
                                                }
