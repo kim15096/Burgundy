@@ -2,4 +2,9 @@
     <string name="app_name">Nightfall</string>
     <string name="login_email_hint">Email</string>
     <string name="login_password_hint">Password</string>
+
+    <!-- Web OAuth2.0 client ID for Google sign-in-->
+    <string name="server_client_id">
+        680708338955-k5e2248douu6m9i9clncogkmjn2kviti.apps.googleusercontent.com
+    </string>
 </resources>
