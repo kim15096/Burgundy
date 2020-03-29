@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.me.nightfall">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,19 +11,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".login.Splash" android:theme="@style/SplashTheme">
+        <activity android:name=".home.Home"></activity>
+        <activity
+            android:name=".login.Splash"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".login.Login"/>
-        <activity android:name=".login.LoginPage"/>
-        <activity android:name=".login.Register"/>
+        <activity android:name=".login.Login" />
+        <activity
+            android:name=".login.LoginPage"
+            android:label="LoginPage"
+            android:parentActivityName=".login.Login" />
+        <activity android:name=".login.Register" />
     </application>
-
-
 
 </manifest>
