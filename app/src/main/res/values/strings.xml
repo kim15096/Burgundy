@@ -7,4 +7,8 @@
     <string name="server_client_id">
         680708338955-k5e2248douu6m9i9clncogkmjn2kviti.apps.googleusercontent.com
     </string>
+
+    <!-- Facebook login -->
+    <string name="facebook_app_id">576314972976441</string>
+    <string name="fb_login_protocol_scheme">fb576314972976441</string>
 </resources>

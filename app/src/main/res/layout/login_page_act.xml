@@ -49,7 +49,7 @@
         android:layout_height="45dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/btn_bg"
-        android:onClick="signIn"
+        android:onClick="emailLogin"
         android:text="LOGIN"
         android:textColor="@android:color/white"
         android:textSize="15sp"
@@ -69,7 +69,7 @@
         android:background="@drawable/et_bg"
         android:ems="10"
         android:hint="@string/login_email_hint"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:padding="12dp"
         android:textColor="@android:color/white"
         android:textSize="16sp"
@@ -118,5 +118,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_btn" />
+
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/fb_login_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/google_signin_btn"
+        app:layout_constraintVertical_bias="0.08" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
