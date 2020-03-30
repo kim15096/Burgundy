@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home_24dp"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/nav_categories"
+        android:icon="@drawable/ic_apps_24dp"
+        android:title="Categories" />
+
+
+    <item
+        android:id="@+id/nav_add"
+        android:title="Post"
+        android:icon="@drawable/ic_add_24dp"/>
+
+    <item
+        android:id="@+id/nav_lobby"
+        android:title="My Lobbies"
+        android:icon="@drawable/ic_pages_24dp"/>
+
+    <item
+        android:id="@+id/nav_account"
+        android:title="Profile"
+        android:icon="@drawable/ic_person_24dp"/>
+
+</menu>

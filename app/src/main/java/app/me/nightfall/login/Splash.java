@@ -8,8 +8,7 @@ import android.os.Bundle;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import app.me.nightfall.R;
-import app.me.nightfall.home.Home;
+import app.me.nightfall.MainActivity;
 
 public class Splash extends AppCompatActivity {
 
@@ -22,11 +21,8 @@ public class Splash extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if (currentUser != null && currentUser.isEmailVerified()) {
+        if (currentUser != null) {
             toHome();
-        }
-        else if (currentUser != null && !currentUser.isEmailVerified()) {
-            toVerify();
         }
         else {
             toLogin();
@@ -34,7 +30,7 @@ public class Splash extends AppCompatActivity {
     }
 
     private void toHome(){
-        Intent mainIntent = new Intent(Splash.this, Home.class);
+        Intent mainIntent = new Intent(Splash.this, MainActivity.class);
         Splash.this.startActivity(mainIntent);
         Splash.this.finish();
     }

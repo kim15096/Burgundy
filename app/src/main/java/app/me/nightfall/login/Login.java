@@ -7,7 +7,6 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import app.me.nightfall.R;
-import app.me.nightfall.home.Home;
 
 public class Login extends AppCompatActivity {
 

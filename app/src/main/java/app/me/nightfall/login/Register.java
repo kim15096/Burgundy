@@ -9,17 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import app.me.nightfall.R;
-import app.me.nightfall.home.Home;
+import app.me.nightfall.MainActivity;
 
 
 public class Register extends AppCompatActivity {
@@ -81,7 +79,7 @@ public class Register extends AppCompatActivity {
 
 
     public void testChange(){
-        Intent mainIntent = new Intent(Register.this, Home.class);
+        Intent mainIntent = new Intent(Register.this, MainActivity.class);
         Register.this.startActivity(mainIntent);
         Register.this.finish();
     }
