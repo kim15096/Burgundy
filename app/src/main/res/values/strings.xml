@@ -11,4 +11,6 @@
     <!-- Facebook login -->
     <string name="facebook_app_id">576314972976441</string>
     <string name="fb_login_protocol_scheme">fb576314972976441</string>
+    <string name="password_reset">Send a password reset email</string>
+    <string name="forgot_password">Forgot Password</string>
 </resources>

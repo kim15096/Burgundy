@@ -161,7 +161,7 @@ public class LoginPage extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(LOG_TAG, "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                changeToHome();
+                                toHome();
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(LOG_TAG, "signInWithEmail:failure", task.getException());
@@ -194,7 +194,7 @@ public class LoginPage extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(LOG_TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            changeToHome();
+                            toHome();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(LOG_TAG, "signInWithCredential:failure", task.getException());
@@ -220,7 +220,7 @@ public class LoginPage extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(LOG_TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            changeToHome();
+                            toHome();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(LOG_TAG, "signInWithCredential:failure", task.getException());
@@ -234,7 +234,7 @@ public class LoginPage extends AppCompatActivity {
     }
 
     // Change Activity from LoginPage to Home upon successful sign in
-    private void changeToHome() {
+    private void toHome() {
         Intent intent = new Intent(this, Home.class);
         startActivity(intent);
         finish();
@@ -247,4 +247,8 @@ public class LoginPage extends AppCompatActivity {
         LoginPage.this.finish();
     }
 
+    public void toForgotPassword(View view) {
+        Intent intent = new Intent(LoginPage.this, ForgotPassword.class);
+        startActivity(intent);
+    }
 }
