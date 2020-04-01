@@ -23,7 +23,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2; //two fragments
+        return 3; //two fragments
     }
 
     @Override
@@ -31,10 +31,14 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                return "Lobbies";
+                return "Top";
 
             case 1:
-                return "Comments";
+                return "Trending";
+
+            case 2:
+                return "New";
+
         }
         return null;
     }
