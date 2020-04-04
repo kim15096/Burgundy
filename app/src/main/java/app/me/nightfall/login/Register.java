@@ -17,7 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import app.me.nightfall.R;
-import app.me.nightfall.MainActivity;
+import app.me.nightfall.home.MainActivity;
 
 
 public class Register extends AppCompatActivity {

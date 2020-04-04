@@ -17,7 +17,7 @@ import java.util.List;
 
 import app.me.nightfall.R;
 
-public class LobbyChildFrag extends Fragment {
+public class FeaturedLobbies extends Fragment {
 
 
     @Override
@@ -30,7 +30,7 @@ public class LobbyChildFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.lobby_child_frag, container, false);
+        View view = inflater.inflate(R.layout.ft_lobby_vp, container, false);
 
 
 

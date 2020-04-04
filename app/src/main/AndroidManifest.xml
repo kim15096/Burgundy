@@ -23,7 +23,7 @@
         <activity android:name=".login.Login" />
         <activity android:name=".login.LoginPage" />
         <activity android:name=".login.Register" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".home.MainActivity" />
     </application>
 
 </manifest>

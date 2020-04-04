@@ -8,7 +8,7 @@ import android.os.Bundle;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import app.me.nightfall.MainActivity;
+import app.me.nightfall.home.MainActivity;
 
 public class Splash extends AppCompatActivity {
 

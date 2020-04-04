@@ -1,22 +1,15 @@
-package app.me.nightfall.lobby;
+package app.me.nightfall.home;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
 import app.me.nightfall.R;
 
-
-public class LobbyFrag extends Fragment {
-
-
-    public LobbyFrag() {
-        // Required empty public constructor
-    }
+public class NormalLobbies extends Fragment {
 
 
     @Override
@@ -29,6 +22,12 @@ public class LobbyFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lobby, container, false);
+        View view = inflater.inflate(R.layout.normal_lobbies_vp, container, false);
+
+
+
+
+
+        return view;
     }
 }

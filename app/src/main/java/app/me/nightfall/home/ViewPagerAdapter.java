@@ -14,9 +14,11 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new LobbyChildFrag(); //ChildFragment1 at position 0
+                return new FeaturedLobbies(); //ChildFragment1 at position 0
             case 1:
-                return new CommentChildFrag(); //ChildFragment2 at position 1
+                return new NormalLobbies(); //ChildFragment2 at position 1
+            case 2:
+                return new CategoriesFrag();
         }
         return null; //does not happen
     }
@@ -31,13 +33,13 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                return "Top";
+                return "Featured";
 
             case 1:
-                return "Trending";
+                return "Lobbies";
 
             case 2:
-                return "New";
+                return "Categories";
 
         }
         return null;

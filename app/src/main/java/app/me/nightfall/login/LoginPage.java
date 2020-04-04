@@ -14,7 +14,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import app.me.nightfall.R;
-import app.me.nightfall.MainActivity;
+import app.me.nightfall.home.MainActivity;
 
 public class LoginPage extends AppCompatActivity {
 
