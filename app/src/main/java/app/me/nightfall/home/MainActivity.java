@@ -2,41 +2,48 @@ package app.me.nightfall.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import app.me.nightfall.AddActivity;
 import app.me.nightfall.R;
 
-import app.me.nightfall.login.Login;
-import app.me.nightfall.login.Register;
-import app.me.nightfall.profile.ProfileFrag;
+import app.me.nightfall.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
-    private ProfileFrag profileFrag = new ProfileFrag();
-    private RecyclerView home_recycler;
-    private HomeRecyclerAdapter homeRecyclerAdapter;
-    private List<HomePostModel> post_list;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private FloatingActionButton create_fab;
+    private ImageView account_btn;
+    private FirebaseFirestore db;
+    private FirebaseUser firebaseUser;
+    private List<LobbyPostModel> lobbyList;
+    private RecyclerView lobby_recycler;
+    private LobbiesRecyclerAdapter recyclerAdapter;
 
 
     @Override
@@ -44,11 +51,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_act);
 
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+        account_btn = findViewById(R.id.account_btn);
         create_fab = findViewById(R.id.create_fab);
         viewPager = findViewById(R.id.home_viewpg);
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         tabLayout = findViewById(R.id.home_tab);
         tabLayout.setupWithViewPager(viewPager);
+        lobby_recycler = findViewById(R.id.lobbies_recycler);
 
         //when floating action button is clicked
         create_fab.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +70,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        account_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainIntent = new Intent(MainActivity.this, SettingsActivity.class);
+                MainActivity.this.startActivity(mainIntent);
+            }
+        });
+
+
+
     }
 
 
@@ -67,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private class ViewPagerAdapter extends FragmentStatePagerAdapter {
+    private static class ViewPagerAdapter extends FragmentStatePagerAdapter {
         public ViewPagerAdapter(FragmentManager fm) {
             super(fm);
         }

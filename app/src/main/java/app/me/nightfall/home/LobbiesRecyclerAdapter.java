@@ -1,41 +1,24 @@
 package app.me.nightfall.home;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.preference.PreferenceManager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RadioGroup;
-import android.widget.ScrollView;
+import android.widget.EditText;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 import app.me.nightfall.R;
 
-public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    public List<HomePostModel> post_list;
+    public List<LobbyPostModel> lobbyList;
 
-    public HomeRecyclerAdapter(List<HomePostModel> post_list){
-        this.post_list = post_list;
+    public LobbiesRecyclerAdapter(List<LobbyPostModel> lobbyList){
+        this.lobbyList = lobbyList;
 
 
     }
@@ -56,7 +39,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View MainView = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_recycler_card, parent, false);
+        View MainView = LayoutInflater.from(parent.getContext()).inflate(R.layout.lobby_recycler_card, parent, false);
         View AdView = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_recycler_ad, parent, false);
 
         if (viewType == VIEW_TYPES.Normal){
@@ -81,16 +64,15 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 break;
             case VIEW_TYPES.Normal:
                 ViewHolder0 viewHolder0 = (ViewHolder0) holder;
-        }
-    }
 
-    public int getPosition(){
-     return 3;
+                final String title = lobbyList.get(position).getTitle();
+                viewHolder0.setTitle(title);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return post_list.size();
+        return lobbyList.size();
     }
 
     public class ViewHolder0 extends RecyclerView.ViewHolder{
@@ -101,6 +83,12 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             super(itemView);
             mView = itemView;
+
+        }
+
+        public void setTitle(String text){
+            TextView title_tv = mView.findViewById(R.id.post_title);
+            title_tv.setText(text);
 
         }
 

@@ -20,14 +20,14 @@ public class Login extends AppCompatActivity {
     public void toLoginPage(View view) {
         Intent mainIntent = new Intent(Login.this, LoginPage.class);
         Login.this.startActivity(mainIntent);
-        Login.this.finish();
+
     }
 
     public void toRegister(View view) {
 
         Intent mainIntent = new Intent(Login.this, Register.class);
         Login.this.startActivity(mainIntent);
-        Login.this.finish();
+
 
     }
 

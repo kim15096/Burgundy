@@ -6,38 +6,29 @@
     android:layout_height="match_parent"
     android:background="@color/darkBG">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/darkerBG"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:background="@android:color/transparent"
         android:onClick="toLogin"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow_back_24dp" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/montserrat"
         android:text="Create an Account"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -47,21 +38,21 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="35dp"
         android:background="@drawable/et_bg"
         android:ems="10"
         android:hint="Email"
-        app:met_textColor="#FFFFFF"
-        app:met_baseColor="@color/lightGray"
-        app:met_textColorHint="@color/lightGray"
         android:inputType="textEmailAddress"
         android:padding="8dp"
         android:textSize="15sp"
-        app:met_floatingLabel="highlight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:met_baseColor="@color/lightGray"
+        app:met_floatingLabel="highlight"
+        app:met_textColor="#FFFFFF"
+        app:met_textColorHint="@color/lightGray" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/register_username"

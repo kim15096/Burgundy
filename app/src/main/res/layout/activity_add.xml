@@ -5,12 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkerBG"
-    tools:context=".AddActivity">
+    tools:context=".home.AddActivity">
+
+    <ImageButton
+        android:id="@+id/createlobby_back"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@android:color/transparent"
+        android:onClick="createlobby_back"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back_24dp" />
 
     <Button
         android:id="@+id/createlob_btn"
         android:layout_width="0dp"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/btn_bg"
         android:elevation="0dp"
@@ -24,53 +37,49 @@
         app:layout_constraintEnd_toEndOf="@+id/create_desc"
         app:layout_constraintStart_toStartOf="@+id/create_desc" />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
+    <EditText
         android:id="@+id/create_title"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="35dp"
-        android:ems="10"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/et_bg"
         android:hint="Lobby Title"
         android:inputType="textEmailAddress"
-        android:padding="8dp"
+        android:padding="12dp"
+        android:textAlignment="viewStart"
+        android:textColor="@android:color/white"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:met_baseColor="@color/lightGray"
-        app:met_floatingLabel="highlight"
-        app:met_textColor="#FFFFFF"
-        app:met_textColorHint="@color/lightGray" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
+    <EditText
         android:id="@+id/create_desc"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/et_bg"
         android:ems="10"
         android:hint="Description"
-        android:inputType="textPassword"
-        android:padding="8dp"
+        android:inputType="text|textCapSentences"
+        android:padding="12dp"
+        android:textColor="@android:color/white"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="@+id/create_title"
         app:layout_constraintStart_toStartOf="@+id/create_title"
-        app:layout_constraintTop_toBottomOf="@+id/create_title"
-        app:met_baseColor="@color/lightGray"
-        app:met_floatingLabel="highlight"
-        app:met_textColor="#FFFFFF"
-        app:met_textColorHint="@color/lightGray" />
+        app:layout_constraintTop_toBottomOf="@+id/create_title" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:text="Create Lobby"
         android:textColor="@android:color/white"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

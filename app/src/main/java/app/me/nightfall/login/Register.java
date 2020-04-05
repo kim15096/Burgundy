@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
@@ -16,6 +18,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.rengwuxian.materialedittext.MaterialEditText;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import app.me.nightfall.R;
 import app.me.nightfall.home.MainActivity;
@@ -51,21 +56,22 @@ public class Register extends AppCompatActivity {
                                            @Override
                                            public void onComplete(@NonNull Task<AuthResult> task) {
                                                if (task.isSuccessful()) {
-                                                   findViewById(R.id.register_username).setVisibility(View.INVISIBLE);
-                                                   findViewById(R.id.register_password).setVisibility(View.INVISIBLE);
-                                                   findViewById(R.id.register_email).setVisibility(View.INVISIBLE);
-                                                   findViewById(R.id.register_btn).setVisibility(View.INVISIBLE);
 
-                                                   findViewById(R.id.register_pbar).setVisibility(View.VISIBLE);
+                                                   EditText username_et = findViewById(R.id.register_username);
+                                                   String username = username_et.getText().toString();
+                                                   String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                                                   //test from here
-                                                   new Handler().postDelayed(new Runnable() {
+                                                   Map<String, Object> userString = new HashMap<>();
+                                                   userString.put("userID", userID);
+                                                   userString.put("username", username);
+                                                   userString.put("lobby count", 0);
+
+                                                   firestore.collection("Users").document(userID).set(userString).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                        @Override
-                                                       public void run() {
-                                                           testChange();
+                                                       public void onSuccess(Void aVoid) {
+                                                           authenticate();
                                                        }
-                                                   }, 3000);
-
+                                                   });
 
                                                }
                                            }
@@ -78,7 +84,7 @@ public class Register extends AppCompatActivity {
 
 
 
-    public void testChange(){
+    public void authenticate(){
         Intent mainIntent = new Intent(Register.this, MainActivity.class);
         Register.this.startActivity(mainIntent);
         Register.this.finish();
@@ -89,18 +95,13 @@ public class Register extends AppCompatActivity {
     //From here is to go back
 
     public void toLogin(View view) {
-        Intent mainIntent = new Intent(Register.this, Login.class);
-        Register.this.startActivity(mainIntent);
-        Register.this.finish();
+        super.onBackPressed();
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
 
-        Intent mainIntent = new Intent(Register.this, Login.class);
-        Register.this.startActivity(mainIntent);
-        Register.this.finish();
 
     }
 }

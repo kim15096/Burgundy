@@ -28,9 +28,7 @@ public class LoginPage extends AppCompatActivity {
     }
 
     public void toLogin(View view) {
-        Intent mainIntent = new Intent(LoginPage.this, Login.class);
-        LoginPage.this.startActivity(mainIntent);
-        LoginPage.this.finish();
+        super.onBackPressed();
     }
 
     public void loginBtn(View view){
@@ -62,9 +60,6 @@ public class LoginPage extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        Intent mainIntent = new Intent(LoginPage.this, Login.class);
-        LoginPage.this.startActivity(mainIntent);
-        LoginPage.this.finish();
 
     }
 }

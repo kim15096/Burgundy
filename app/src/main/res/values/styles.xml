@@ -32,6 +32,18 @@
     <style name="CustomTabLayout" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">13sp</item>
         <item name="textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SettingsTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="background">@color/darkerBG</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
 </resources>

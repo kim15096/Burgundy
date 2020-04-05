@@ -4,47 +4,47 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class HomePostModel {
+public class LobbyPostModel {
 
-    public String description, userID, post_id, title, category, keyword;
+    public String desc, username, lobbyID, title, category, userID;
     public Object timestamp;
+    public boolean featured;
 
-    public HomePostModel() {
+    public LobbyPostModel() {
     }
 
 
 
-    public HomePostModel(String description, String category, String userID, Object timestamp, String post_id, String title, String keyword) {
-        this.description = description;
+    public LobbyPostModel(String description, String category, String userID, Object timestamp, String lobbyID, String title) {
+        this.desc = description;
         this.userID = userID;
         this.category = category;
         this.timestamp = timestamp;
         this.title = title;
-        this.post_id = post_id;
-        this.keyword = keyword;
+        this.lobbyID = lobbyID;
     }
 
-    public String getPost_id() {
-        return post_id;
+    public String getLobbyID() {
+        return lobbyID;
     }
 
-    public void setPost_id(String post_id) {
-        this.post_id = post_id;
+    public void setLobbyID(String lobbyID) {
+        this.lobbyID = lobbyID;
     }
 
     public String getDesc() {
-        return description;
+        return desc;
     }
 
     public void setDesc(String desc) {
-        this.description = desc;
+        this.desc = desc;
     }
 
-    public String getUser_id() {
+    public String getUserID() {
         return userID;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 
@@ -69,13 +69,6 @@ public class HomePostModel {
 
     }
 
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
-    }
-
-    public String getKeyword() {
-        return keyword;
-    }
 }
 
 
