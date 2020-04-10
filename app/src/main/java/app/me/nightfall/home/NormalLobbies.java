@@ -55,7 +55,7 @@ public class NormalLobbies extends Fragment {
 
         lobbyList = new ArrayList<>();
 
-        recyclerAdapter = new LobbiesRecyclerAdapter(lobbyList);
+        recyclerAdapter = new LobbiesRecyclerAdapter(lobbyList, this);
         lobby_recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         lobby_recycler.setAdapter(recyclerAdapter);
         lobby_recycler.setHasFixedSize(true);
@@ -116,8 +116,11 @@ public class NormalLobbies extends Fragment {
 
 
 
-
-
         return view;
     }
+
+    public void toLobby(){
+
+    }
+
 }

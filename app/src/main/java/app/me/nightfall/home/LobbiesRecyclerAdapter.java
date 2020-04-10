@@ -1,25 +1,32 @@
 package app.me.nightfall.home;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import app.me.nightfall.LobbyActivity;
+import app.me.nightfall.ProfileActivity;
 import app.me.nightfall.R;
+import app.me.nightfall.login.LoginPage;
 
 public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     public List<LobbyPostModel> lobbyList;
+    public NormalLobbies normalLobbies;
 
-    public LobbiesRecyclerAdapter(List<LobbyPostModel> lobbyList){
+    public LobbiesRecyclerAdapter(List<LobbyPostModel> lobbyList, NormalLobbies normalLobbies){
         this.lobbyList = lobbyList;
-
+        this.normalLobbies = normalLobbies;
 
     }
 
@@ -67,6 +74,17 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
                 final String title = lobbyList.get(position).getTitle();
                 viewHolder0.setTitle(title);
+
+                viewHolder0.joinBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(normalLobbies.getActivity(), LobbyActivity.class);
+                        normalLobbies.getActivity().startActivity(intent);
+
+                    }
+                });
+
+
         }
     }
 
@@ -78,11 +96,13 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public class ViewHolder0 extends RecyclerView.ViewHolder{
 
         private View mView;
+        private Button joinBtn;
 
         public ViewHolder0(@NonNull View itemView) {
 
             super(itemView);
             mView = itemView;
+            joinBtn = mView.findViewById(R.id.joinBtn);
 
         }
 
@@ -93,7 +113,6 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         }
 
     }
-
     public class ViewHolderAds extends RecyclerView.ViewHolder{
 
         private View mView;

@@ -16,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+import app.me.nightfall.LobbyActivity;
 import app.me.nightfall.R;
 import app.me.nightfall.login.LoginPage;
 
@@ -65,7 +66,9 @@ public class AddActivity extends AppCompatActivity {
                         db.collection("Users").document(firebaseUser.getUid()).update("lobby count", lobbyCount).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                createlobby_back(view);
+                                Intent mainIntent = new Intent(AddActivity.this, LobbyActivity.class);
+                                AddActivity.this.startActivity(mainIntent);
+                                AddActivity.this.finish();
                             }
                         });
                     }

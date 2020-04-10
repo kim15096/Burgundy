@@ -11,10 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".LobbyActivity" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".ProfileActivity"
             android:label="@string/title_activity_settings"
-            android:theme="@style/SettingsTheme"/>
+            android:theme="@style/SettingsTheme" />
         <activity android:name=".home.AddActivity" />
         <activity
             android:name=".login.Splash"
