@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkerBG"
+    android:background="@color/darkBG"
     tools:context=".home.AddActivity">
 
     <ImageButton
@@ -34,17 +34,18 @@
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/create_desc"
-        app:layout_constraintStart_toStartOf="@+id/create_desc" />
+        app:layout_constraintEnd_toEndOf="@+id/create_title"
+        app:layout_constraintStart_toStartOf="@+id/create_title" />
 
     <EditText
         android:id="@+id/create_title"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="65dp"
-        android:layout_marginEnd="40dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/et_bg"
+        android:elevation="0dp"
         android:hint="Lobby Title"
         android:inputType="textEmailAddress"
         android:padding="12dp"
@@ -55,25 +56,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <EditText
-        android:id="@+id/create_desc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/et_bg"
-        android:ems="10"
-        android:gravity="clip_vertical"
-        android:hint="Description"
-        android:inputType="textMultiLine|text|textCapSentences"
-        android:minHeight="70dp"
-        android:padding="12dp"
-        android:singleLine="false"
-        android:textColor="@android:color/white"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/create_title"
-        app:layout_constraintStart_toStartOf="@+id/create_title"
-        app:layout_constraintTop_toBottomOf="@+id/create_title" />
 
     <TextView
         android:id="@+id/textView5"

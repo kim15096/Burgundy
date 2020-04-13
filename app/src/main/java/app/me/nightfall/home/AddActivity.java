@@ -33,7 +33,7 @@ public class AddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add);
 
         title = findViewById(R.id.create_title);
-        desc = findViewById(R.id.create_desc);
+        //desc = findViewById(R.id.create_desc);
 
         db = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();

@@ -24,6 +24,8 @@ import java.util.List;
 import app.me.nightfall.R;
 
 import app.me.nightfall.ProfileActivity;
+import app.me.nightfall.login.Login;
+import app.me.nightfall.login.LoginPage;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton create_fab;
     private ImageView account_btn;
     private FirebaseFirestore db;
+    private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private List<LobbyPostModel> lobbyList;
     private RecyclerView lobby_recycler;
@@ -44,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_act);
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         account_btn = findViewById(R.id.account_btn);
         create_fab = findViewById(R.id.create_fab);
@@ -58,8 +61,17 @@ public class MainActivity extends AppCompatActivity {
         create_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mainIntent = new Intent(MainActivity.this, AddActivity.class);
-                MainActivity.this.startActivity(mainIntent);
+
+                FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+                if (currentUser != null) {
+                    Intent mainIntent = new Intent(MainActivity.this, AddActivity.class);
+                    MainActivity.this.startActivity(mainIntent);
+                }
+                else {
+                    Intent mainIntent = new Intent(MainActivity.this, Login.class);
+                    MainActivity.this.startActivity(mainIntent);
+                }
+
             }
         });
 
