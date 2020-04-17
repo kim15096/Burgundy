@@ -1,6 +1,7 @@
 package app.me.nightfall.home;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ public class AddActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private Long lobbyCount;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +44,7 @@ public class AddActivity extends AppCompatActivity {
 
     public void createLobby(final View view){
         final String lobby_title = title.getText().toString();
-        final String lobby_desc = desc.getText().toString();
+        //final String lobby_desc = desc.getText().toString();
 
         db.collection("Users").document(firebaseUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -53,7 +55,7 @@ public class AddActivity extends AppCompatActivity {
 
                 Map<String, Object> createLobby = new HashMap<>();
                 createLobby.put("title", lobby_title);
-                createLobby.put("desc", lobby_desc);
+                //createLobby.put("desc", lobby_desc);
                 createLobby.put("userID", firebaseUser.getUid());
                 createLobby.put("username", username);
                 createLobby.put("lobbyID", lobbyID);
@@ -66,9 +68,11 @@ public class AddActivity extends AppCompatActivity {
                         db.collection("Users").document(firebaseUser.getUid()).update("lobby count", lobbyCount).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Intent mainIntent = new Intent(AddActivity.this, LobbyActivity.class);
-                                AddActivity.this.startActivity(mainIntent);
+
+                                db.collection("Users").document(firebaseUser.getUid()).update("inLobby", true);
+
                                 AddActivity.this.finish();
+
                             }
                         });
                     }

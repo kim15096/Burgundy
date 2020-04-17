@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +35,7 @@ public class NormalLobbies extends Fragment {
     private RecyclerView lobby_recycler;
     private LobbiesRecyclerAdapter recyclerAdapter;
     private FloatingActionButton create_fab;
+    private Button backtoLobby;
 
 
     @Override
@@ -52,6 +54,7 @@ public class NormalLobbies extends Fragment {
 
         lobby_recycler = view.findViewById(R.id.lobbies_recycler);
         create_fab = getActivity().findViewById(R.id.create_fab);
+        backtoLobby = getActivity().findViewById(R.id.backtolobbyBtn);
 
         lobbyList = new ArrayList<>();
 
@@ -95,13 +98,26 @@ public class NormalLobbies extends Fragment {
 
                 if (scrolledDistance > HIDE_THRESHOLD && controlsVisible) {
                     controlsVisible = false;
-                    create_fab.hide();;
                     scrolledDistance = 0;
+
+                    if (MainActivity.inLobby){
+                        backtoLobby.animate().setInterpolator(new LinearInterpolator()).translationY(145).setDuration(150);
+                    }
+                    else {
+                        create_fab.hide();
+                    }
+
                 } else if (scrolledDistance < -HIDE_THRESHOLD && !controlsVisible) {
                     controlsVisible = true;
-                    create_fab.show();
-
                     scrolledDistance = 0;
+
+                    if (MainActivity.inLobby){
+                        backtoLobby.animate().setInterpolator(new LinearInterpolator()).translationY(0).setDuration(150);
+                    }
+                    else {
+                        create_fab.show();
+                    }
+
                 }
 
                 if((controlsVisible && dy>0) || (!controlsVisible && dy<0)) {

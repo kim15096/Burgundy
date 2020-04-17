@@ -7,27 +7,12 @@
     android:background="@color/darkBG"
     tools:context=".home.MainActivity">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/background_animation"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:alpha="0.1"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/background"
-        app:lottie_speed="0.5" />
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/home_tab"
-        android:layout_width="285dp"
-        android:layout_height="45dp"
+        android:layout_width="192dp"
+        android:layout_height="42dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorFullWidth="false"
@@ -35,11 +20,6 @@
         app:tabSelectedTextColor="@color/colorPrimary"
         app:tabTextAppearance="@style/CustomTabLayout"
         app:tabTextColor="@android:color/white">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Featured" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -72,17 +52,42 @@
         app:layout_constraintBottom_toTopOf="@+id/home_viewpg"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/backtolobbyBtn"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/btn_bg"
+        android:text="BACK TO LOBBY"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/create_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
         android:clickable="true"
         android:src="@drawable/ic_add_24dp"
+        app:backgroundTint="#1b9ccf"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:maxImageSize="32dp" />
+
+    <FrameLayout
+        android:id="@+id/lobbyFragContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

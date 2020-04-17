@@ -3,8 +3,10 @@ package app.me.nightfall.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -12,15 +14,23 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
 
+import app.me.nightfall.LobbyActivity;
+import app.me.nightfall.LobbyFragment;
 import app.me.nightfall.R;
 
 import app.me.nightfall.ProfileActivity;
@@ -40,7 +50,9 @@ public class MainActivity extends AppCompatActivity {
     private List<LobbyPostModel> lobbyList;
     private RecyclerView lobby_recycler;
     private LobbiesRecyclerAdapter recyclerAdapter;
-
+    private Button backtoLobby;
+    public static Boolean inLobby = false;
+    private LobbyFragment lobbyFragment = new LobbyFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +60,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.home_act);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+
         db = FirebaseFirestore.getInstance();
+
+        backtoLobby = findViewById(R.id.backtolobbyBtn);
         account_btn = findViewById(R.id.account_btn);
         create_fab = findViewById(R.id.create_fab);
         viewPager = findViewById(R.id.home_viewpg);
@@ -57,20 +73,27 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         lobby_recycler = findViewById(R.id.lobbies_recycler);
 
+        getSupportFragmentManager().beginTransaction().add(R.id.lobbyFragContainer, lobbyFragment, "lobbyFrag").hide(lobbyFragment).commit();
+
+
+
+        db.collection("Users").document(firebaseUser.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                inLobby = (Boolean) documentSnapshot.get("inLobby");
+                fab_button();
+
+            }
+        });
+
+
+
         //when floating action button is clicked
         create_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-                if (currentUser != null) {
-                    Intent mainIntent = new Intent(MainActivity.this, AddActivity.class);
-                    MainActivity.this.startActivity(mainIntent);
-                }
-                else {
-                    Intent mainIntent = new Intent(MainActivity.this, Login.class);
-                    MainActivity.this.startActivity(mainIntent);
-                }
+                Intent mainIntent = new Intent(MainActivity.this, AddActivity.class);
+                MainActivity.this.startActivity(mainIntent);
 
             }
         });
@@ -80,12 +103,34 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent mainIntent = new Intent(MainActivity.this, ProfileActivity.class);
                 MainActivity.this.startActivity(mainIntent);
+
+            }
+        });
+
+        backtoLobby.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //getSupportFragmentManager().beginTransaction().show(lobbyFragment).commit();
             }
         });
 
 
 
     }
+
+    private void fab_button() {
+
+        if (inLobby){
+            create_fab.hide();
+            backtoLobby.setVisibility(View.VISIBLE);
+
+        }
+        else {
+            create_fab.show();
+            backtoLobby.setVisibility(View.GONE);
+        }
+    }
+
 
 
 
@@ -102,10 +147,8 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new FeaturedLobbies(); //ChildFragment1 at position 0
-                case 1:
                     return new NormalLobbies(); //ChildFragment2 at position 1
-                case 2:
+                case 1:
                     return new CategoriesFrag();
             }
             return null;
@@ -113,19 +156,16 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Featured";
-
-                case 1:
                     return "Lobbies";
 
-                case 2:
+                case 1:
                     return "Categories";
 
             }

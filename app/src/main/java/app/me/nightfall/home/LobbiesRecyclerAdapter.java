@@ -12,6 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.List;
 
 import app.me.nightfall.LobbyActivity;
@@ -78,8 +82,18 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 viewHolder0.joinBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(normalLobbies.getActivity(), LobbyActivity.class);
-                        normalLobbies.getActivity().startActivity(intent);
+
+                        FirebaseFirestore.getInstance().collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).update("inLobby", true).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Intent intent = new Intent(normalLobbies.getActivity(), LobbyActivity.class);
+                                intent.putExtra("lobbyHostID",lobbyList.get(position).getUserID());
+                                intent.putExtra("lobbyID",lobbyList.get(position).getLobbyID());
+                                normalLobbies.getActivity().startActivity(intent);
+                            }
+                        });
+
+
 
                     }
                 });
