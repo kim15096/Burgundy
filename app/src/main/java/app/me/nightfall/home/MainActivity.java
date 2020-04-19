@@ -3,7 +3,6 @@ package app.me.nightfall.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -26,7 +25,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.List;
 
-import app.me.nightfall.LobbyActivity;
 import app.me.nightfall.R;
 
 import app.me.nightfall.ProfileActivity;
@@ -44,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private List<LobbyPostModel> lobbyList;
     private RecyclerView lobby_recycler;
     private LobbiesRecyclerAdapter recyclerAdapter;
-    private Button backtoLobby;
     public static Boolean inLobby = false;
 
     @Override
@@ -57,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        backtoLobby = findViewById(R.id.backtolobbyBtn);
         account_btn = findViewById(R.id.account_btn);
         create_fab = findViewById(R.id.create_fab);
         viewPager = findViewById(R.id.home_viewpg);
@@ -72,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 inLobby = (Boolean) documentSnapshot.get("inLobby");
-                fab_button();
-
             }
         });
 
@@ -98,34 +92,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        backtoLobby.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent lobbyIntent = new Intent(MainActivity.this, LobbyActivity.class);
-                lobbyIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                MainActivity.this.startActivity(lobbyIntent);
-            }
-        });
-
 
 
     }
-
-    private void fab_button() {
-
-        if (inLobby){
-            create_fab.hide();
-            backtoLobby.setVisibility(View.VISIBLE);
-
-        }
-        else {
-            create_fab.show();
-            backtoLobby.setVisibility(View.GONE);
-        }
-    }
-
-
-
 
 
 

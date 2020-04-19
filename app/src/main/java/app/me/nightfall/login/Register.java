@@ -16,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -30,6 +31,7 @@ public class Register extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firestore;
+    private FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.register_act);
 
         firestore = FirebaseFirestore.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
 
@@ -59,19 +62,29 @@ public class Register extends AppCompatActivity {
 
                                                    EditText username_et = findViewById(R.id.register_username);
                                                    String username = username_et.getText().toString();
-                                                   String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                                   final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                                                   Map<String, Object> userString = new HashMap<>();
+                                                   final Map<String, Object> userString = new HashMap<>();
                                                    userString.put("userID", userID);
-                                                   userString.put("username", username);
                                                    userString.put("lobby count", 0);
 
-                                                   firestore.collection("Users").document(userID).set(userString).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                       @Override
-                                                       public void onSuccess(Void aVoid) {
-                                                           authenticate();
-                                                       }
-                                                   });
+                                                   UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                                           .setDisplayName(username).build();
+
+                                                   firebaseUser.updateProfile(profileUpdates)
+                                                           .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                               @Override
+                                                               public void onComplete(@NonNull Task<Void> task) {
+                                                                   if (task.isSuccessful()) {
+                                                                       firestore.collection("Users").document(userID).set(userString).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                           @Override
+                                                                           public void onSuccess(Void aVoid) {
+                                                                               authenticate();
+                                                                           }
+                                                                       });
+                                                                   }
+                                                               }
+                                                           });
 
                                                }
                                            }

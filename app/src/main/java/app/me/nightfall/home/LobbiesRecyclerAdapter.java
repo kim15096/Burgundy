@@ -5,11 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -18,10 +16,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
-import app.me.nightfall.LobbyActivity;
-import app.me.nightfall.ProfileActivity;
+import app.me.nightfall.lobby.LobbyActivity;
 import app.me.nightfall.R;
-import app.me.nightfall.login.LoginPage;
 
 public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
@@ -48,6 +44,7 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @NonNull
     @Override
+
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View MainView = LayoutInflater.from(parent.getContext()).inflate(R.layout.lobby_recycler_card, parent, false);
@@ -86,7 +83,7 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                         FirebaseFirestore.getInstance().collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).update("inLobby", true).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Intent lobbyIntent = new Intent(, LobbyActivity.class);
+                                Intent lobbyIntent = new Intent(normalLobbies.getActivity(), LobbyActivity.class);
                                 lobbyIntent.putExtra("lobbyHostID",lobbyList.get(position).getUserID());
                                 lobbyIntent.putExtra("lobbyID",lobbyList.get(position).getLobbyID());
                                 normalLobbies.getActivity().startActivity(lobbyIntent);

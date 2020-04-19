@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -35,15 +35,9 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="SettingsTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="background">@color/darkerBG</item>
-        <item name="android:fontFamily">@font/montserrat</item>
-        <item name="android:textColor">#FFFFFF</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="dialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:background">@color/darkBG</item>
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
-
+v
 </resources>
