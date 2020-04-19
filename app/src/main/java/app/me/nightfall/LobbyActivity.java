@@ -72,10 +72,4 @@ public class LobbyActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(LobbyActivity.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }
 }

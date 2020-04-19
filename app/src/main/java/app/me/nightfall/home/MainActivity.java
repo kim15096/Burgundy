@@ -14,28 +14,22 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
 
 import app.me.nightfall.LobbyActivity;
-import app.me.nightfall.LobbyFragment;
 import app.me.nightfall.R;
 
 import app.me.nightfall.ProfileActivity;
-import app.me.nightfall.login.Login;
-import app.me.nightfall.login.LoginPage;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
     private LobbiesRecyclerAdapter recyclerAdapter;
     private Button backtoLobby;
     public static Boolean inLobby = false;
-    private LobbyFragment lobbyFragment = new LobbyFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.home_tab);
         tabLayout.setupWithViewPager(viewPager);
         lobby_recycler = findViewById(R.id.lobbies_recycler);
-
-        getSupportFragmentManager().beginTransaction().add(R.id.lobbyFragContainer, lobbyFragment, "lobbyFrag").hide(lobbyFragment).commit();
 
 
 
@@ -110,7 +101,9 @@ public class MainActivity extends AppCompatActivity {
         backtoLobby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //getSupportFragmentManager().beginTransaction().show(lobbyFragment).commit();
+                Intent lobbyIntent = new Intent(MainActivity.this, LobbyActivity.class);
+                lobbyIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                MainActivity.this.startActivity(lobbyIntent);
             }
         });
 

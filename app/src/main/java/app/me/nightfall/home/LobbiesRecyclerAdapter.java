@@ -86,10 +86,10 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                         FirebaseFirestore.getInstance().collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).update("inLobby", true).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Intent intent = new Intent(normalLobbies.getActivity(), LobbyActivity.class);
-                                intent.putExtra("lobbyHostID",lobbyList.get(position).getUserID());
-                                intent.putExtra("lobbyID",lobbyList.get(position).getLobbyID());
-                                normalLobbies.getActivity().startActivity(intent);
+                                Intent lobbyIntent = new Intent(, LobbyActivity.class);
+                                lobbyIntent.putExtra("lobbyHostID",lobbyList.get(position).getUserID());
+                                lobbyIntent.putExtra("lobbyID",lobbyList.get(position).getLobbyID());
+                                normalLobbies.getActivity().startActivity(lobbyIntent);
                             }
                         });
 
