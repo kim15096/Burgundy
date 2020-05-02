@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkBG"
-    tools:context=".lobby.LobbyActivity">
+    tools:context=".lobby.LobbyActivity_temp">
 
     <TextView
         android:id="@+id/lobbyTitle_tv"
@@ -21,12 +21,11 @@
         tools:text="this is title" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/exitLobbyBtn"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/ic_exit_24dp"
-        android:onClick="exitLobby"
         app:layout_constraintBottom_toTopOf="@+id/cardView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -80,7 +79,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
+        app:layout_constraintBottom_toTopOf="@+id/exitLobbyBtn"
         app:layout_constraintTop_toBottomOf="@+id/lobbyTitle_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

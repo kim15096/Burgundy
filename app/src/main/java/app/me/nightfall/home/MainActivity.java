@@ -3,6 +3,7 @@ package app.me.nightfall.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -28,6 +30,9 @@ import java.util.List;
 import app.me.nightfall.R;
 
 import app.me.nightfall.ProfileActivity;
+import app.me.nightfall.lobby.AddLobbyActivity;
+import app.me.nightfall.lobby.LobbyPostModel;
+import app.me.nightfall.lobby.LobbyFrag;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,7 +47,10 @@ public class MainActivity extends AppCompatActivity {
     private List<LobbyPostModel> lobbyList;
     private RecyclerView lobby_recycler;
     private LobbiesRecyclerAdapter recyclerAdapter;
+    private Button toLobbyBtn;
     public static Boolean inLobby = false;
+    public static Boolean openLobby = false;
+    private LobbyFrag LobbyFrag = new LobbyFrag();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
+        toLobbyBtn = findViewById(R.id.tolobby_btn);
         account_btn = findViewById(R.id.account_btn);
         create_fab = findViewById(R.id.create_fab);
         viewPager = findViewById(R.id.home_viewpg);
@@ -62,12 +71,20 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         lobby_recycler = findViewById(R.id.lobbies_recycler);
 
-
-
         db.collection("Users").document(firebaseUser.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 inLobby = (Boolean) documentSnapshot.get("inLobby");
+
+                if (inLobby){
+                    create_fab.hide();
+                    toLobbyBtn.setVisibility(View.VISIBLE);
+                }
+                else{
+                    create_fab.show();
+                    toLobbyBtn.setVisibility(View.INVISIBLE);
+                }
+
             }
         });
 
@@ -77,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         create_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mainIntent = new Intent(MainActivity.this, AddActivity.class);
+                Intent mainIntent = new Intent(MainActivity.this, AddLobbyActivity.class);
                 MainActivity.this.startActivity(mainIntent);
 
             }
@@ -92,6 +109,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (inLobby) {
+            create_fab.hide();
+            toLobbyBtn.setVisibility(View.VISIBLE);
+        }
+        if (openLobby){
+            showLobby(null);
+            openLobby = false;
+        }
+    }
+
+    public void showLobby(View view){
+
+        Fragment lobbyFrag  = getSupportFragmentManager().findFragmentByTag("lobby");
+        if (lobbyFrag == null){
+            getSupportFragmentManager().beginTransaction().add(R.id.lobby_frag_container, LobbyFrag, "lobby").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).show(LobbyFrag).addToBackStack(null).commit();
+        }
+        else {
+            getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).show(LobbyFrag).addToBackStack(null).commit();
+        }
+
+        openLobby = false;
 
 
     }

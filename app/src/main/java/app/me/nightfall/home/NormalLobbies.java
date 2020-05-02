@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.LinearInterpolator;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.me.nightfall.R;
+import app.me.nightfall.lobby.LobbyPostModel;
 
 public class NormalLobbies extends Fragment {
 
@@ -62,7 +61,7 @@ public class NormalLobbies extends Fragment {
         lobby_recycler.setHasFixedSize(true);
         lobby_recycler.setNestedScrollingEnabled(false);
 
-        db.collection("Lobbies").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        /*db.collection("Lobbies").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
@@ -78,7 +77,7 @@ public class NormalLobbies extends Fragment {
                     }
                 }
             }
-        });
+        });*/
 
 
         lobby_recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {

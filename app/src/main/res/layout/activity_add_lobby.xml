@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkBG"
-    tools:context=".home.AddActivity">
+    tools:context=".lobby.AddLobbyActivity">
 
     <ImageButton
         android:id="@+id/createlobby_back"
@@ -55,10 +55,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/createlobby_title" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/createlobby_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"

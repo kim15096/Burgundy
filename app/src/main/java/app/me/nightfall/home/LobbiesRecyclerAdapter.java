@@ -16,8 +16,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
-import app.me.nightfall.lobby.LobbyActivity;
+import app.me.nightfall.lobby.LobbyActivity_temp;
 import app.me.nightfall.R;
+import app.me.nightfall.lobby.LobbyPostModel;
 
 public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
@@ -83,7 +84,7 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                         FirebaseFirestore.getInstance().collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).update("inLobby", true).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Intent lobbyIntent = new Intent(normalLobbies.getActivity(), LobbyActivity.class);
+                                Intent lobbyIntent = new Intent(normalLobbies.getActivity(), LobbyActivity_temp.class);
                                 lobbyIntent.putExtra("lobbyHostID",lobbyList.get(position).getUserID());
                                 lobbyIntent.putExtra("lobbyID",lobbyList.get(position).getLobbyID());
                                 normalLobbies.getActivity().startActivity(lobbyIntent);

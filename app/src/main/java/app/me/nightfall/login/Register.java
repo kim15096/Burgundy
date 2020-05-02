@@ -66,7 +66,6 @@ public class Register extends AppCompatActivity {
 
                                                    final Map<String, Object> userString = new HashMap<>();
                                                    userString.put("userID", userID);
-                                                   userString.put("lobby count", 0);
 
                                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                                            .setDisplayName(username).build();

@@ -9,7 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,11 +25,8 @@ import java.util.List;
 import java.util.Map;
 
 import app.me.nightfall.R;
-import app.me.nightfall.home.LobbiesRecyclerAdapter;
-import app.me.nightfall.home.LobbyPostModel;
-import app.me.nightfall.home.MainActivity;
 
-public class LobbyActivity extends AppCompatActivity {
+public class LobbyActivity_temp extends AppCompatActivity {
 
     private FirebaseFirestore firestore;
     private FirebaseAuth firebaseAuth;
@@ -49,7 +45,7 @@ public class LobbyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lobby);
+        setContentView(R.layout.fragment_lobby_frag);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -110,7 +106,7 @@ public class LobbyActivity extends AppCompatActivity {
 
             final Map<String, Object> chat = new HashMap<>();
             chat.put("senderID", senderID);
-                chat.put("username", "kim15096");
+            chat.put("username", username);
             chat.put("message", msg);
             chat.put("timestamp", 00);
 
@@ -126,6 +122,7 @@ public class LobbyActivity extends AppCompatActivity {
     });
 
 
+
     }
 
 
@@ -134,12 +131,19 @@ public class LobbyActivity extends AppCompatActivity {
 
         new AlertDialog.Builder(this, R.style.dialogTheme)
                 .setTitle("Exit lobby?")
+                .setMessage("You will end the session and will not be able to return.")
                 .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         FirebaseFirestore.getInstance().collection("Users").document(firebaseUser.getUid()).update("inLobby", false).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                lobby_back(view);
+
+                                FirebaseFirestore.getInstance().collection("Lobbies").document(firebaseUser.getUid()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        lobby_back(view);
+                                    }
+                                });
                             }
                         });
                     }
@@ -160,12 +164,18 @@ public class LobbyActivity extends AppCompatActivity {
     public void onBackPressed() {
         new AlertDialog.Builder(this, R.style.dialogTheme)
                 .setTitle("Exit lobby?")
+                .setMessage("You will end the session and will not be able to return.")
                 .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         FirebaseFirestore.getInstance().collection("Users").document(firebaseUser.getUid()).update("inLobby", false).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                lobby_back(null);
+                                FirebaseFirestore.getInstance().collection("Lobbies").document(firebaseUser.getUid()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        lobby_back(null);
+                                    }
+                                });
                             }
                         });
                     }
