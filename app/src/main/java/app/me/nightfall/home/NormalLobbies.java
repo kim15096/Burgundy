@@ -61,7 +61,7 @@ public class NormalLobbies extends Fragment {
         lobby_recycler.setHasFixedSize(true);
         lobby_recycler.setNestedScrollingEnabled(false);
 
-        /*db.collection("Lobbies").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("Lobbies").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
@@ -77,7 +77,7 @@ public class NormalLobbies extends Fragment {
                     }
                 }
             }
-        });*/
+        });
 
 
         lobby_recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
