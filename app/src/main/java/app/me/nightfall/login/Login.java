@@ -30,7 +30,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_act);
+        setContentView(R.layout.welcome_page);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
