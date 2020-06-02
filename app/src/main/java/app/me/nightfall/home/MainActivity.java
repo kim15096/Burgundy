@@ -31,6 +31,7 @@ import app.me.nightfall.R;
 
 import app.me.nightfall.ProfileActivity;
 import app.me.nightfall.lobby.AddLobbyActivity;
+import app.me.nightfall.lobby.LobbiesRecyclerAdapter;
 import app.me.nightfall.lobby.LobbyPostModel;
 import app.me.nightfall.lobby.LobbyFrag;
 

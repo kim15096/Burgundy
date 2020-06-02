@@ -1,6 +1,9 @@
-package app.me.nightfall.home;
+package app.me.nightfall.lobby;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -16,6 +21,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
+import app.me.nightfall.home.MainActivity;
+import app.me.nightfall.home.NormalLobbies;
 import app.me.nightfall.lobby.LobbyActivity_temp;
 import app.me.nightfall.R;
 import app.me.nightfall.lobby.LobbyPostModel;
@@ -24,6 +31,7 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     public List<LobbyPostModel> lobbyList;
     public NormalLobbies normalLobbies;
+    public Context context;
 
     public LobbiesRecyclerAdapter(List<LobbyPostModel> lobbyList, NormalLobbies normalLobbies){
         this.lobbyList = lobbyList;
@@ -47,6 +55,8 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
 
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        context = parent.getContext();
 
         View MainView = LayoutInflater.from(parent.getContext()).inflate(R.layout.lobby_recycler_card, parent, false);
         View AdView = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_recycler_ad, parent, false);
@@ -81,16 +91,34 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     @Override
                     public void onClick(View view) {
 
-                        FirebaseFirestore.getInstance().collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).update("inLobby", true).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Intent lobbyIntent = new Intent(normalLobbies.getActivity(), LobbyActivity_temp.class);
-                                lobbyIntent.putExtra("lobbyHostID",lobbyList.get(position).getUserID());
-                                lobbyIntent.putExtra("lobbyID",lobbyList.get(position).getLobbyID());
-                                normalLobbies.getActivity().startActivity(lobbyIntent);
-                            }
-                        });
+                        final ProgressDialog pd = new ProgressDialog(context, R.style.dialogTheme);
+                        pd.setMessage("Joining lobby...");
+                        pd.setCancelable(false);
+                        pd.show();
 
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                FirebaseFirestore.getInstance().collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).update("inLobby", true).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        LobbyFrag LobbyFrag = new LobbyFrag();
+                                        Fragment lobbyFrag  = normalLobbies.getActivity().getSupportFragmentManager().findFragmentByTag("lobby");
+                                        if (lobbyFrag == null){
+                                            normalLobbies.getActivity().getSupportFragmentManager().beginTransaction().add(R.id.lobby_frag_container, LobbyFrag, "lobby").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).show(LobbyFrag).addToBackStack(null).commit();
+                                            pd.dismiss();
+                                        }
+                                        else {
+                                            normalLobbies.getActivity().getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).show(lobbyFrag).addToBackStack(null).commit();
+                                            pd.dismiss();
+                                        }
+
+                                    }
+
+                                });
+                                pd.dismiss();
+                            }
+                        }, 1000);
 
 
                     }

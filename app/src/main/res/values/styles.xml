@@ -38,6 +38,7 @@
     <style name="dialogTheme" parent="Theme.AppCompat.Dialog.Alert">
         <item name="android:background">@color/darkBG</item>
         <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:layout_width">200dp</item>
     </style>
 v
 </resources>

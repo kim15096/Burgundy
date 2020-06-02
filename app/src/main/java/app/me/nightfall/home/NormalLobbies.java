@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.me.nightfall.R;
+import app.me.nightfall.lobby.LobbiesRecyclerAdapter;
 import app.me.nightfall.lobby.LobbyPostModel;
 
 public class NormalLobbies extends Fragment {

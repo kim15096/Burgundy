@@ -1,6 +1,7 @@
 package app.me.nightfall.login;
 
 import android.content.Intent;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -47,6 +48,7 @@ public class LoginPage extends AppCompatActivity {
                             Intent mainIntent = new Intent(LoginPage.this, MainActivity.class);
                             LoginPage.this.startActivity(mainIntent);
                             LoginPage.this.finish();
+                            finishAffinity();
 
                         }
                     }
