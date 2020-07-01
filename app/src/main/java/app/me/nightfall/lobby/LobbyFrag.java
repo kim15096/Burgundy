@@ -84,9 +84,7 @@ public class LobbyFrag extends Fragment {
                 Fragment frag = getActivity().getSupportFragmentManager().findFragmentByTag("lobby");
                 getActivity().getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).hide(frag).commit();
                 FloatingActionButton create_fab = getActivity().findViewById(R.id.create_fab);
-                Button button = getActivity().findViewById(R.id.tolobby_btn);
                 create_fab.show();
-                button.setVisibility(View.GONE);
             }
         });
 

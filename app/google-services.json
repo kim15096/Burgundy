@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "680708338955",
-    "firebase_url": "https://nightfall-1611f.firebaseio.com",
-    "project_id": "nightfall-1611f",
-    "storage_bucket": "nightfall-1611f.appspot.com"
+    "project_number": "322445854513",
+    "firebase_url": "https://nightfall-beta.firebaseio.com",
+    "project_id": "nightfall-beta",
+    "storage_bucket": "nightfall-beta.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:680708338955:android:8b7feefc7206f8b9ab5e0e",
+        "mobilesdk_app_id": "1:322445854513:android:26313fc47c13d0aefed210",
         "android_client_info": {
           "package_name": "app.me.nightfall"
         }
       },
       "oauth_client": [
         {
-          "client_id": "680708338955-0416k9khb89jc0d1mk50ah9jphs5g1ld.apps.googleusercontent.com",
+          "client_id": "322445854513-2ft3l12935a49atkqrhc33dn3cj4drdo.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDZxfOU5VAlSWY-Prd007hRYGWS99Fdatc"
+          "current_key": "AIzaSyBqsebdFLm3b75fYNdGN95QNQ8FjldXUg8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "680708338955-0416k9khb89jc0d1mk50ah9jphs5g1ld.apps.googleusercontent.com",
+              "client_id": "322445854513-2ft3l12935a49atkqrhc33dn3cj4drdo.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

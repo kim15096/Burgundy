@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        toLobbyBtn = findViewById(R.id.tolobby_btn);
         account_btn = findViewById(R.id.account_btn);
         create_fab = findViewById(R.id.create_fab);
         viewPager = findViewById(R.id.home_viewpg);
