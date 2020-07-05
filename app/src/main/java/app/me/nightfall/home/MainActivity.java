@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -20,11 +21,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import app.me.nightfall.R;
@@ -37,9 +41,7 @@ import app.me.nightfall.lobby.LobbyFrag;
 
 public class MainActivity extends AppCompatActivity {
 
-    private BottomNavigationView bottomNavigationView;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+
     private FloatingActionButton create_fab;
     private ImageView account_btn;
     private FirebaseFirestore db;
@@ -65,13 +67,9 @@ public class MainActivity extends AppCompatActivity {
 
         account_btn = findViewById(R.id.account_btn);
         create_fab = findViewById(R.id.create_fab);
-        viewPager = findViewById(R.id.home_viewpg);
-        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
-        tabLayout = findViewById(R.id.home_tab);
-        tabLayout.setupWithViewPager(viewPager);
         lobby_recycler = findViewById(R.id.lobbies_recycler);
 
-        db.collection("Users").document(firebaseUser.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        /*db.collection("Users").document(firebaseUser.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 inLobby = (Boolean) documentSnapshot.get("inLobby");
@@ -85,6 +83,33 @@ public class MainActivity extends AppCompatActivity {
                     toLobbyBtn.setVisibility(View.INVISIBLE);
                 }
 
+            }
+        });*/
+
+
+        lobbyList = new ArrayList<>();
+
+        recyclerAdapter = new LobbiesRecyclerAdapter(lobbyList, this);
+        lobby_recycler.setLayoutManager(new LinearLayoutManager(this));
+        lobby_recycler.setAdapter(recyclerAdapter);
+        lobby_recycler.setHasFixedSize(true);
+        lobby_recycler.setNestedScrollingEnabled(false);
+
+        db.collection("Lobbies").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
+
+                    LobbyPostModel lobbyPost = doc.getDocument().toObject(LobbyPostModel.class);
+
+
+                    if (doc.getType() == DocumentChange.Type.ADDED) {
+
+                        lobbyList.add(0, lobbyPost);
+                        recyclerAdapter.notifyItemInserted(0);
+                        recyclerAdapter.notifyDataSetChanged();
+                    }
+                }
             }
         });
 
@@ -112,21 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if (inLobby) {
-            create_fab.hide();
-            toLobbyBtn.setVisibility(View.VISIBLE);
-        }
-        if (openLobby){
-            showLobby(null);
-            openLobby = false;
-        }
-    }
-
+    
     public void showLobby(View view){
 
         Fragment lobbyFrag  = getSupportFragmentManager().findFragmentByTag("lobby");
@@ -143,43 +154,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
-    private static class ViewPagerAdapter extends FragmentStatePagerAdapter {
-        public ViewPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return new NormalLobbies(); //ChildFragment2 at position 1
-                case 1:
-                    return new CategoriesFrag();
-            }
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-            return 2;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "Lobbies";
-
-                case 1:
-                    return "Categories";
-
-            }
-            return null;
-        }
-    }
-
-
-}
+   }

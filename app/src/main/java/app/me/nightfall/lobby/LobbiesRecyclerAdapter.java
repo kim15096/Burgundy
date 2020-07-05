@@ -2,12 +2,12 @@ package app.me.nightfall.lobby;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,21 +21,18 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
-import app.me.nightfall.home.MainActivity;
-import app.me.nightfall.home.NormalLobbies;
-import app.me.nightfall.lobby.LobbyActivity_temp;
 import app.me.nightfall.R;
-import app.me.nightfall.lobby.LobbyPostModel;
+import app.me.nightfall.home.MainActivity;
 
 public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     public List<LobbyPostModel> lobbyList;
-    public NormalLobbies normalLobbies;
     public Context context;
+    public MainActivity mainActivity;
 
-    public LobbiesRecyclerAdapter(List<LobbyPostModel> lobbyList, NormalLobbies normalLobbies){
+    public LobbiesRecyclerAdapter(List<LobbyPostModel> lobbyList, MainActivity mainActivity){
         this.lobbyList = lobbyList;
-        this.normalLobbies = normalLobbies;
+        this.mainActivity = mainActivity;
 
     }
 
@@ -103,13 +100,13 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         LobbyFrag LobbyFrag = new LobbyFrag();
-                                        Fragment lobbyFrag  = normalLobbies.getActivity().getSupportFragmentManager().findFragmentByTag("lobby");
+                                        Fragment lobbyFrag  = mainActivity.getSupportFragmentManager().findFragmentByTag("lobby");
                                         if (lobbyFrag == null){
-                                            normalLobbies.getActivity().getSupportFragmentManager().beginTransaction().add(R.id.lobby_frag_container, LobbyFrag, "lobby").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).show(LobbyFrag).addToBackStack(null).commit();
+                                            mainActivity.getSupportFragmentManager().beginTransaction().add(R.id.lobby_frag_container, LobbyFrag, "lobby").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).show(LobbyFrag).addToBackStack(null).commit();
                                             pd.dismiss();
                                         }
                                         else {
-                                            normalLobbies.getActivity().getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).show(lobbyFrag).addToBackStack(null).commit();
+                                            mainActivity.getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).show(lobbyFrag).addToBackStack(null).commit();
                                             pd.dismiss();
                                         }
 
@@ -136,7 +133,7 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public class ViewHolder0 extends RecyclerView.ViewHolder{
 
         private View mView;
-        private Button joinBtn;
+        private ImageView joinBtn;
 
         public ViewHolder0(@NonNull View itemView) {
 

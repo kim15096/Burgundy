@@ -3,6 +3,7 @@ package app.me.nightfall.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -32,15 +33,12 @@ public class Register extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firestore;
     private FirebaseUser firebaseUser;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_act);
-
-        firestore = FirebaseFirestore.getInstance();
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
 
 
     }
@@ -51,8 +49,8 @@ public class Register extends AppCompatActivity {
         MaterialEditText password_et = findViewById(R.id.register_password);
         String email = email_et.getText().toString().trim();
         String password = password_et.getText().toString().trim();
+        final EditText username_et = findViewById(R.id.register_username);
 
-        Snackbar.make(view, email, Snackbar.LENGTH_SHORT).show();
 
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -60,30 +58,36 @@ public class Register extends AppCompatActivity {
                                            public void onComplete(@NonNull Task<AuthResult> task) {
                                                if (task.isSuccessful()) {
 
-                                                   EditText username_et = findViewById(R.id.register_username);
-                                                   String username = username_et.getText().toString();
-                                                   final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-                                                   final Map<String, Object> userString = new HashMap<>();
-                                                   userString.put("userID", userID);
+                                                    username = username_et.getText().toString().trim();
 
                                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                                            .setDisplayName(username).build();
 
-                                                   firebaseUser.updateProfile(profileUpdates)
-                                                           .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                   firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                                                   firebaseUser.updateProfile(profileUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                       @Override
+                                                       public void onSuccess(Void aVoid) {
+                                                           String userID = firebaseUser.getUid();
+
+                                                           final Map<String, Object> userInfo = new HashMap<>();
+                                                           userInfo.put("userID", userID);
+                                                           userInfo.put("username", username);
+
+                                                           FirebaseFirestore.getInstance().collection("Users").document(userID).set(userInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                @Override
                                                                public void onComplete(@NonNull Task<Void> task) {
-                                                                   if (task.isSuccessful()) {
-                                                                       firestore.collection("Users").document(userID).set(userString).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                           @Override
-                                                                           public void onSuccess(Void aVoid) {
-                                                                               authenticate();
-                                                                           }
-                                                                       });
+                                                                   if (task.isSuccessful()){
+                                                                       Log.d("e", "complete writing to database");
+                                                                       Intent mainIntent = new Intent(Register.this, MainActivity.class);
+                                                                       Register.this.startActivity(mainIntent);
+                                                                       Register.this.finish();
+                                                                       finishAffinity();
                                                                    }
                                                                }
                                                            });
+                                                       }
+                                                   });
 
                                                }
                                            }
@@ -92,15 +96,6 @@ public class Register extends AppCompatActivity {
 
 
 
-
-
-
-
-    public void authenticate(){
-        Intent mainIntent = new Intent(Register.this, MainActivity.class);
-        Register.this.startActivity(mainIntent);
-        Register.this.finish();
-    }
 
 
 

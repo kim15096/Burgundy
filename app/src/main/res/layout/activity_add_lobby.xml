@@ -4,8 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkBG"
+    android:background="@drawable/ic_mainbg"
     tools:context=".lobby.AddLobbyActivity">
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/lobbyTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/et_bg"
+        android:ems="10"
+        android:hint="Lobby Title"
+        android:inputType="textShortMessage|textCapSentences"
+        android:padding="6dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createlobby_title"
+        app:met_baseColor="@color/lightGray"
+        app:met_floatingLabel="highlight"
+        app:met_primaryColor="@android:color/white"
+        app:met_textColor="#FFFFFF"
+        app:met_textColorHint="@android:color/white" />
 
     <ImageButton
         android:id="@+id/createlobby_back"
@@ -24,38 +47,35 @@
         android:id="@+id/createlob_btn"
         android:layout_width="0dp"
         android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/btn_bg"
         android:elevation="0dp"
         android:onClick="createLobby"
         android:stateListAnimator="@null"
         android:text="Create Lobby"
+        android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/create_title"
-        app:layout_constraintStart_toStartOf="@+id/create_title" />
-
-    <EditText
-        android:id="@+id/create_title"
-        android:layout_width="0dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/et_bg"
-        android:elevation="0dp"
-        android:hint="Lobby Title"
-        android:inputType="textEmailAddress"
-        android:padding="12dp"
-        android:textAlignment="viewStart"
-        android:textColor="@android:color/white"
-        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createlobby_title" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.jaredrummler.materialspinner.MaterialSpinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/lobbyTitle"
+        app:layout_constraintStart_toStartOf="@+id/lobbyTitle"
+        app:layout_constraintTop_toBottomOf="@+id/lobbyTitle"
+        app:ms_arrow_tint="@android:color/white"
+        app:ms_background_color="@color/bg1"
+        app:ms_hint="Category..."
+        app:ms_hint_color="@android:color/white"
+        app:ms_text_color="@android:color/white" />
 
     <TextView
         android:id="@+id/createlobby_title"

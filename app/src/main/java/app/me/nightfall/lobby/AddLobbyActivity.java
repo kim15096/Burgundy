@@ -9,11 +9,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,11 +36,22 @@ public class AddLobbyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_lobby);
 
-        title = findViewById(R.id.create_title);
+        title = findViewById(R.id.lobbyTitle);
         //desc = findViewById(R.id.create_desc);
 
         db = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        MaterialSpinner spinner = findViewById(R.id.categorySpinner);
+        spinner.setItems("Relationship", "Family", "Career", "Social", "School", "Health", "AMA", "Sexy Talk");
+        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+
+            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+            }
+        });
+
+
     }
 
 
@@ -59,7 +72,7 @@ public class AddLobbyActivity extends AppCompatActivity {
                 createLobby.put("lobbyID", lobbyID);
                 createLobby.put("timestamp", timestamp);
 
-                db.collection("Lobbies").document(lobbyID).set(createLobby).addOnSuccessListener(new OnSuccessListener<Void>() {
+                db.collection("Lobbies").document().set(createLobby).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                                 MainActivity.openLobby = true;

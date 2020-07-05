@@ -8,12 +8,14 @@
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="12dp"
-        app:cardBackgroundColor="@color/darkBG"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:cardBackgroundColor="#313242"
         app:cardCornerRadius="4dp"
-        app:cardElevation="2dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,20 +38,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
+            <ImageView
                 android:id="@+id/joinBtn"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
+                android:layout_width="32dp"
+                android:layout_height="28dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/btn_bg"
-                android:text="Join"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
-                android:textStyle="bold"
+                android:layout_marginBottom="16dp"
+                android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:srcCompat="@drawable/ic_exit_24dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
