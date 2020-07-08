@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -48,20 +50,25 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private List<LobbyPostModel> lobbyList;
+    private List<String> indexList;
     private RecyclerView lobby_recycler;
     private LobbiesRecyclerAdapter recyclerAdapter;
     private Button toLobbyBtn;
     public static Boolean inLobby = false;
     public static Boolean openLobby = false;
-    private LobbyFrag LobbyFrag = new LobbyFrag();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_act);
 
+        TextView home_username = findViewById(R.id.home_username);
+
+
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+
+        home_username.setText("Hello " + firebaseUser.getDisplayName() + "!");
 
         db = FirebaseFirestore.getInstance();
 
@@ -69,7 +76,11 @@ public class MainActivity extends AppCompatActivity {
         create_fab = findViewById(R.id.create_fab);
         lobby_recycler = findViewById(R.id.lobbies_recycler);
 
-        /*db.collection("Users").document(firebaseUser.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        toLobbyBtn = findViewById(R.id.back2lobbyBtn);
+
+        indexList =new ArrayList<>();
+
+        db.collection("Users").document(firebaseUser.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 inLobby = (Boolean) documentSnapshot.get("inLobby");
@@ -84,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
-        });*/
+        });
 
 
         lobbyList = new ArrayList<>();
@@ -105,8 +116,17 @@ public class MainActivity extends AppCompatActivity {
 
                     if (doc.getType() == DocumentChange.Type.ADDED) {
 
+                        indexList.add(0, doc.getDocument().get("hostID").toString());
                         lobbyList.add(0, lobbyPost);
                         recyclerAdapter.notifyItemInserted(0);
+                        recyclerAdapter.notifyDataSetChanged();
+                        lobby_recycler.scheduleLayoutAnimation();
+                    }
+
+                    if (doc.getType() == DocumentChange.Type.REMOVED){
+                        Number index = indexList.indexOf(doc.getDocument().get("hostID").toString());
+                        indexList.remove((int) index);
+                        lobbyList.remove((int)index);
                         recyclerAdapter.notifyDataSetChanged();
                     }
                 }
@@ -134,6 +154,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        toLobbyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showLobby(view);
+            }
+        });
+
 
 
     }
@@ -142,10 +169,13 @@ public class MainActivity extends AppCompatActivity {
 
         Fragment lobbyFrag  = getSupportFragmentManager().findFragmentByTag("lobby");
         if (lobbyFrag == null){
-            getSupportFragmentManager().beginTransaction().add(R.id.lobby_frag_container, LobbyFrag, "lobby").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).show(LobbyFrag).addToBackStack(null).commit();
+
+            LobbyFrag newLobby = new LobbyFrag();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.lobby_frag_container, newLobby, "lobby").replace(R.id.lobby_frag_container, newLobby).addToBackStack(null).commit();
         }
         else {
-            getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).show(LobbyFrag).addToBackStack(null).commit();
+            getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).show(lobbyFrag).addToBackStack(null).commit();
         }
 
         openLobby = false;

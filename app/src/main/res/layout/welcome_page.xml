@@ -11,7 +11,7 @@
         android:id="@+id/button2"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/btn_bg_2"
         android:elevation="0dp"
         android:onClick="toRegister"
@@ -26,7 +26,7 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="0dp"
+        android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="48dp"
@@ -72,7 +72,7 @@
         android:id="@+id/guest_btn"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/btn_bg_3"
         android:text="guest - coming soon!"
         android:textAllCaps="false"

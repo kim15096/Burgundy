@@ -20,9 +20,8 @@
         android:overScrollMode="never"
         android:requiresFadingEdge="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintBottom_toTopOf="@+id/create_fab"
+        app:layout_constraintBottom_toTopOf="@+id/back2lobbyBtn"
         app:layout_constraintTop_toBottomOf="@+id/account_btn"
-        app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="0dp">
 
     </androidx.recyclerview.widget.RecyclerView>
@@ -43,14 +42,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/colorPrimary"
         android:clickable="true"
-        android:src="@drawable/ic_lil_element"
+        android:src="@drawable/ic_add_24dp"
+        android:visibility="visible"
         app:backgroundTint="@android:color/transparent"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:maxImageSize="50dp" />
+        app:maxImageSize="35dp"
+        tools:visibility="visible" />
 
     <FrameLayout
         android:id="@+id/lobby_frag_container"
@@ -62,33 +64,6 @@
 
     </FrameLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="48dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:clickable="true"
-        app:backgroundTint="@color/colorPrimary"
-        app:fabSize="mini"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/create_fab"
-        app:layout_constraintStart_toStartOf="parent"
-        app:maxImageSize="28dp"
-        app:srcCompat="@drawable/ic_add_24dp" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:clickable="true"
-        app:backgroundTint="@color/colorPrimary"
-        app:fabSize="mini"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/create_fab"
-        app:srcCompat="@drawable/ic_shopping_basket_black_24dp" />
-
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -96,9 +71,35 @@
         android:layout_marginEnd="32dp"
         android:text="Complainer"
         android:textColor="@android:color/white"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/lobbies_recycler"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/back2lobbyBtn"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/btn_bg_3"
+        android:text="Back to Lobby"
+        android:textColor="@android:color/white"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/home_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Welcome"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/account_btn"
+        app:layout_constraintStart_toEndOf="@+id/account_btn"
+        app:layout_constraintTop_toTopOf="@+id/account_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

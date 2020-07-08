@@ -29,6 +29,8 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public List<LobbyPostModel> lobbyList;
     public Context context;
     public MainActivity mainActivity;
+    public static String lobbyID;
+
 
     public LobbiesRecyclerAdapter(List<LobbyPostModel> lobbyList, MainActivity mainActivity){
         this.lobbyList = lobbyList;
@@ -82,11 +84,16 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 ViewHolder0 viewHolder0 = (ViewHolder0) holder;
 
                 final String title = lobbyList.get(position).getTitle();
+                String category = lobbyList.get(position).getCategory();
+
                 viewHolder0.setTitle(title);
+                viewHolder0.setCategory(category);
 
                 viewHolder0.joinBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
+                        lobbyID = lobbyList.get(position).getLobbyID();
 
                         final ProgressDialog pd = new ProgressDialog(context, R.style.dialogTheme);
                         pd.setMessage("Joining lobby...");
@@ -101,6 +108,8 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                                     public void onSuccess(Void aVoid) {
                                         LobbyFrag LobbyFrag = new LobbyFrag();
                                         Fragment lobbyFrag  = mainActivity.getSupportFragmentManager().findFragmentByTag("lobby");
+
+
                                         if (lobbyFrag == null){
                                             mainActivity.getSupportFragmentManager().beginTransaction().add(R.id.lobby_frag_container, LobbyFrag, "lobby").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).show(LobbyFrag).addToBackStack(null).commit();
                                             pd.dismiss();
@@ -147,6 +156,11 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             TextView title_tv = mView.findViewById(R.id.post_title);
             title_tv.setText(text);
 
+        }
+
+        public void setCategory(String text){
+            TextView category = mView.findViewById(R.id.post_category);
+            category.setText(text);
         }
 
     }

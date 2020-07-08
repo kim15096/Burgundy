@@ -29,6 +29,7 @@ public class AddLobbyActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private FirebaseUser firebaseUser;
     private Long lobbyCount;
+    private String category;
 
 
     @Override
@@ -47,7 +48,7 @@ public class AddLobbyActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+                category = item;
             }
         });
 
@@ -71,8 +72,9 @@ public class AddLobbyActivity extends AppCompatActivity {
                 createLobby.put("p1_ID", null);
                 createLobby.put("lobbyID", lobbyID);
                 createLobby.put("timestamp", timestamp);
+                createLobby.put("category", category);
 
-                db.collection("Lobbies").document().set(createLobby).addOnSuccessListener(new OnSuccessListener<Void>() {
+                db.collection("Lobbies").document(lobbyID).set(createLobby).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                                 MainActivity.openLobby = true;

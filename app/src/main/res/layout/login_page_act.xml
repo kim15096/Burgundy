@@ -6,18 +6,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/ic_loginbg">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/montserrat"
-        android:text="Forgot Password?"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/login_pass"
-        app:layout_constraintTop_toBottomOf="@+id/login_pass" />
-
     <ImageButton
         android:id="@+id/imageButton2"
         android:layout_width="26dp"
@@ -94,14 +82,13 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
         android:text="Welcome Back"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageButton2"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

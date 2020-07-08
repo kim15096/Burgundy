@@ -1,7 +1,10 @@
 package app.me.nightfall.lobby;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -11,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -20,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.w3c.dom.Text;
 
 import app.me.nightfall.R;
+import app.me.nightfall.home.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,30 +56,15 @@ public class LobbyFrag extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
 
 
-        db.collection("Lobbies").document(firebaseAuth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection("Lobbies").document(LobbiesRecyclerAdapter.lobbyID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                lobbyTitle = documentSnapshot.get("title").toString();
-                lobbyTitle_tv.setText(lobbyTitle);
+                if (documentSnapshot.get("title") != null) {
+                    lobbyTitle = documentSnapshot.get("title").toString();
+                    lobbyTitle_tv.setText(lobbyTitle);
+                }
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -81,13 +72,30 @@ public class LobbyFrag extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Fragment frag = getActivity().getSupportFragmentManager().findFragmentByTag("lobby");
-                getActivity().getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).hide(frag).commit();
-                FloatingActionButton create_fab = getActivity().findViewById(R.id.create_fab);
-                create_fab.show();
+                final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                final Fragment frag = getActivity().getSupportFragmentManager().findFragmentByTag("lobby");
+
+                final FloatingActionButton create_fab = getActivity().findViewById(R.id.create_fab);
+                db.collection("Users").document(userID).update("inLobby", false).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        FirebaseFirestore.getInstance().collection("Lobbies").document(userID).delete();
+                        create_fab.show();
+
+                        getActivity().getSupportFragmentManager().popBackStack();
+
+
+
+                    }
+                });
+
+
+
+
+
             }
         });
-
 
 
         return view;

@@ -23,23 +23,23 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/montserrat"
         android:text="Create an Account"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/register_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="50dp"
         android:background="@drawable/et_bg"
         android:ems="10"
         android:hint="Email"
@@ -52,7 +52,8 @@
         app:met_baseColor="@color/lightGray"
         app:met_floatingLabel="highlight"
         app:met_textColor="#FFFFFF"
-        app:met_textColorHint="@color/lightGray" />
+        app:met_textColorHint="@color/lightGray"
+        app:met_underlineColor="@color/lightGray" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/register_username"
@@ -70,7 +71,8 @@
         app:met_baseColor="@color/lightGray"
         app:met_floatingLabel="highlight"
         app:met_textColor="#FFFFFF"
-        app:met_textColorHint="@color/lightGray" />
+        app:met_textColorHint="@color/lightGray"
+        app:met_underlineColor="@color/lightGray" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/register_password"
@@ -90,7 +92,8 @@
         app:met_baseColor="@color/lightGray"
         app:met_floatingLabel="highlight"
         app:met_textColor="#FFFFFF"
-        app:met_textColorHint="@color/lightGray" />
+        app:met_textColorHint="@color/lightGray"
+        app:met_underlineColor="@color/lightGray" />
 
     <Button
         android:id="@+id/register_btn"
