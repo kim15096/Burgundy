@@ -16,8 +16,10 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.Transition;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private FloatingActionButton create_fab;
-    private ImageView account_btn;
+    private ImageView account_btn, hostIcon;
     private FirebaseFirestore db;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
@@ -62,15 +64,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_act);
 
-        TextView home_username = findViewById(R.id.home_username);
-
+        final TextView home_username = findViewById(R.id.home_username);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
-        home_username.setText("Hello " + firebaseUser.getDisplayName() + "!");
+        hostIcon = findViewById(R.id.lobby_hostIcon);
 
         db = FirebaseFirestore.getInstance();
+
+        db.collection("Users").document(firebaseUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                String displayName = documentSnapshot.get("username").toString();
+                home_username.setText("Hello " + displayName + "!");
+            }
+        });
+
 
         account_btn = findViewById(R.id.account_btn);
         create_fab = findViewById(R.id.create_fab);
@@ -121,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
                         recyclerAdapter.notifyItemInserted(0);
                         recyclerAdapter.notifyDataSetChanged();
                         lobby_recycler.scheduleLayoutAnimation();
+
+
                     }
 
                     if (doc.getType() == DocumentChange.Type.REMOVED){
@@ -150,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent mainIntent = new Intent(MainActivity.this, ProfileActivity.class);
                 MainActivity.this.startActivity(mainIntent);
+                overridePendingTransition(R.anim.slide_in_left,0);
 
             }
         });

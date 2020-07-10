@@ -60,33 +60,25 @@ public class Register extends AppCompatActivity {
 
                                                     username = username_et.getText().toString().trim();
 
-                                                   UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                                           .setDisplayName(username).build();
-
                                                    firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-                                                   firebaseUser.updateProfile(profileUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                   String userID = firebaseUser.getUid();
+
+                                                   final Map<String, Object> userInfo = new HashMap<>();
+                                                   userInfo.put("userID", userID);
+                                                   userInfo.put("username", username);
+                                                   userInfo.put("inLobby", false);
+
+                                                   FirebaseFirestore.getInstance().collection("Users").document(userID).set(userInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                        @Override
-                                                       public void onSuccess(Void aVoid) {
-                                                           String userID = firebaseUser.getUid();
-
-                                                           final Map<String, Object> userInfo = new HashMap<>();
-                                                           userInfo.put("userID", userID);
-                                                           userInfo.put("username", username);
-                                                           userInfo.put("inLobby", false);
-
-                                                           FirebaseFirestore.getInstance().collection("Users").document(userID).set(userInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                               @Override
-                                                               public void onComplete(@NonNull Task<Void> task) {
-                                                                   if (task.isSuccessful()){
-                                                                       Log.d("e", "complete writing to database");
-                                                                       Intent mainIntent = new Intent(Register.this, MainActivity.class);
-                                                                       Register.this.startActivity(mainIntent);
-                                                                       Register.this.finish();
-                                                                       finishAffinity();
-                                                                   }
-                                                               }
-                                                           });
+                                                       public void onComplete(@NonNull Task<Void> task) {
+                                                           if (task.isSuccessful()){
+                                                               Log.d("e", "complete writing to database");
+                                                               Intent mainIntent = new Intent(Register.this, MainActivity.class);
+                                                               Register.this.startActivity(mainIntent);
+                                                               Register.this.finish();
+                                                               finishAffinity();
+                                                           }
                                                        }
                                                    });
 

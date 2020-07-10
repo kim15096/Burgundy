@@ -4,10 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_chatroom_bg"
+    android:background="@drawable/ic_chat_bg"
     android:clickable="true"
-    tools:context=".lobby.LobbyActivity_temp"
-    android:focusable="true">
+    android:focusable="true"
+    tools:context=".lobby.LobbyActivity_temp">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/fire_animation"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:scaleType="center"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.19999999"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/fire_animation"
+        app:lottie_scale="0.35"
+        app:lottie_speed="0.35" />
 
     <TextView
         android:id="@+id/lobbyTitle_tv"
@@ -36,7 +53,7 @@
         android:id="@+id/cardView2"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        app:cardBackgroundColor="#1E1940"
+        app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="0dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -49,9 +66,10 @@
                 android:id="@+id/chat_et"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="#3A307C"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/et_bg"
                 android:ems="10"
                 android:hint="Type here..."
                 android:inputType="textShortMessage|textPersonName|textCapSentences"
@@ -67,7 +85,7 @@
                 android:id="@+id/msg_sendBtn"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="32dp"
                 app:layout_constraintBottom_toBottomOf="@+id/chat_et"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/chat_et"
@@ -82,6 +100,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/exitLobbyBtn"
-        app:layout_constraintTop_toBottomOf="@+id/lobbyTitle_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/lobbyTitle_tv"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

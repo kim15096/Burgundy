@@ -30,6 +30,7 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public Context context;
     public MainActivity mainActivity;
     public static String lobbyID;
+    private ImageView hostIcon;
 
 
     public LobbiesRecyclerAdapter(List<LobbyPostModel> lobbyList, MainActivity mainActivity){
@@ -59,6 +60,9 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         View MainView = LayoutInflater.from(parent.getContext()).inflate(R.layout.lobby_recycler_card, parent, false);
         View AdView = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_recycler_ad, parent, false);
+
+
+        hostIcon = MainView.findViewById(R.id.lobby_hostIcon);
 
         if (viewType == VIEW_TYPES.Normal){
             return new ViewHolder0(MainView);
@@ -149,7 +153,6 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             super(itemView);
             mView = itemView;
             joinBtn = mView.findViewById(R.id.joinBtn);
-
         }
 
         public void setTitle(String text){
