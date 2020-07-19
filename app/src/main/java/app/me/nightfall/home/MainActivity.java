@@ -1,14 +1,20 @@
 package app.me.nightfall.home;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -56,13 +62,25 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView lobby_recycler;
     private LobbiesRecyclerAdapter recyclerAdapter;
     private Button toLobbyBtn;
-    public static Boolean inLobby = false;
+    public static String inLobby = "";
     public static Boolean openLobby = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_act);
+        setContentView(R.layout.main_page);
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        /*ConstraintLayout pullTab = findViewById(R.id.dragView);
+        ViewGroup.LayoutParams params = pullTab.getLayoutParams();
+        params.height = height* 3/4;
+        params.width = width;
+        pullTab.setLayoutParams(params);*/
+
 
         final TextView home_username = findViewById(R.id.home_username);
 
@@ -70,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
 
         hostIcon = findViewById(R.id.lobby_hostIcon);
+
+
 
         db = FirebaseFirestore.getInstance();
 
@@ -90,12 +110,12 @@ public class MainActivity extends AppCompatActivity {
 
         indexList =new ArrayList<>();
 
-        db.collection("Users").document(firebaseUser.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+       db.collection("Users").document(firebaseUser.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                inLobby = (Boolean) documentSnapshot.get("inLobby");
+                inLobby = documentSnapshot.get("inLobby").toString();
 
-                if (inLobby){
+                if (inLobby != ""){
                     create_fab.hide();
                     toLobbyBtn.setVisibility(View.VISIBLE);
                 }
@@ -104,6 +124,19 @@ public class MainActivity extends AppCompatActivity {
                     toLobbyBtn.setVisibility(View.INVISIBLE);
                 }
 
+            }
+        });
+
+
+        VideoView view = findViewById(R.id.videoView);
+        String path = "android.resource://" + getPackageName() + "/" + R.raw.login_bg;
+        view.setVideoURI(Uri.parse(path));
+        view.start();
+
+        view.setOnPreparedListener (new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setLooping(true);
             }
         });
 
@@ -177,7 +210,26 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        VideoView view = findViewById(R.id.videoView);
+        String path = "android.resource://" + getPackageName() + "/" + R.raw.login_bg;
+        view.setVideoURI(Uri.parse(path));
+        view.start();
+
+        view.setOnPreparedListener (new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setLooping(true);
+            }
+        });
+
+    }
+
+
     public void showLobby(View view){
 
         Fragment lobbyFrag  = getSupportFragmentManager().findFragmentByTag("lobby");

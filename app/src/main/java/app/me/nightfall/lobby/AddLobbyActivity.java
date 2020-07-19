@@ -64,7 +64,7 @@ public class AddLobbyActivity extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 final FieldValue timestamp = FieldValue.serverTimestamp();
 
-                String lobbyID = firebaseUser.getUid();
+                final String lobbyID = firebaseUser.getUid();
 
                 Map<String, Object> createLobby = new HashMap<>();
                 createLobby.put("title", lobby_title);
@@ -78,11 +78,11 @@ public class AddLobbyActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                                 MainActivity.openLobby = true;
-                                MainActivity.inLobby = true;
+                                //MainActivity.inLobby = true;
 
-                                db.collection("Users").document(firebaseUser.getUid()).update("inLobby", true);
+                                db.collection("Users").document(firebaseUser.getUid()).update("inLobby", lobbyID);
 
-                                Intent mainIntent = new Intent(AddLobbyActivity.this, MainActivity.class);
+                                Intent mainIntent = new Intent(AddLobbyActivity.this, LobbyActivity_temp.class);
                                 AddLobbyActivity.this.startActivity(mainIntent);
                                 AddLobbyActivity.this.finish();
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 import app.me.nightfall.R;
 
-public class ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     public List<ChatPostModel> chatList;
 

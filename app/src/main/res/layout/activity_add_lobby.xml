@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_mainbg"
+    android:fitsSystemWindows="true"
+    android:background="@drawable/ic_create_bg"
     tools:context=".lobby.AddLobbyActivity">
 
     <com.rengwuxian.materialedittext.MaterialEditText
@@ -82,7 +83,7 @@
         android:id="@+id/createlobby_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:text="Create Lobby"
         android:textColor="@android:color/white"

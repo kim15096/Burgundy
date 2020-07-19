@@ -1,6 +1,8 @@
 package app.me.nightfall.lobby;
 
 import android.content.Context;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -55,8 +58,15 @@ public class LobbyFrag extends Fragment {
         db = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
 
+        db.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                MainActivity.inLobby = documentSnapshot.get("inLobby").toString();
+            }
+        });
 
-        db.collection("Lobbies").document(LobbiesRecyclerAdapter.lobbyID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+        db.collection("Lobbies").document(MainActivity.inLobby).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.get("title") != null) {
@@ -77,7 +87,7 @@ public class LobbyFrag extends Fragment {
                 final Fragment frag = getActivity().getSupportFragmentManager().findFragmentByTag("lobby");
 
                 final FloatingActionButton create_fab = getActivity().findViewById(R.id.create_fab);
-                db.collection("Users").document(userID).update("inLobby", false).addOnSuccessListener(new OnSuccessListener<Void>() {
+                db.collection("Users").document(userID).update("inLobby", "").addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         FirebaseFirestore.getInstance().collection("Lobbies").document(userID).delete();

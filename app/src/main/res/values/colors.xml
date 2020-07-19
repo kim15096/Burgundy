@@ -2,13 +2,13 @@
 <resources>
 
     <color name="colorPrimary">#ED4B48</color>
-    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorPrimaryDark">#0c0c20</color>
     <color name="colorAccent">#ED4B48</color>
     <color name="lightGray">#b6b6b6</color>
     <color name="darkBG">#1f1f1f  </color>
     <color name="darkerBG">#1f1f1f  </color>
     <color name="Gray">#4f555c</color>
-
+    <color name="textColor">#E5DA9A</color>
     <color name="bg1">#EB363447</color>
     <color name="gray1">#514E61</color>
     <color name="gray2">#8E8B9B</color>

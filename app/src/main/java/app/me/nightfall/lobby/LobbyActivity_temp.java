@@ -91,13 +91,6 @@ public class LobbyActivity_temp extends AppCompatActivity {
         ((LinearLayoutManager)chat_recycler.getLayoutManager()).setStackFromEnd(true);
 
 
-        chat_et.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chat_recycler.smoothScrollToPosition(a.size()-1);
-            }
-        });
-
         sendBtn.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -134,7 +127,7 @@ public class LobbyActivity_temp extends AppCompatActivity {
                 .setMessage("You will end the session and will not be able to return.")
                 .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        FirebaseFirestore.getInstance().collection("Users").document(firebaseUser.getUid()).update("inLobby", false).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        FirebaseFirestore.getInstance().collection("Users").document(firebaseUser.getUid()).update("inLobby", "").addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
 
@@ -167,7 +160,7 @@ public class LobbyActivity_temp extends AppCompatActivity {
                 .setMessage("You will end the session and will not be able to return.")
                 .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        FirebaseFirestore.getInstance().collection("Users").document(firebaseUser.getUid()).update("inLobby", false).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        FirebaseFirestore.getInstance().collection("Users").document(firebaseUser.getUid()).update("inLobby", "").addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 FirebaseFirestore.getInstance().collection("Lobbies").document(firebaseUser.getUid()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {

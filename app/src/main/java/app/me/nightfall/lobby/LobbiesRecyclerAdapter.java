@@ -2,6 +2,7 @@ package app.me.nightfall.lobby;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -99,40 +101,49 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
                         lobbyID = lobbyList.get(position).getLobbyID();
 
-                        final ProgressDialog pd = new ProgressDialog(context, R.style.dialogTheme);
-                        pd.setMessage("Joining lobby...");
-                        pd.setCancelable(false);
-                        pd.show();
+                        if (!MainActivity.inLobby.equals("")){
+                            Toast.makeText(context, "Already in lobby", Toast.LENGTH_SHORT).show();
+                        }
 
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            public void run() {
-                                FirebaseFirestore.getInstance().collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).update("inLobby", true).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        LobbyFrag LobbyFrag = new LobbyFrag();
-                                        Fragment lobbyFrag  = mainActivity.getSupportFragmentManager().findFragmentByTag("lobby");
+                        else {
+                            final ProgressDialog pd = new ProgressDialog(context, R.style.dialogTheme);
+                            pd.setMessage("Joining lobby...");
+                            pd.setCancelable(false);
+                            pd.show();
+
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                public void run() {
+                                    FirebaseFirestore.getInstance().collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).update("inLobby", lobbyList.get(position).getLobbyID()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            /*LobbyFrag LobbyFrag = new LobbyFrag();
+                                            Fragment lobbyFrag = mainActivity.getSupportFragmentManager().findFragmentByTag("lobby");
 
 
-                                        if (lobbyFrag == null){
-                                            mainActivity.getSupportFragmentManager().beginTransaction().add(R.id.lobby_frag_container, LobbyFrag, "lobby").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).show(LobbyFrag).addToBackStack(null).commit();
-                                            pd.dismiss();
+                                            if (lobbyFrag == null) {
+                                                mainActivity.getSupportFragmentManager().beginTransaction().add(R.id.lobby_frag_container, LobbyFrag, "lobby").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).show(LobbyFrag).addToBackStack(null).commit();
+                                                pd.dismiss();
+                                            } else {
+                                                mainActivity.getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).show(lobbyFrag).addToBackStack(null).commit();
+                                                pd.dismiss();
+                                            }*/
+
+
+                                            Intent i1 = new Intent (context, LobbyActivity_temp.class);
+                                            context.startActivity(i1);
+
                                         }
-                                        else {
-                                            mainActivity.getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).show(lobbyFrag).addToBackStack(null).commit();
-                                            pd.dismiss();
-                                        }
 
-                                    }
+                                    });
+                                    pd.dismiss();
+                                }
+                            }, 1000);
 
-                                });
-                                pd.dismiss();
-                            }
-                        }, 1000);
-
-
+                        }
                     }
                 });
+
 
 
         }

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_chat_bg"
+    android:fitsSystemWindows="true"
     android:clickable="true"
     android:focusable="true"
     tools:context=".lobby.LobbyActivity_temp">
@@ -23,15 +24,15 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/fire_animation"
-        app:lottie_scale="0.35"
-        app:lottie_speed="0.35" />
+        app:lottie_scale="0.3"
+        app:lottie_speed="0.75" />
 
     <TextView
         android:id="@+id/lobbyTitle_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:textColor="@android:color/white"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -65,10 +66,10 @@
             <EditText
                 android:id="@+id/chat_et"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/et_bg"
                 android:ems="10"
                 android:hint="Type here..."
@@ -78,8 +79,7 @@
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/msg_sendBtn"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
                 android:id="@+id/msg_sendBtn"
