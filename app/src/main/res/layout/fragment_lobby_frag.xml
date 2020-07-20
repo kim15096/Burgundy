@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:textColor="@android:color/white"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -46,6 +46,7 @@
         android:layout_height="32dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/ic_exit_24dp"
+        android:onClick="exitLobby"
         app:layout_constraintBottom_toTopOf="@+id/cardView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

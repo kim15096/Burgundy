@@ -3,6 +3,7 @@ package app.me.nightfall.lobby;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,6 +60,10 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
             case VIEW_TYPES.User:
                 UserViewHolder userViewHolder = (UserViewHolder) holder;
+
+                String message = chatList.get(position).getMessage();
+
+                userViewHolder.setMessage(message);
                 break;
             case VIEW_TYPES.Other:
                 OtherViewHolder otherViewHolder = (OtherViewHolder) holder;
@@ -79,6 +84,11 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
 
+
+        }
+        public void setMessage(String text){
+            TextView title_tv = itemView.findViewById(R.id.chat_message);
+            title_tv.setText(text);
 
         }
 

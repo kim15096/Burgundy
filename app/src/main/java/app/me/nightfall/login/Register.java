@@ -67,7 +67,7 @@ public class Register extends AppCompatActivity {
                                                    final Map<String, Object> userInfo = new HashMap<>();
                                                    userInfo.put("userID", userID);
                                                    userInfo.put("username", username);
-                                                   userInfo.put("inLobby", "false");
+                                                   userInfo.put("inLobby", "");
 
                                                    FirebaseFirestore.getInstance().collection("Users").document(userID).set(userInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                        @Override

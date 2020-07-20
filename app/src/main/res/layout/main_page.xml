@@ -73,17 +73,17 @@
             android:id="@+id/lobbies_recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="32dp"
             android:layout_marginTop="100dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="32dp"
             android:background="@android:color/transparent"
             android:fadeScrollbars="true"
-            android:fadingEdgeLength="75dp"
+            android:fadingEdgeLength="65dp"
             android:layoutAnimation="@anim/layout_animation"
             android:overScrollMode="never"
             android:requiresFadingEdge="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toTopOf="@+id/back2lobbyBtn"
+            app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="0dp">
 
         </androidx.recyclerview.widget.RecyclerView>

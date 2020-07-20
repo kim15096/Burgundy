@@ -46,6 +46,7 @@ import app.me.nightfall.R;
 import app.me.nightfall.ProfileActivity;
 import app.me.nightfall.lobby.AddLobbyActivity;
 import app.me.nightfall.lobby.LobbiesRecyclerAdapter;
+import app.me.nightfall.lobby.LobbyActivity_temp;
 import app.me.nightfall.lobby.LobbyPostModel;
 import app.me.nightfall.lobby.LobbyFrag;
 
@@ -203,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
         toLobbyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showLobby(view);
+                backtoLobby();
             }
         });
 
@@ -230,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void showLobby(View view){
+   /* public void showLobby(View view){
 
         Fragment lobbyFrag  = getSupportFragmentManager().findFragmentByTag("lobby");
         if (lobbyFrag == null){
@@ -246,7 +247,26 @@ public class MainActivity extends AppCompatActivity {
         openLobby = false;
 
 
-    }
+    }*/
+
+   public void backtoLobby(){
+
+       db.collection("Users").document(firebaseUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+           @Override
+           public void onSuccess(DocumentSnapshot documentSnapshot) {
+               String lobbyID = documentSnapshot.get("inLobby").toString();
+               inLobby = lobbyID;
+           }
+       });
+       Intent mainIntent = new Intent(MainActivity.this, LobbyActivity_temp.class);
+       mainIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+       startActivity(mainIntent);
+
+
+
+
+   }
+
 
 
    }

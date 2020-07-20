@@ -1,5 +1,6 @@
 package app.me.nightfall.lobby;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,8 +17,14 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 import app.me.nightfall.R;
+import app.me.nightfall.home.MainActivity;
 
 public class LobbyActivity_temp extends AppCompatActivity {
 
@@ -38,7 +46,7 @@ public class LobbyActivity_temp extends AppCompatActivity {
 
     private RecyclerView chat_recycler;
     private ChatRecyclerAdapter chatRecyclerAdapter;
-    private List<ChatPostModel> chatList;
+    private List<ChatPostModel> a;
 
     private ImageView sendBtn;
 
@@ -56,33 +64,32 @@ public class LobbyActivity_temp extends AppCompatActivity {
         sendBtn = findViewById(R.id.msg_sendBtn);
         chat_et = findViewById(R.id.chat_et);
 
-        Intent intent = getIntent(); // gets the previously created intent
-        hostID = intent.getStringExtra("lobbyHostID"); // will return "FirstKeyValue"
-        lobbyID = intent.getStringExtra("lobbyID");
 
         //user details
         final String senderID = firebaseUser.getUid();
         final String username = firebaseUser.getDisplayName();
 
+        firestore.collection("Users").document(firebaseUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                lobbyID = documentSnapshot.get("inLobby").toString();
 
-        if (lobbyID != null) {
+                firestore.collection("Lobbies").document(lobbyID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        String lobbyTitle = documentSnapshot.get("title").toString();
+                        title_tv.setText(lobbyTitle);
+                    }
+                });
+            }
+        });
 
-            firestore.collection("Lobbies").document(lobbyID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    String lobbyTitle = documentSnapshot.get("title").toString();
-                    title_tv.setText(lobbyTitle);
-                }
-            });
-        }
-        else {
-            title_tv.setText("not finished");
-        }
+
 
         //recycler setting up
 
 
-        final List a = new ArrayList();
+        a = new ArrayList();
         chatRecyclerAdapter = new ChatRecyclerAdapter(a);
         chat_recycler.setLayoutManager(new LinearLayoutManager(this));
         chat_recycler.setAdapter(chatRecyclerAdapter);
@@ -108,53 +115,54 @@ public class LobbyActivity_temp extends AppCompatActivity {
                 @Override
                 public void onSuccess(Void aVoid) {
                     chat_et.setText("");
-                    a.add(0);
+                    chatRecyclerAdapter.notifyDataSetChanged();
                 }
             });
         }
-    });
+        });
 
 
 
-    }
 
+        firestore.collection("Lobbies").document(MainActivity.inLobby).collection("Chat").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
 
+                    ChatPostModel chatPost = doc.getDocument().toObject(ChatPostModel.class);
 
-    public void exitLobby(final View view){
+                    if (doc.getType() == DocumentChange.Type.ADDED) {
 
-        new AlertDialog.Builder(this, R.style.dialogTheme)
-                .setTitle("Exit lobby?")
-                .setMessage("You will end the session and will not be able to return.")
-                .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        FirebaseFirestore.getInstance().collection("Users").document(firebaseUser.getUid()).update("inLobby", "").addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
+                        a.add(chatPost);
+                        chatRecyclerAdapter.notifyDataSetChanged();
 
-                                FirebaseFirestore.getInstance().collection("Lobbies").document(firebaseUser.getUid()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        lobby_back(view);
-                                    }
-                                });
-                            }
-                        });
                     }
-                })
-                .setNegativeButton("Stay", null)
-                .show();
+
+                    if (doc.getType() == DocumentChange.Type.REMOVED){
+
+                    }
+                }
+            }
+        });
 
 
-
-    }
-
-    public void lobby_back(View view){
-        super.onBackPressed();
 
     }
 
     @Override
-    public void onBackPressed() {
+    protected void onResume() {
+        super.onResume();
+
+        firestore.collection("Users").document(firebaseUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                lobbyID = documentSnapshot.get("inLobby").toString();
+            }
+        });
+    }
+
+    public void exitLobby(final View view){
+
         new AlertDialog.Builder(this, R.style.dialogTheme)
                 .setTitle("Exit lobby?")
                 .setMessage("You will end the session and will not be able to return.")
@@ -176,5 +184,16 @@ public class LobbyActivity_temp extends AppCompatActivity {
 
                 .setNegativeButton("Stay", null)
                 .show();
+
+
+
     }
+
+    public void lobby_back(View view){
+        super.onBackPressed();
+
+    }
+
+    
+
 }
