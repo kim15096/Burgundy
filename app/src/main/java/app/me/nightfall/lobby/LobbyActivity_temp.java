@@ -21,6 +21,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -66,13 +67,13 @@ public class LobbyActivity_temp extends AppCompatActivity {
 
 
         //user details
-        final String senderID = firebaseUser.getUid();
-        final String username = firebaseUser.getDisplayName();
+        senderID = firebaseUser.getUid();
 
         firestore.collection("Users").document(firebaseUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 lobbyID = documentSnapshot.get("inLobby").toString();
+                username = documentSnapshot.get("username").toString();
 
                 firestore.collection("Lobbies").document(lobbyID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -95,7 +96,16 @@ public class LobbyActivity_temp extends AppCompatActivity {
         chat_recycler.setAdapter(chatRecyclerAdapter);
         chat_recycler.setHasFixedSize(true);
         chat_recycler.setNestedScrollingEnabled(false);
-        ((LinearLayoutManager)chat_recycler.getLayoutManager()).setStackFromEnd(true);
+        //((LinearLayoutManager)chat_recycler.getLayoutManager()).setStackFromEnd(true);
+
+        chat_recycler.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {
+                if ( i3 < i7 && chatRecyclerAdapter.getItemCount()!=0) {
+                    chat_recycler.smoothScrollToPosition(chatRecyclerAdapter.getItemCount()-1);
+                }
+            }
+        });
 
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
@@ -108,14 +118,15 @@ public class LobbyActivity_temp extends AppCompatActivity {
             chat.put("senderID", senderID);
             chat.put("username", username);
             chat.put("message", msg);
-            chat.put("timestamp", 00);
+            chat.put("timestamp", FieldValue.serverTimestamp());
+
+            chat_et.setText("");
 
             firestore.collection("Lobbies").document(lobbyID)
                     .collection("Chat").document().set(chat).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    chat_et.setText("");
-                    chatRecyclerAdapter.notifyDataSetChanged();
+
                 }
             });
         }
@@ -124,7 +135,7 @@ public class LobbyActivity_temp extends AppCompatActivity {
 
 
 
-        firestore.collection("Lobbies").document(MainActivity.inLobby).collection("Chat").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        firestore.collection("Lobbies").document(MainActivity.inLobby).collection("Chat").orderBy("timestamp").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
@@ -135,6 +146,7 @@ public class LobbyActivity_temp extends AppCompatActivity {
 
                         a.add(chatPost);
                         chatRecyclerAdapter.notifyDataSetChanged();
+                        chat_recycler.smoothScrollToPosition(a.size()-1);
 
                     }
 
@@ -194,6 +206,6 @@ public class LobbyActivity_temp extends AppCompatActivity {
 
     }
 
-    
+
 
 }

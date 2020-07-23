@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.List;
 
 import app.me.nightfall.R;
@@ -30,7 +32,14 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public int getItemViewType(int position) {
-        return VIEW_TYPES.User;
+        if (chatList.get(position).getSenderID().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+            return VIEW_TYPES.User;
+        }
+
+        else {
+            return VIEW_TYPES.Other;
+
+        }
     }
 
     @NonNull
@@ -67,6 +76,11 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 break;
             case VIEW_TYPES.Other:
                 OtherViewHolder otherViewHolder = (OtherViewHolder) holder;
+
+                String message_other = chatList.get(position).getMessage();
+
+                otherViewHolder.setMessage(message_other);
+
                 break;
 
 
@@ -101,6 +115,12 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
             super(itemView);
             mView = itemView;
+
+        }
+
+        public void setMessage(String text){
+            TextView title_tv = itemView.findViewById(R.id.chat_message_other);
+            title_tv.setText(text);
 
         }
 

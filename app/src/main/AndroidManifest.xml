@@ -28,5 +28,6 @@
         <activity android:name=".login.Register" />
         <activity android:name=".home.MainActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
     </application>
+    
 
 </manifest>

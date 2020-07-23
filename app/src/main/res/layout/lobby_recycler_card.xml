@@ -40,14 +40,14 @@
 
             <ImageView
                 android:id="@+id/joinBtn"
-                android:layout_width="30dp"
+                android:layout_width="28dp"
                 android:layout_height="26dp"
                 android:layout_marginEnd="12dp"
                 android:layout_marginBottom="8dp"
                 android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_exit_24dp" />
+                app:srcCompat="@drawable/ic_baseline_arrow_forward_24" />
 
             <TextView
                 android:id="@+id/textView6"

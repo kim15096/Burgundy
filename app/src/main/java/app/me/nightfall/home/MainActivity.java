@@ -5,11 +5,14 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.DragEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
@@ -22,6 +25,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.slidingpanelayout.widget.SlidingPaneLayout;
 import androidx.transition.Transition;
 import androidx.viewpager.widget.ViewPager;
 
@@ -37,6 +41,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private List<String> indexList;
     private RecyclerView lobby_recycler;
     private LobbiesRecyclerAdapter recyclerAdapter;
-    private Button toLobbyBtn;
+    private Button toLobbyBtn, category;
     public static String inLobby = "";
     public static Boolean openLobby = false;
 
@@ -83,8 +88,6 @@ public class MainActivity extends AppCompatActivity {
         pullTab.setLayoutParams(params);*/
 
 
-        final TextView home_username = findViewById(R.id.home_username);
-
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
@@ -98,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 String displayName = documentSnapshot.get("username").toString();
-                home_username.setText("Hello " + displayName + "!");
             }
         });
 
@@ -106,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         account_btn = findViewById(R.id.account_btn);
         create_fab = findViewById(R.id.create_fab);
         lobby_recycler = findViewById(R.id.lobbies_recycler);
-
+        category = findViewById(R.id.categoryBtn);
         toLobbyBtn = findViewById(R.id.back2lobbyBtn);
 
         indexList =new ArrayList<>();
@@ -124,6 +126,18 @@ public class MainActivity extends AppCompatActivity {
                     create_fab.show();
                     toLobbyBtn.setVisibility(View.INVISIBLE);
                 }
+
+            }
+        });
+
+        final SlidingUpPanelLayout slidingPaneLayout = findViewById(R.id.sliding_layout);
+        slidingPaneLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
+            @Override
+            public void onPanelSlide(View panel, float slideOffset) {
+            }
+
+            @Override
+            public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
 
             }
         });
@@ -205,6 +219,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 backtoLobby();
+            }
+        });
+
+
+        category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (slidingPaneLayout.getPanelState()== SlidingUpPanelLayout.PanelState.EXPANDED){
+                    slidingPaneLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+
+                }
+
+                else if (slidingPaneLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED){
+                    slidingPaneLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+
+                }
             }
         });
 
