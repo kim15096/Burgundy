@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:windowBackground">@color/darkBG</item>
+        <item name="android:windowBackground">@color/colorPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorHint">@color/lightGray</item>
@@ -12,6 +12,23 @@
         <item name="android:splitMotionEvents">false</item>
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
+
+
+    </style>
+
+    <style name="MainTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:windowBackground">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorHint">@color/lightGray</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:splitMotionEvents">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowActionBarOverlay">true</item>
 
 
@@ -20,7 +37,7 @@
 
     <style name="SplashTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowFullscreen">true</item>
-        <item name="android:background">@color/darkBG</item>
+        <item name="android:background">@drawable/ic_login_bg_2</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
 

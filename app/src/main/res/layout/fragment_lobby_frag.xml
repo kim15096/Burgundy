@@ -4,16 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_chat_bg"
-    android:fitsSystemWindows="true"
     android:clickable="true"
+    android:fitsSystemWindows="true"
     android:focusable="true"
     tools:context=".lobby.LobbyActivity_temp">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        tools:visibility="gone">
+
+        <VideoView
+            android:id="@+id/lobby_bg_video"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.5"
+        android:background="@android:color/black"
+        tools:visibility="gone">
+
+    </FrameLayout>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="60dp"
         android:background="@android:color/transparent"
         android:elevation="2dp"
         android:minHeight="?attr/actionBarSize"
@@ -32,22 +53,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="this is title" />
 
             <Button
                 android:id="@+id/exitLobbyBtn"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/ic_exit_24dp"
                 android:onClick="exitLobby"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -59,7 +80,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="0dp"
         app:cardElevation="0dp"
@@ -71,27 +92,28 @@
 
             <EditText
                 android:id="@+id/chat_et"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="16dp"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/et_bg"
                 android:ems="10"
-                android:hint="Type here..."
-                android:inputType="textShortMessage|textPersonName|textCapSentences"
+                android:hint="Message"
+                android:inputType="textShortMessage|textMultiLine|textPersonName|textCapSentences"
+                android:maxLines="3"
                 android:padding="10dp"
                 android:textColor="@android:color/white"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/msg_sendBtn"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/msg_sendBtn"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="16dp"
                 android:padding="4dp"
                 app:layout_constraintBottom_toBottomOf="@+id/chat_et"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -125,7 +147,7 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/fire_animation"
-        app:lottie_scale="0.30"
+        app:lottie_scale="0.2"
         app:lottie_speed="0.75" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,8 +8,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import app.me.nightfall.R;
@@ -17,6 +21,7 @@ import app.me.nightfall.R;
 public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     public List<ChatPostModel> chatList;
+
 
     public ChatRecyclerAdapter(List<ChatPostModel> chatList){
         this.chatList = chatList;
@@ -71,14 +76,30 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 UserViewHolder userViewHolder = (UserViewHolder) holder;
 
                 String message = chatList.get(position).getMessage();
-
                 userViewHolder.setMessage(message);
+
+
+
                 break;
             case VIEW_TYPES.Other:
                 OtherViewHolder otherViewHolder = (OtherViewHolder) holder;
 
                 String message_other = chatList.get(position).getMessage();
+                String sender_other = chatList.get(position).getUsername();
 
+                if (position!=0) {
+                    String sender_other_prev = chatList.get(position - 1).getUsername();
+                    if (!sender_other_prev.equals(sender_other)){
+                        otherViewHolder.setUsername(sender_other);
+
+                    }
+                    else{
+                        otherViewHolder.setUsername("");
+                    }
+                }
+                else {
+                    otherViewHolder.setUsername(sender_other);
+                }
                 otherViewHolder.setMessage(message_other);
 
                 break;
@@ -106,6 +127,7 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         }
 
+
     }
     public class OtherViewHolder extends RecyclerView.ViewHolder{
 
@@ -123,6 +145,21 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             title_tv.setText(text);
 
         }
+
+        public void setUsername(String text){
+
+            TextView sender = itemView.findViewById(R.id.chatOther_tv);
+
+            if (text.equals("")){
+                sender.setVisibility(View.GONE);
+            }
+            else {
+                sender.setVisibility(View.VISIBLE);
+                sender.setText(text);
+
+            }
+        }
+
 
     }
 

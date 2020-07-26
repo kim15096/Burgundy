@@ -1,19 +1,23 @@
 package app.me.nightfall.lobby;
 
+import com.google.firebase.Timestamp;
+
+import java.util.Date;
+
 public class ChatPostModel {
 
     public String message, senderID, username;
-    public Object timestamp;
+    public Date timestamp;
 
     public ChatPostModel() {
     }
 
 
 
-    public ChatPostModel(String message, String senderID, Object timestamp, String username) {
+    public ChatPostModel(String message, String senderID, Timestamp timestamp, String username) {
         this.message = message;
         this.senderID = senderID;
-        this.timestamp = timestamp;
+        this.timestamp = timestamp.toDate();
         this.username = username;
     }
 
@@ -25,7 +29,7 @@ public class ChatPostModel {
         return senderID;
     }
 
-    public Object getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 

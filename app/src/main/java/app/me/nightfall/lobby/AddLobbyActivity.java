@@ -69,9 +69,12 @@ public class AddLobbyActivity extends AppCompatActivity {
                 Map<String, Object> createLobby = new HashMap<>();
                 createLobby.put("title", lobby_title);
                 createLobby.put("hostID", firebaseUser.getUid());
-                createLobby.put("p1_ID", null);
+                createLobby.put("p1_ID", "");
+                createLobby.put("p2_ID", "");
+                createLobby.put("p3_ID", "");
                 createLobby.put("lobbyID", lobbyID);
                 createLobby.put("timestamp", timestamp);
+                createLobby.put("count", 1);
                 createLobby.put("category", category);
 
                 db.collection("Lobbies").document(lobbyID).set(createLobby).addOnSuccessListener(new OnSuccessListener<Void>() {

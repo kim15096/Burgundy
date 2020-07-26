@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
@@ -30,15 +31,21 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     public List<LobbyPostModel> lobbyList;
     public Context context;
+    private String userID;
     public MainActivity mainActivity;
     public static String lobbyID;
     private ImageView hostIcon;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore db;
+
 
 
     public LobbiesRecyclerAdapter(List<LobbyPostModel> lobbyList, MainActivity mainActivity){
         this.lobbyList = lobbyList;
         this.mainActivity = mainActivity;
-
+        firebaseAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        userID = firebaseAuth.getCurrentUser().getUid();
     }
 
     private class VIEW_TYPES {
@@ -101,11 +108,15 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
                         lobbyID = lobbyList.get(position).getLobbyID();
 
-                        if (!MainActivity.inLobby.equals("")){
+
+                        if (lobbyList.get(position).getCount() == 4){
+                            Toast.makeText(context, "Room is full!", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (!MainActivity.inLobby.equals("")){
                             Toast.makeText(context, "Already in lobby", Toast.LENGTH_SHORT).show();
                         }
-
                         else {
+
                             final ProgressDialog pd = new ProgressDialog(context, R.style.dialogTheme);
                             pd.setMessage("Joining lobby...");
                             pd.setCancelable(false);
@@ -114,21 +125,19 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 public void run() {
-                                    FirebaseFirestore.getInstance().collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).update("inLobby", lobbyList.get(position).getLobbyID()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    db.collection("Users").document(userID).update("inLobby", lobbyList.get(position).getLobbyID()).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            /*LobbyFrag LobbyFrag = new LobbyFrag();
-                                            Fragment lobbyFrag = mainActivity.getSupportFragmentManager().findFragmentByTag("lobby");
 
-
-                                            if (lobbyFrag == null) {
-                                                mainActivity.getSupportFragmentManager().beginTransaction().add(R.id.lobby_frag_container, LobbyFrag, "lobby").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).show(LobbyFrag).addToBackStack(null).commit();
-                                                pd.dismiss();
-                                            } else {
-                                                mainActivity.getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).show(lobbyFrag).addToBackStack(null).commit();
-                                                pd.dismiss();
-                                            }*/
-
+                                            if (lobbyList.get(position).getP1_ID().equals("")){
+                                                db.collection("Lobbies").document(lobbyList.get(position).getLobbyID()).update("p1_ID", userID);
+                                            }
+                                            else if (lobbyList.get(position).getP2_ID().equals("")){
+                                                db.collection("Lobbies").document(lobbyList.get(position).getLobbyID()).update("p2_ID", userID);
+                                            }
+                                            else if (lobbyList.get(position).getP3_ID().equals("")){
+                                                db.collection("Lobbies").document(lobbyList.get(position).getLobbyID()).update("p3_ID", userID);
+                                            }
 
                                             Intent i1 = new Intent (context, LobbyActivity_temp.class);
                                             context.startActivity(i1);

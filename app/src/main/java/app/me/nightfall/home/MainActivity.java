@@ -1,8 +1,10 @@
 package app.me.nightfall.home;
 
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private Button toLobbyBtn, category;
     public static String inLobby = "";
     public static Boolean openLobby = false;
+    private SlidingUpPanelLayout slidingUpPanelLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,8 +133,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final SlidingUpPanelLayout slidingPaneLayout = findViewById(R.id.sliding_layout);
-        slidingPaneLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
+        slidingUpPanelLayout = findViewById(R.id.sliding_layout);
+
+        slidingUpPanelLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
             @Override
             public void onPanelSlide(View panel, float slideOffset) {
             }
@@ -145,6 +149,9 @@ public class MainActivity extends AppCompatActivity {
 
         VideoView view = findViewById(R.id.videoView);
         String path = "android.resource://" + getPackageName() + "/" + R.raw.login_bg;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            view.setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE);
+        }
         view.setVideoURI(Uri.parse(path));
         view.start();
 
@@ -227,13 +234,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (slidingPaneLayout.getPanelState()== SlidingUpPanelLayout.PanelState.EXPANDED){
-                    slidingPaneLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                if (slidingUpPanelLayout.getPanelState()== SlidingUpPanelLayout.PanelState.EXPANDED){
+                    slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
 
                 }
 
-                else if (slidingPaneLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED){
-                    slidingPaneLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                else if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED){
+                    slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
 
                 }
             }
@@ -298,6 +305,15 @@ public class MainActivity extends AppCompatActivity {
 
    }
 
+    @Override
+    public void onBackPressed() {
+        if (slidingUpPanelLayout.getPanelState()== SlidingUpPanelLayout.PanelState.EXPANDED || slidingUpPanelLayout.getPanelState()== SlidingUpPanelLayout.PanelState.DRAGGING) {
+            slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+            return;
+        }
+
+        super.onBackPressed();
 
 
-   }
+    }
+}

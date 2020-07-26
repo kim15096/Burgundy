@@ -8,11 +8,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +50,9 @@ public class LobbyActivity_temp extends AppCompatActivity {
     private TextView title_tv;
     private AlertDialog alertDialog;
     private EditText chat_et;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private SimpleDateFormat dateFormatDay = new SimpleDateFormat("yyyy-MM-dd");
+    private SimpleDateFormat dateFormatHour = new SimpleDateFormat("aa hh:mm");
 
     private RecyclerView chat_recycler;
     private ChatRecyclerAdapter chatRecyclerAdapter;
@@ -65,6 +74,21 @@ public class LobbyActivity_temp extends AppCompatActivity {
         sendBtn = findViewById(R.id.msg_sendBtn);
         chat_et = findViewById(R.id.chat_et);
 
+        VideoView view = findViewById(R.id.lobby_bg_video);
+        String path = "android.resource://" + getPackageName() + "/" + R.raw.chat_bg;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            view.setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE);
+        }
+        view.setVideoURI(Uri.parse(path));
+        view.start();
+
+        view.setOnPreparedListener (new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setLooping(true);
+            }
+        });
+
 
         //user details
         senderID = firebaseUser.getUid();
@@ -84,6 +108,8 @@ public class LobbyActivity_temp extends AppCompatActivity {
                 });
             }
         });
+
+
 
 
 
@@ -134,6 +160,7 @@ public class LobbyActivity_temp extends AppCompatActivity {
 
 
 
+        
 
         firestore.collection("Lobbies").document(MainActivity.inLobby).collection("Chat").orderBy("timestamp").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -180,10 +207,12 @@ public class LobbyActivity_temp extends AppCompatActivity {
                 .setMessage("You will end the session and will not be able to return.")
                 .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        FirebaseFirestore.getInstance().collection("Users").document(firebaseUser.getUid()).update("inLobby", "").addOnSuccessListener(new OnSuccessListener<Void>() {
+
+
+                        firestore.collection("Users").document(firebaseUser.getUid()).update("inLobby", "").addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                FirebaseFirestore.getInstance().collection("Lobbies").document(firebaseUser.getUid()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                firestore.collection("Lobbies").document(firebaseUser.getUid()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         lobby_back(null);
