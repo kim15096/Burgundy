@@ -100,7 +100,7 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 ViewHolder0 viewHolder0 = (ViewHolder0) holder;
 
                 final String title = lobbyList.get(position).getTitle();
-                String category = lobbyList.get(position).getCategory();
+                final String category = lobbyList.get(position).getCategory();
 
                 viewHolder0.setTitle(title);
                 viewHolder0.setCategory(category);
@@ -112,7 +112,7 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                         lobbyID = lobbyList.get(position).getLobbyID();
 
 
-                        if (lobbyList.get(position).getCount() == 4){
+                        if (lobbyList.get(position).getCount() >= 4){
                             Toast.makeText(context, "Room is full!", Toast.LENGTH_SHORT).show();
                         }
                         else if (!MainActivity.inLobby.equals("")){
@@ -148,11 +148,20 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                                             joinLobby.put("message", "nf_joined");
                                             joinLobby.put("timestamp", FieldValue.serverTimestamp());
 
-                                            db.collection("Lobbies").document(lobbyList.get(position).getLobbyID()).collection("Chat").document().set(joinLobby).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            db.collection("Lobbies").document(lobbyList.get(position).getLobbyID()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                                 @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Intent i1 = new Intent (context, LobbyActivity_temp.class);
-                                                    context.startActivity(i1);
+                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                    Long count = documentSnapshot.getLong("count");
+                                                    count = count + 1;
+                                                    db.collection("Lobbies").document(lobbyList.get(position).getLobbyID()).update("count", count);
+
+                                                    db.collection("Lobbies").document(lobbyList.get(position).getLobbyID()).collection("Chat").document().set(joinLobby).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Intent i1 = new Intent (context, LobbyActivity_temp.class);
+                                                            context.startActivity(i1);
+                                                        }
+                                                    });
                                                 }
                                             });
 

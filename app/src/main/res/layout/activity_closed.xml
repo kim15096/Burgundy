@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         app:colonColor="#FFFFFF"
         app:digitBackground="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,14 +58,14 @@
         android:layout_height="50dp"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/btn_bg"
         android:text="Enter Nightfall"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -84,18 +84,35 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/fire_animation"
-        app:lottie_scale="0.35"
+        app:lottie_scale="0.3"
         app:lottie_speed="0.75" />
 
     <Button
         android:id="@+id/button6"
-        android:layout_width="250dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/btn_bg_2"
         android:text="Register"
+        android:textAllCaps="false"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/easyCountDownTextview" />
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/enterBtn"
+        app:layout_constraintEnd_toEndOf="@+id/enterBtn"
+        app:layout_constraintHorizontal_bias="0.688"
+        app:layout_constraintStart_toStartOf="@+id/enterBtn" />
+
+    <TextView
+        android:id="@+id/closed_helloTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="Hello kskkim!"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/enterBtn"
+        app:layout_constraintEnd_toEndOf="@+id/enterBtn"
+        app:layout_constraintStart_toStartOf="@+id/enterBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,13 @@
 package app.me.nightfall.lobby;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -151,6 +153,11 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
             super(itemView);
             mView = itemView;
+
+        }
+        public void setColor(String text){
+            CardView cardView = itemView.findViewById(R.id.chatOther_card);
+
 
         }
 

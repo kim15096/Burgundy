@@ -59,6 +59,8 @@ public class LobbyActivity_temp extends AppCompatActivity {
     private ChatRecyclerAdapter chatRecyclerAdapter;
     private List<ChatPostModel> a;
 
+    private VideoView view;
+
     private ImageView sendBtn;
 
     @Override
@@ -75,7 +77,7 @@ public class LobbyActivity_temp extends AppCompatActivity {
         sendBtn = findViewById(R.id.msg_sendBtn);
         chat_et = findViewById(R.id.chat_et);
 
-        VideoView view = findViewById(R.id.lobby_bg_video);
+        view = findViewById(R.id.lobby_bg_video);
         String path = "android.resource://" + getPackageName() + "/" + R.raw.chat_bg;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             view.setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE);
@@ -197,8 +199,24 @@ public class LobbyActivity_temp extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 lobbyID = documentSnapshot.get("inLobby").toString();
+
             }
         });
+
+            String path = "android.resource://" + getPackageName() + "/" + R.raw.chat_bg;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            view.setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE);
+            }
+            view.setVideoURI(Uri.parse(path));
+            view.start();
+
+            view.setOnPreparedListener (new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    mp.setLooping(true);
+                }
+            });
+
     }
 
     public void exitLobby(final View view){
@@ -223,20 +241,43 @@ public class LobbyActivity_temp extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
 
-                                        final Map<String, Object> leaveChat = new HashMap<>();
-                                        leaveChat.put("senderID", "bot");
-                                        leaveChat.put("username", firebaseUser.getUid());
-                                        leaveChat.put("message", "nf_leave");
-                                        leaveChat.put("timestamp", FieldValue.serverTimestamp());
-
-                                        firestore.collection("Lobbies").document(lobbyID)
-                                                .collection("Chat").document().set(leaveChat).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        firestore.collection("Lobbies").document(lobbyID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                             @Override
-                                            public void onSuccess(Void aVoid) {
-                                                lobby_back(null);
-                                                exitLoading.dismiss();
-                                            }
-                                        });
+                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                Long count = documentSnapshot.getLong("count");
+                                                String p1 = documentSnapshot.get("p1_ID").toString();
+                                                String p2 = documentSnapshot.get("p2_ID").toString();
+                                                String p3 = documentSnapshot.get("p3_ID").toString();
+
+                                                if (p1.equals(firebaseUser.getUid())){
+                                                    firestore.collection("Lobbies").document(lobbyID).update("p1_ID", "");
+                                                }
+                                                else if (p2.equals(firebaseUser.getUid())){
+                                                    firestore.collection("Lobbies").document(lobbyID).update("p2_ID", "");
+                                                }
+                                                else if (p3.equals(firebaseUser.getUid())){
+                                                    firestore.collection("Lobbies").document(lobbyID).update("p3_ID", "");
+                                                }
+
+                                                if (count >= 1) {
+                                                    count = count - 1;
+                                                    firestore.collection("Lobbies").document(lobbyID).update("count", count);
+                                                }
+                                                final Map<String, Object> leaveChat = new HashMap<>();
+                                                leaveChat.put("senderID", "bot");
+                                                leaveChat.put("username", firebaseUser.getUid());
+                                                leaveChat.put("message", "nf_leave");
+                                                leaveChat.put("timestamp", FieldValue.serverTimestamp());
+
+                                                firestore.collection("Lobbies").document(lobbyID)
+                                                        .collection("Chat").document().set(leaveChat).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        lobby_back(null);
+                                                        exitLoading.dismiss();
+                                                    }
+                                                });
+                                            }});
                                     }
                                 });
                             }
@@ -255,6 +296,8 @@ public class LobbyActivity_temp extends AppCompatActivity {
         super.onBackPressed();
 
     }
+
+
 
 
 

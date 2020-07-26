@@ -3,6 +3,8 @@ package app.me.nightfall.login;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,9 +33,12 @@ public class Closed extends AppCompatActivity {
         final TextView closedTv = findViewById(R.id.closed_tv);
         final FrameLayout frameLayout = findViewById(R.id.closed_dimFrame);
 
-        enterButton.setVisibility(View.GONE);
         closedTv.setText("CLOSED");
         frameLayout.setVisibility(View.VISIBLE);
+
+        enterButton.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+        enterButton.setEnabled(false);
+        enterButton.setTextColor(Color.GRAY);
 
         EasyCountDownTextview countDownTextview = findViewById(R.id.easyCountDownTextview);
         countDownTextview.setTime(0, 0, 0, 5);
@@ -45,7 +50,9 @@ public class Closed extends AppCompatActivity {
             }
             @Override
             public void onFinish() {
-                enterButton.setVisibility(View.VISIBLE);
+                enterButton.getBackground().setColorFilter(null);
+                enterButton.setEnabled(true);
+                enterButton.setTextColor(Color.WHITE);
                 frameLayout.setVisibility(View.INVISIBLE);
                 closedTv.setText("OPENED");
             }
