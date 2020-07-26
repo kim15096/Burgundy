@@ -20,9 +20,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import app.me.nightfall.R;
 import app.me.nightfall.home.MainActivity;
@@ -139,8 +142,20 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                                                 db.collection("Lobbies").document(lobbyList.get(position).getLobbyID()).update("p3_ID", userID);
                                             }
 
-                                            Intent i1 = new Intent (context, LobbyActivity_temp.class);
-                                            context.startActivity(i1);
+                                            final Map<String, Object> joinLobby = new HashMap<>();
+                                            joinLobby.put("senderID", "bot");
+                                            joinLobby.put("username", userID);
+                                            joinLobby.put("message", "nf_joined");
+                                            joinLobby.put("timestamp", FieldValue.serverTimestamp());
+
+                                            db.collection("Lobbies").document(lobbyList.get(position).getLobbyID()).collection("Chat").document().set(joinLobby).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Intent i1 = new Intent (context, LobbyActivity_temp.class);
+                                                    context.startActivity(i1);
+                                                }
+                                            });
+
 
                                         }
 

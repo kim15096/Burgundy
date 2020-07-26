@@ -43,7 +43,6 @@
                 android:layout_marginBottom="8dp"
                 android:inputType="textMultiLine|textCapSentences"
                 android:maxWidth="200dp"
-                android:text="message here"
                 android:textColor="@android:color/white"
                 android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"

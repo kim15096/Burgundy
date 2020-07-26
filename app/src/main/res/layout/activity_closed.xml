@@ -4,6 +4,98 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".login.Closed">
 
+    <FrameLayout
+        android:id="@+id/closed_dimFrame"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
+        android:alpha="0.75"
+        android:background="@color/colorPrimaryDark"
+        android:elevation="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/fire_animation2"
+        app:layout_constraintEnd_toEndOf="@+id/fire_animation2"
+        app:layout_constraintStart_toStartOf="@+id/fire_animation2">
+
+    </FrameLayout>
+
+    <ir.samanjafari.easycountdowntimer.EasyCountDownTextview
+        android:id="@+id/easyCountDownTextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="32dp"
+        app:colonColor="#FFFFFF"
+        app:digitBackground="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/closed_tv"
+        app:setAnimation="true"
+        app:showDays="false"
+        app:showHours="true"
+        app:start_automatically="true"
+        app:textColor="#FFFFFF"
+        app:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/closed_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CLOSED"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25" />
+
+    <Button
+        android:id="@+id/enterBtn"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/btn_bg"
+        android:text="Enter Nightfall"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/fire_animation2"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
+        android:elevation="0dp"
+        android:scaleType="center"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/button6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/easyCountDownTextview"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/fire_animation"
+        app:lottie_scale="0.35"
+        app:lottie_speed="0.75" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/btn_bg_2"
+        android:text="Register"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/easyCountDownTextview" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -123,7 +123,7 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="50dp"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_baseline_stars_24"
+            android:src="@drawable/ic_baseline_store_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

@@ -8,8 +8,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -31,6 +34,7 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private class VIEW_TYPES {
         public static final int User = 1;
         public static final int Other = 2;
+        public static final int Bot = 3;
     }
 
 
@@ -41,6 +45,9 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             return VIEW_TYPES.User;
         }
 
+        else if (chatList.get(position).getSenderID().equals("bot")) {
+            return VIEW_TYPES.Bot;
+        }
         else {
             return VIEW_TYPES.Other;
 
@@ -54,6 +61,7 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         View UserView = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_recycler_user, parent, false);
         View OtherView = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_recycler_other, parent, false);
+        View BotView = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_recycler_bot, parent, false);
 
         if (viewType == VIEW_TYPES.User){
             return new UserViewHolder(UserView);
@@ -62,7 +70,7 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             return new OtherViewHolder(OtherView);
         }
         else{
-            return new UserViewHolder(UserView);
+            return new BotViewHolder(BotView);
         }
 
     }
@@ -104,6 +112,12 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
                 break;
 
+            case VIEW_TYPES.Bot:
+                BotViewHolder botViewHolder = (BotViewHolder) holder;
+
+                botViewHolder.setText(chatList.get(position).getUsername(), chatList.get(position).getMessage());
+                break;
+
 
         }
     }
@@ -113,7 +127,7 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         return chatList.size();
     }
 
-    public class UserViewHolder extends RecyclerView.ViewHolder{
+    public static class UserViewHolder extends RecyclerView.ViewHolder{
 
 
         public UserViewHolder(@NonNull View itemView) {
@@ -129,7 +143,7 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
 
     }
-    public class OtherViewHolder extends RecyclerView.ViewHolder{
+    public static class OtherViewHolder extends RecyclerView.ViewHolder{
 
         private View mView;
 
@@ -160,6 +174,36 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             }
         }
 
+
+
+
+    }
+
+    public static class BotViewHolder extends RecyclerView.ViewHolder{
+
+
+        public BotViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+        }
+        public void setText(String userID, final String state){
+
+            final TextView botText = itemView.findViewById(R.id.chatBot_tv);
+            FirebaseFirestore.getInstance().collection("Users").document(userID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    String username = documentSnapshot.get("username").toString();
+
+                    if (state.equals("nf_joined")) {
+                        botText.setText(username + " has joined the lobby.");
+                    }
+                    else if (state.equals("nf_leave")){
+                        botText.setText(username + " has left the lobby.");
+                    }
+
+                }
+            });
+        }
 
     }
 

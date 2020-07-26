@@ -42,7 +42,7 @@ public class Splash extends AppCompatActivity {
         String timeRN = time.format(currentTime);
         int timeINT = Integer.parseInt(timeRN);
 
-        if (!(0<=timeINT && timeINT<=3) || (timeINT<=24 && timeINT>=20)) {
+        if ((0<=timeINT && timeINT<=3) || (timeINT<=24 && timeINT>=20)) {
             final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
             if (currentUser != null) {
                 toHome();
@@ -59,10 +59,6 @@ public class Splash extends AppCompatActivity {
         Intent mainIntent = new Intent(Splash.this, MainActivity.class);
         Splash.this.startActivity(mainIntent);
         Splash.this.finish();
-    }
-
-    private void toVerify(){
-
     }
 
     private void toLogin(){

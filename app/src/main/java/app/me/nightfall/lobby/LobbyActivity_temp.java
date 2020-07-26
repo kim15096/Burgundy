@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -208,6 +209,12 @@ public class LobbyActivity_temp extends AppCompatActivity {
                 .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
+                        final ProgressDialog exitLoading = new ProgressDialog(LobbyActivity_temp.this, R.style.dialogTheme); // this = YourActivity
+                        exitLoading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        exitLoading.setIndeterminate(true);
+                        exitLoading.setMessage("Exiting lobby...");
+                        exitLoading.setCanceledOnTouchOutside(false);
+                        exitLoading.show();
 
                         firestore.collection("Users").document(firebaseUser.getUid()).update("inLobby", "").addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -215,7 +222,21 @@ public class LobbyActivity_temp extends AppCompatActivity {
                                 firestore.collection("Lobbies").document(firebaseUser.getUid()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        lobby_back(null);
+
+                                        final Map<String, Object> leaveChat = new HashMap<>();
+                                        leaveChat.put("senderID", "bot");
+                                        leaveChat.put("username", firebaseUser.getUid());
+                                        leaveChat.put("message", "nf_leave");
+                                        leaveChat.put("timestamp", FieldValue.serverTimestamp());
+
+                                        firestore.collection("Lobbies").document(lobbyID)
+                                                .collection("Chat").document().set(leaveChat).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                lobby_back(null);
+                                                exitLoading.dismiss();
+                                            }
+                                        });
                                     }
                                 });
                             }

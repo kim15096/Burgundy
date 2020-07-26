@@ -85,9 +85,21 @@ public class AddLobbyActivity extends AppCompatActivity {
 
                                 db.collection("Users").document(firebaseUser.getUid()).update("inLobby", lobbyID);
 
-                                Intent mainIntent = new Intent(AddLobbyActivity.this, LobbyActivity_temp.class);
-                                AddLobbyActivity.this.startActivity(mainIntent);
-                                AddLobbyActivity.this.finish();
+                                final Map<String, Object> createlobby = new HashMap<>();
+                                createlobby.put("senderID", "bot");
+                                createlobby.put("username", firebaseUser.getUid());
+                                createlobby.put("message", "nf_joined");
+                                createlobby.put("timestamp", FieldValue.serverTimestamp());
+
+                                db.collection("Lobbies").document(firebaseUser.getUid()).collection("Chat").document().set(createlobby).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Intent mainIntent = new Intent(AddLobbyActivity.this, LobbyActivity_temp.class);
+                                        AddLobbyActivity.this.startActivity(mainIntent);
+                                        AddLobbyActivity.this.finish();
+
+                                    }
+                                });
 
 
                     }
