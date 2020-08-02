@@ -52,7 +52,7 @@ public class LobbyFrag extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_lobby_frag, container, false);
 
-        exitLobbyBtn = view.findViewById(R.id.exitLobbyBtn);
+        exitLobbyBtn = view.findViewById(R.id.quitBtn);
         lobbyTitle_tv = view.findViewById(R.id.lobbyTitle_tv);
 
         db = FirebaseFirestore.getInstance();

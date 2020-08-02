@@ -10,7 +10,7 @@
     android:gravity="top"
     sothree:umanoDragView="@+id/dragView"
     sothree:umanoOverlay="true"
-    sothree:umanoPanelHeight="70dp"
+    sothree:umanoPanelHeight="65dp"
     sothree:umanoParallaxOffset="100dp"
     sothree:umanoScrollableView="@+id/list"
     sothree:umanoShadowHeight="0dp">
@@ -98,34 +98,13 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/btn_bg_3"
+            android:foreground="?attr/selectableItemBackground"
             android:text="Back to Lobby"
             android:textColor="@android:color/white"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <ImageView
-            android:id="@+id/account_btn"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="32dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_account_circle_24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/account_btn2"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="50dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_baseline_store_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -140,38 +119,45 @@
         <LinearLayout
             android:id="@+id/linearlayout"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="65dp"
             android:layout_gravity="center"
             android:background="@android:color/transparent"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="@id/dragView">
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/account_btn"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="24dp"
                 android:layout_weight="1"
-                android:text="TextView"
-                android:visibility="invisible" />
+                android:scaleType="center"
+                android:src="@drawable/ic_profile" />
 
             <Button
                 android:id="@+id/categoryBtn"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.8"
                 android:background="@drawable/category_bg"
+                android:drawableStart="@drawable/ic_category_12"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
+                android:includeFontPadding="false"
+                android:padding="16dp"
                 android:text="Category"
                 android:textAllCaps="false"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/shop_btn"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="24dp"
                 android:layout_weight="1"
-                android:text="TextView"
-                android:visibility="invisible" />
+                android:scaleType="center"
+                android:src="@drawable/ic_shop" />
 
         </LinearLayout>
 

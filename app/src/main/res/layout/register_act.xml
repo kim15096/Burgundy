@@ -27,7 +27,7 @@
         android:layout_marginTop="24dp"
         android:fontFamily="@font/montserrat"
         android:text="Create an Account"
-        android:textColor="@android:color/white"
+        android:textColor="@color/textColorGray"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageButton"

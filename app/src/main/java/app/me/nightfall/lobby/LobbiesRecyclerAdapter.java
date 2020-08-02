@@ -160,6 +160,8 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                                                         public void onSuccess(Void aVoid) {
                                                             Intent i1 = new Intent (context, LobbyActivity_temp.class);
                                                             context.startActivity(i1);
+                                                            pd.dismiss();
+
                                                         }
                                                     });
                                                 }
@@ -169,7 +171,7 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                                         }
 
                                     });
-                                    pd.dismiss();
+
                                 }
                             }, 1000);
 

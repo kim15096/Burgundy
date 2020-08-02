@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginTop="24dp"
-        app:colonColor="#FFFFFF"
+        app:colonColor="@color/textColorGray"
         app:digitBackground="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
         app:showDays="false"
         app:showHours="true"
         app:start_automatically="true"
-        app:textColor="#FFFFFF"
+        app:textColor="@color/textColorGray"
         app:textSize="20sp" />
 
     <TextView
@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CLOSED"
-        android:textColor="@android:color/white"
+        android:textColor="@color/textColorGray"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -62,7 +62,7 @@
         android:background="@drawable/btn_bg"
         android:text="Enter Nightfall"
         android:textAllCaps="false"
-        android:textColor="@android:color/white"
+        android:textColor="@color/textColorGray"
         android:textSize="15sp"
         android:textStyle="bold"
         android:visibility="visible"
@@ -110,8 +110,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:text="Hello kskkim!"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
+        android:textColor="@color/textColorGray"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/enterBtn"
         app:layout_constraintEnd_toEndOf="@+id/enterBtn"
         app:layout_constraintStart_toStartOf="@+id/enterBtn" />

@@ -1,5 +1,6 @@
 package app.me.nightfall.home;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -56,6 +58,7 @@ import app.me.nightfall.lobby.LobbiesRecyclerAdapter;
 import app.me.nightfall.lobby.LobbyActivity_temp;
 import app.me.nightfall.lobby.LobbyPostModel;
 import app.me.nightfall.lobby.LobbyFrag;
+import app.me.nightfall.login.Splash;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -215,10 +218,18 @@ public class MainActivity extends AppCompatActivity {
         account_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mainIntent = new Intent(MainActivity.this, ProfileActivity.class);
-                MainActivity.this.startActivity(mainIntent);
-                overridePendingTransition(R.anim.slide_in_left,0);
-
+                new AlertDialog.Builder(MainActivity.this, R.style.dialogTheme)
+                        .setTitle("Options")
+                        .setPositiveButton("Sign Out", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                firebaseAuth.signOut();
+                                Intent mainIntent = new Intent(MainActivity.this, Splash.class);
+                                MainActivity.this.startActivity(mainIntent);
+                                finishAffinity();
+                            }
+                        })
+                        .setNegativeButton("Stay", null)
+                        .show();
             }
         });
 

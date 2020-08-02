@@ -9,6 +9,7 @@
     <color name="darkerBG">#1f1f1f  </color>
     <color name="Gray">#4f555c</color>
     <color name="textColor">#E5DA9A</color>
+    <color name="textColorGray">#EBEBEB</color>
     <color name="bg1">#EB363447</color>
     <color name="gray1">#514E61</color>
     <color name="gray2">#8E8B9B</color>

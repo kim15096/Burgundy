@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -160,7 +161,6 @@ public class LobbyActivity_temp extends AppCompatActivity {
             });
         }
         });
-
 
 
         
