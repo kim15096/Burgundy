@@ -74,8 +74,6 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         View AdView = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_recycler_ad, parent, false);
 
 
-        hostIcon = MainView.findViewById(R.id.lobby_hostIcon);
-
         if (viewType == VIEW_TYPES.Normal){
             return new ViewHolder0(MainView);
         }

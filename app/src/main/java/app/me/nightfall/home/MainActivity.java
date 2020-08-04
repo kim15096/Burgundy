@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private FloatingActionButton create_fab;
-    private ImageView account_btn, hostIcon;
+    private ImageView account_btn, shopBtn;
     private FirebaseFirestore db;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
-        hostIcon = findViewById(R.id.lobby_hostIcon);
+        shopBtn = findViewById(R.id.shop_btn);
 
 
 
@@ -145,7 +145,20 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
+                if (newState == SlidingUpPanelLayout.PanelState.DRAGGING){
+                    shopBtn.setVisibility(View.INVISIBLE);
+                    account_btn.setVisibility(View.INVISIBLE);
 
+                }
+                else if (newState == SlidingUpPanelLayout.PanelState.EXPANDED){
+                    account_btn.setVisibility(View.INVISIBLE);
+                    shopBtn.setVisibility(View.INVISIBLE);
+
+                }
+                else {
+                    account_btn.setVisibility(View.VISIBLE);
+                    shopBtn.setVisibility(View.VISIBLE);
+                }
             }
         });
 

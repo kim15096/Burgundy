@@ -44,7 +44,7 @@ public class AddLobbyActivity extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         MaterialSpinner spinner = findViewById(R.id.categorySpinner);
-        spinner.setItems("Relationship", "Family", "Career", "Social", "School", "Health", "AMA", "Sexy Talk");
+        spinner.setItems("Relationship", "Family", "Career", "Social", "School", "Health", "AMA", "Miscellaneous");
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {

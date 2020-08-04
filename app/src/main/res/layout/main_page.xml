@@ -138,7 +138,7 @@
                 android:id="@+id/categoryBtn"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.8"
+                android:layout_weight="1.65"
                 android:background="@drawable/category_bg"
                 android:drawableStart="@drawable/ic_category_12"
                 android:foreground="?attr/selectableItemBackground"
@@ -164,9 +164,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/colorPrimaryDark"
-            app:layout_constraintBottom_toTopOf="@id/linearlayout"
+            android:background="#0A0A1A"
             android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/linearlayout"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.cardview.widget.CardView
