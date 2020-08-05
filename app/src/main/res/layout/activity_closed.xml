@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         app:colonColor="@color/textColorGray"
         app:digitBackground="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,15 +42,15 @@
         android:id="@+id/closed_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CLOSED"
         android:textColor="@color/textColorGray"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.25"
+        tools:text="Closed" />
 
     <Button
         android:id="@+id/enterBtn"
@@ -82,6 +82,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/easyCountDownTextview"
+        app:layout_constraintVertical_bias="0.35"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/fire_animation"
@@ -109,11 +110,23 @@
         android:id="@+id/closed_helloTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:text="Hello kskkim!"
         android:textColor="@color/textColorGray"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/enterBtn"
         app:layout_constraintStart_toStartOf="@+id/enterBtn" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Logout"
+        android:textColor="@color/textColorGray"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/enterBtn"
+        app:layout_constraintEnd_toEndOf="@+id/enterBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

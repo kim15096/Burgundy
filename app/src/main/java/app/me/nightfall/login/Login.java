@@ -1,10 +1,15 @@
 package app.me.nightfall.login;
 
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +38,21 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.welcome_page);
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+        VideoView view = findViewById(R.id.videoView);
+        String path = "android.resource://" + getPackageName() + "/" + R.raw.login_bg;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            view.setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE);
+        }
+        view.setVideoURI(Uri.parse(path));
+        view.start();
+
+        view.setOnPreparedListener (new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setLooping(true);
+            }
+        });
 
     }
 
@@ -91,4 +111,24 @@ public class Login extends AppCompatActivity {
                 });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        VideoView view = findViewById(R.id.videoView);
+        String path = "android.resource://" + getPackageName() + "/" + R.raw.login_bg;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            view.setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE);
+        }
+        view.setVideoURI(Uri.parse(path));
+        view.start();
+
+        view.setOnPreparedListener (new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setLooping(true);
+            }
+        });
+
+    }
 }

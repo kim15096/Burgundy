@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:fitsSystemWindows="true"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_login_bg_2">
+    android:fitsSystemWindows="true">
 
     <ImageButton
         android:id="@+id/imageButton2"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:background="@android:color/transparent"
@@ -18,15 +17,18 @@
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_arrow_back_24dp" />
+        app:srcCompat="@drawable/ic_back" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="45dp"
-        android:background="@drawable/btn_bg"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="42dp"
+        android:background="@drawable/btn_bg_3"
         android:elevation="0dp"
+        android:foreground="?attr/selectableItemBackground"
         android:onClick="loginBtn"
         android:stateListAnimator="@null"
         android:text="Login"
@@ -34,10 +36,9 @@
         android:textColor="@color/textColorGray"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/login_pass"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/login_pass" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_pass" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/login_email"
@@ -84,12 +85,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
         android:text="Welcome Back"
         android:textColor="@color/textColorGray"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
         app:layout_constraintStart_toEndOf="@+id/imageButton2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/imageButton2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

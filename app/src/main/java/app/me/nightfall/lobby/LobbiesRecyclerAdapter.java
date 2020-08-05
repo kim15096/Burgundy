@@ -99,9 +99,11 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
                 final String title = lobbyList.get(position).getTitle();
                 final String category = lobbyList.get(position).getCategory();
+                String count = lobbyList.get(position).getCount().toString();
 
                 viewHolder0.setTitle(title);
                 viewHolder0.setCategory(category);
+                viewHolder0.setCount(count);
 
                 viewHolder0.joinBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -208,6 +210,12 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         public void setCategory(String text){
             TextView category = mView.findViewById(R.id.post_category);
             category.setText(text);
+        }
+
+        public void setCount(String count){
+            TextView lobbyCount = mView.findViewById(R.id.lobby_count);
+            String text = count + "/4";
+            lobbyCount.setText(text);
         }
 
     }

@@ -142,6 +142,7 @@ public class LobbyActivity_temp extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
+            if (!chat_et.getText().toString().equals("")){
             String msg = chat_et.getText().toString();
 
             final Map<String, Object> chat = new HashMap<>();
@@ -159,7 +160,7 @@ public class LobbyActivity_temp extends AppCompatActivity {
 
                 }
             });
-        }
+        }}
         });
 
 

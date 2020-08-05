@@ -8,6 +8,12 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -33,15 +39,15 @@ public class Closed extends AppCompatActivity {
         final TextView closedTv = findViewById(R.id.closed_tv);
         final FrameLayout frameLayout = findViewById(R.id.closed_dimFrame);
 
-        closedTv.setText("CLOSED");
+        closedTv.setText("Opens in ...");
         frameLayout.setVisibility(View.VISIBLE);
 
         enterButton.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
         enterButton.setEnabled(false);
         enterButton.setTextColor(Color.GRAY);
 
-        EasyCountDownTextview countDownTextview = findViewById(R.id.easyCountDownTextview);
-        countDownTextview.setTime(0, 0, 0, 5);
+        final EasyCountDownTextview countDownTextview = findViewById(R.id.easyCountDownTextview);
+        countDownTextview.setTime(0, 0, 0, 3);
         countDownTextview.startTimer();
         countDownTextview.setOnTick(new CountDownInterface() {
             @Override
@@ -54,7 +60,9 @@ public class Closed extends AppCompatActivity {
                 enterButton.setEnabled(true);
                 enterButton.setTextColor(Color.WHITE);
                 frameLayout.setVisibility(View.INVISIBLE);
-                closedTv.setText("OPENED");
+                closedTv.setText("Come Tell Your Stories");
+                FadeOut(countDownTextview);
+                TranslateDown(closedTv);
             }
         });
 
@@ -82,5 +90,30 @@ public class Closed extends AppCompatActivity {
         Intent mainIntent = new Intent(Closed.this, Login.class);
         Closed.this.startActivity(mainIntent);
         Closed.this.finish();
+    }
+
+    private void FadeOut(EasyCountDownTextview view){
+
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setInterpolator(new AccelerateInterpolator()); //and this
+        fadeOut.setStartOffset(100);
+        fadeOut.setDuration(500);
+
+        view.setAnimation(fadeOut);
+        view.setVisibility(View.INVISIBLE);
+    }
+
+    private void TranslateDown(TextView view){
+
+        Animation down = new TranslateAnimation(TranslateAnimation.RELATIVE_TO_SELF, 0f,
+                TranslateAnimation.RELATIVE_TO_SELF, 0f,
+                TranslateAnimation.RELATIVE_TO_SELF, 0f,
+                TranslateAnimation.RELATIVE_TO_SELF, 2f);
+        down.setInterpolator(new DecelerateInterpolator()); //and this
+        down.setStartOffset(100);
+        down.setDuration(1000);
+        down.setFillAfter(true);
+
+        view.setAnimation(down);
     }
 }

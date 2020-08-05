@@ -38,7 +38,7 @@
 
     <style name="SplashTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowFullscreen">true</item>
-        <item name="android:background">@drawable/ic_login_bg_2</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
