@@ -12,9 +12,9 @@
         android:id="@+id/lobbyTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="50dp"
         android:background="@drawable/et_bg"
         android:ems="10"
         android:hint="Lobby Title"
@@ -28,7 +28,7 @@
         app:met_baseColor="@color/lightGray"
         app:met_floatingLabel="highlight"
         app:met_primaryColor="@android:color/white"
-        app:met_textColor="#FFFFFF"
+        app:met_textColor="@color/textColorGray"
         app:met_textColorHint="@color/lightGray"
         app:met_underlineColor="@color/lightGray" />
 
@@ -68,16 +68,32 @@
     <com.jaredrummler.materialspinner.MaterialSpinner
         android:id="@+id/categorySpinner"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="32dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/lobbyTitle"
         app:layout_constraintStart_toStartOf="@+id/lobbyTitle"
-        app:layout_constraintTop_toBottomOf="@+id/lobbyTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
         app:ms_arrow_tint="@android:color/white"
         app:ms_background_color="@color/bg1"
-        app:ms_hint="Category..."
-        app:ms_hint_color="@android:color/white"
-        app:ms_text_color="@android:color/white" />
+        app:ms_hint="Choose Category"
+        app:ms_hint_color="@color/lightGray"
+        app:ms_text_color="@color/textColorGray" />
+
+    <com.jaredrummler.materialspinner.MaterialSpinner
+        android:id="@+id/langSpinner"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/lobbyTitle"
+        app:layout_constraintStart_toStartOf="@+id/lobbyTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:ms_arrow_tint="@android:color/white"
+        app:ms_background_color="@color/bg1"
+        app:ms_hint="Choose Language"
+        app:ms_hint_color="@color/lightGray"
+        app:ms_text_color="@color/textColorGray" />
 
     <TextView
         android:id="@+id/createlobby_title"
@@ -90,4 +106,24 @@
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/createlobby_back"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Language"
+        android:textColor="@color/textColorGray"
+        app:layout_constraintStart_toStartOf="@+id/categorySpinner"
+        app:layout_constraintTop_toBottomOf="@+id/categorySpinner" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Category"
+        android:textColor="@color/textColorGray"
+        app:layout_constraintStart_toStartOf="@+id/categorySpinner"
+        app:layout_constraintTop_toBottomOf="@+id/lobbyTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

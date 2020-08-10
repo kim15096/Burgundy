@@ -40,6 +40,7 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private ImageView hostIcon;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
+    public static Integer playerPos = 0;
 
 
 
@@ -134,12 +135,15 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
                                             if (lobbyList.get(position).getP1_ID().equals("")){
                                                 db.collection("Lobbies").document(lobbyList.get(position).getLobbyID()).update("p1_ID", userID);
+                                                playerPos = 1;
                                             }
                                             else if (lobbyList.get(position).getP2_ID().equals("")){
                                                 db.collection("Lobbies").document(lobbyList.get(position).getLobbyID()).update("p2_ID", userID);
+                                                playerPos = 2;
                                             }
                                             else if (lobbyList.get(position).getP3_ID().equals("")){
                                                 db.collection("Lobbies").document(lobbyList.get(position).getLobbyID()).update("p3_ID", userID);
+                                                playerPos = 3;
                                             }
 
                                             final Map<String, Object> joinLobby = new HashMap<>();
@@ -215,6 +219,7 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         public void setCount(String count){
             TextView lobbyCount = mView.findViewById(R.id.lobby_count);
             String text = count + "/4";
+
             lobbyCount.setText(text);
         }
 

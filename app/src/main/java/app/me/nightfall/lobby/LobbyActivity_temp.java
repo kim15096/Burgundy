@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.animation.Animator;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +22,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.airbnb.lottie.Cancellable;
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieComposition;
+import com.airbnb.lottie.LottieCompositionFactory;
+import com.airbnb.lottie.LottieOnCompositionLoadedListener;
+import com.airbnb.lottie.LottieResult;
+import com.airbnb.lottie.OnCompositionLoadedListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -61,13 +69,24 @@ public class LobbyActivity_temp extends AppCompatActivity {
     private List<ChatPostModel> a;
 
     private VideoView view;
+    private MediaPlayer mediaPlayer;
+    private LottieResult<LottieComposition> lottieResult1;
+    private LottieResult<LottieComposition> lottieResult2;
 
     private ImageView sendBtn;
+    private LottieAnimationView ch1, ch2;
+    private LottieComposition composition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_lobby_frag);
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.sound);
+        mediaPlayer.setLooping(true); // Set looping
+        mediaPlayer.setVolume(25, 25);
+        mediaPlayer.
+        mediaPlayer.start();
 
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -77,6 +96,9 @@ public class LobbyActivity_temp extends AppCompatActivity {
         title_tv = findViewById(R.id.lobbyTitle_tv);
         sendBtn = findViewById(R.id.msg_sendBtn);
         chat_et = findViewById(R.id.chat_et);
+
+        ch1 = findViewById(R.id.ch1);
+        ch2 = findViewById(R.id.ch2);
 
         view = findViewById(R.id.lobby_bg_video);
         String path = "android.resource://" + getPackageName() + "/" + R.raw.chat_bg;
@@ -92,6 +114,68 @@ public class LobbyActivity_temp extends AppCompatActivity {
                 mp.setLooping(true);
             }
         });
+
+        // Animation
+
+        ch1.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+
+                lottieResult1 = LottieCompositionFactory.fromRawResSync(getBaseContext(), R.raw.ch1_idle);
+                ch1.clearAnimation();
+                ch1.setComposition(lottieResult1.getValue());
+                ch1.playAnimation();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+
+        ch2.addAnimatorListener(new Animator.AnimatorListener() {
+         @Override
+         public void onAnimationStart(Animator animator) {
+
+         }
+
+         @Override
+         public void onAnimationEnd(Animator animator) {
+
+             lottieResult2 = LottieCompositionFactory.fromRawResSync(getBaseContext(), R.raw.ch2_idle);
+             ch2.clearAnimation();
+             ch2.setComposition(lottieResult2.getValue());
+             ch2.playAnimation();
+         }
+
+         @Override
+         public void onAnimationCancel(Animator animator) {
+
+         }
+
+         @Override
+         public void onAnimationRepeat(Animator animator) {
+
+         }
+     });
+
+
+
+
+
+
+
+
 
 
         //user details
@@ -158,8 +242,11 @@ public class LobbyActivity_temp extends AppCompatActivity {
                 @Override
                 public void onSuccess(Void aVoid) {
 
+                    AnimateChat(LobbiesRecyclerAdapter.playerPos);
+
                 }
             });
+
         }}
         });
 
@@ -196,6 +283,8 @@ public class LobbyActivity_temp extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        mediaPlayer.start();
+
         firestore.collection("Users").document(firebaseUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -218,6 +307,14 @@ public class LobbyActivity_temp extends AppCompatActivity {
                 }
             });
 
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        mediaPlayer.pause();
     }
 
     public void exitLobby(final View view){
@@ -274,7 +371,7 @@ public class LobbyActivity_temp extends AppCompatActivity {
                                                         .collection("Chat").document().set(leaveChat).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
-                                                        lobby_back(null);
+                                                        quitLobby();
                                                         exitLoading.dismiss();
                                                     }
                                                 });
@@ -293,13 +390,54 @@ public class LobbyActivity_temp extends AppCompatActivity {
 
     }
 
-    public void lobby_back(View view){
-        super.onBackPressed();
+    public void quitLobby(){
+        Intent mainIntent = new Intent(LobbyActivity_temp.this, MainActivity.class);
+        startActivity(mainIntent);
+        finishAffinity();
 
     }
 
+    public void lobby_back(View view){
+        Intent mainIntent = new Intent(LobbyActivity_temp.this, MainActivity.class);
+        startActivityIfNeeded(mainIntent, 0);
+
+    }
+
+    public void AnimateChat(Integer pos){
+        switch (pos){
+            case 0:
+                ch1.clearAnimation();
+                lottieResult2 = LottieCompositionFactory.fromRawResSync(getBaseContext(), R.raw.ch1_admire);
+                ch1.setComposition(lottieResult2.getValue());
+                ch1.playAnimation();
+                break;
+
+            case 1:
 
 
 
+                break;
 
+
+            case 2:
+
+
+                break;
+
+            default:
+                ch1.clearAnimation();
+                lottieResult2 = LottieCompositionFactory.fromRawResSync(getBaseContext(), R.raw.ch1_admire);
+                ch1.setComposition(lottieResult2.getValue());
+                ch1.playAnimation();
+                break;
+
+
+
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        lobby_back(null);
+    }
 }

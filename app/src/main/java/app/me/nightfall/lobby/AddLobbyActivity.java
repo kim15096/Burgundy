@@ -29,7 +29,7 @@ public class AddLobbyActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private FirebaseUser firebaseUser;
     private Long lobbyCount;
-    private String category;
+    private String category, lang;
 
 
     @Override
@@ -52,6 +52,15 @@ public class AddLobbyActivity extends AppCompatActivity {
             }
         });
 
+        MaterialSpinner langSpinner = findViewById(R.id.langSpinner);
+        langSpinner.setItems("English", "Chinese", "Korean", "Spanish", "Japanese");
+        langSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+
+            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                lang = item;
+            }
+        });
+
 
     }
 
@@ -71,6 +80,7 @@ public class AddLobbyActivity extends AppCompatActivity {
         createLobby.put("p1_ID", "");
         createLobby.put("p2_ID", "");
         createLobby.put("p3_ID", "");
+        createLobby.put("lang", lang);
         createLobby.put("timestamp", timestamp);
         createLobby.put("count", 1);
         createLobby.put("category", category);

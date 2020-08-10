@@ -107,7 +107,7 @@
         android:id="@+id/fire_animation"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="40dp"
         android:elevation="0dp"
         android:scaleType="center"
         android:visibility="visible"
@@ -118,13 +118,29 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/fire_animation"
         app:lottie_scale="0.15"
+        app:lottie_speed="1" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/ch2"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="55dp"
+        android:elevation="0dp"
+        android:scaleType="center"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/chat_recycler"
+        app:layout_constraintStart_toStartOf="@+id/ch1"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/ch2_enter"
+        app:lottie_scale="0.1"
         app:lottie_speed="0.75" />
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/ch1_pop"
+        android:id="@+id/ch1"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="24dp"
         android:elevation="0dp"
         android:scaleType="center"
@@ -154,7 +170,7 @@
         android:id="@+id/button4"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
         android:background="@drawable/ic_back"
         android:onClick="lobby_back"
         app:layout_constraintBottom_toBottomOf="@+id/quitBtn"
@@ -187,9 +203,9 @@
         android:text="kskkim"
         android:textColor="@color/textColorGray"
         android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@+id/ch1_pop"
-        app:layout_constraintEnd_toEndOf="@+id/ch1_pop"
-        app:layout_constraintStart_toStartOf="@+id/ch1_pop" />
+        app:layout_constraintBottom_toBottomOf="@+id/ch1"
+        app:layout_constraintEnd_toEndOf="@+id/ch1"
+        app:layout_constraintStart_toStartOf="@+id/ch1" />
 
     <TextView
         android:id="@+id/hostName2"
@@ -198,9 +214,9 @@
         android:text="lpa"
         android:textColor="@color/textColorGray"
         android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintBottom_toBottomOf="@+id/ch2"
+        app:layout_constraintEnd_toEndOf="@+id/ch2"
+        app:layout_constraintStart_toStartOf="@+id/ch2" />
 
     <TextView
         android:id="@+id/hostName3"
@@ -223,16 +239,6 @@
         app:layout_constraintEnd_toEndOf="@+id/imageView6"
         app:layout_constraintStart_toStartOf="@+id/imageView6"
         app:layout_constraintTop_toBottomOf="@+id/imageView6" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="75dp"
-        android:layout_marginBottom="52dp"
-        app:layout_constraintBottom_toTopOf="@+id/lobbyTitle_tv"
-        app:layout_constraintStart_toStartOf="@+id/ch1_pop"
-        app:srcCompat="@drawable/ic_ch2" />
 
     <ImageView
         android:id="@+id/imageView5"

@@ -330,7 +330,7 @@ public class MainActivity extends AppCompatActivity {
        });
        Intent mainIntent = new Intent(MainActivity.this, LobbyActivity_temp.class);
        mainIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-       startActivity(mainIntent);
+       startActivityIfNeeded(mainIntent, 0);
 
 
 
