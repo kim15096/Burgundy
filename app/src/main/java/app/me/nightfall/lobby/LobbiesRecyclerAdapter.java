@@ -7,14 +7,11 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -122,7 +119,7 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                         else {
 
                             final ProgressDialog pd = new ProgressDialog(context, R.style.dialogTheme);
-                            pd.setMessage("Joining lobby...");
+                            pd.setMessage("Joining lobby");
                             pd.setCancelable(false);
                             pd.show();
 
@@ -162,7 +159,7 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                                                     db.collection("Lobbies").document(lobbyList.get(position).getLobbyID()).collection("Chat").document().set(joinLobby).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
-                                                            Intent i1 = new Intent (context, LobbyActivity_temp.class);
+                                                            Intent i1 = new Intent (context, LobbyActivity.class);
                                                             context.startActivity(i1);
                                                             pd.dismiss();
 

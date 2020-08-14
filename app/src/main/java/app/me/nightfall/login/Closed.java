@@ -1,5 +1,6 @@
 package app.me.nightfall.login;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -18,8 +19,11 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
 
@@ -30,14 +34,46 @@ import ir.samanjafari.easycountdowntimer.EasyCountDownTextview;
 
 public class Closed extends AppCompatActivity {
 
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_closed);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+
         final Button enterButton = findViewById(R.id.enterBtn);
         final TextView closedTv = findViewById(R.id.closed_tv);
+        final TextView userTV = findViewById(R.id.closed_usernameTV);
         final FrameLayout frameLayout = findViewById(R.id.closed_dimFrame);
+        final TextView logBtn = findViewById(R.id.logBtn);
+
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user!=null){
+
+                    FirebaseFirestore.getInstance().collection("Users").document(user.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            String displayName = documentSnapshot.get("username").toString();
+                            userTV.setText("Welcome " + displayName + "!");
+                            enterButton.setText("Enter Nightfall");
+                            logBtn.setText("Logout");
+                        }
+                    });
+
+                }
+
+                else {
+                    enterButton.setText("Register");
+                    userTV.setText("");
+                    logBtn.setText("Login");
+                }
+            }
+        };
 
         closedTv.setText("Opens in ...");
         frameLayout.setVisibility(View.VISIBLE);
@@ -58,11 +94,25 @@ public class Closed extends AppCompatActivity {
             public void onFinish() {
                 enterButton.getBackground().setColorFilter(null);
                 enterButton.setEnabled(true);
-                enterButton.setTextColor(Color.WHITE);
+                enterButton.setTextColor(getResources().getColor(R.color.textColorGray));
                 frameLayout.setVisibility(View.INVISIBLE);
                 closedTv.setText("Come Tell Your Stories");
                 FadeOut(countDownTextview);
                 TranslateDown(closedTv);
+            }
+        });
+
+        logBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (logBtn.getText().equals("Login")){
+                    Intent mainIntent = new Intent(Closed.this, LoginPage.class);
+                    Closed.this.startActivity(mainIntent);
+                }
+                else {
+                    firebaseAuth.signOut();
+                }
+
             }
         });
 
@@ -73,11 +123,31 @@ public class Closed extends AppCompatActivity {
                 if (currentUser != null) {
                     toHome();
                 } else {
-                    toLogin();
+                    Intent mainIntent = new Intent(Closed.this, Register.class);
+                    Closed.this.startActivity(mainIntent);
                 }
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        firebaseAuth.addAuthStateListener(authStateListener);
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        firebaseAuth.removeAuthStateListener(authStateListener);
     }
 
     private void toHome(){

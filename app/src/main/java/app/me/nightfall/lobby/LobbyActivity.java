@@ -16,30 +16,25 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.airbnb.lottie.Cancellable;
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieComposition;
 import com.airbnb.lottie.LottieCompositionFactory;
-import com.airbnb.lottie.LottieOnCompositionLoadedListener;
 import com.airbnb.lottie.LottieResult;
-import com.airbnb.lottie.OnCompositionLoadedListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
@@ -51,7 +46,7 @@ import java.util.Map;
 import app.me.nightfall.R;
 import app.me.nightfall.home.MainActivity;
 
-public class LobbyActivity_temp extends AppCompatActivity {
+public class LobbyActivity extends AppCompatActivity {
 
     private FirebaseFirestore firestore;
     private FirebaseAuth firebaseAuth;
@@ -82,10 +77,12 @@ public class LobbyActivity_temp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_lobby_frag);
 
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+
         mediaPlayer = MediaPlayer.create(this, R.raw.sound);
         mediaPlayer.setLooping(true); // Set looping
-        mediaPlayer.setVolume(25, 25);
-        mediaPlayer.
+        mediaPlayer.setVolume(10, 10);
         mediaPlayer.start();
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -233,6 +230,7 @@ public class LobbyActivity_temp extends AppCompatActivity {
             chat.put("senderID", senderID);
             chat.put("username", username);
             chat.put("message", msg);
+            chat.put("position", LobbiesRecyclerAdapter.playerPos);
             chat.put("timestamp", FieldValue.serverTimestamp());
 
             chat_et.setText("");
@@ -242,7 +240,6 @@ public class LobbyActivity_temp extends AppCompatActivity {
                 @Override
                 public void onSuccess(Void aVoid) {
 
-                    AnimateChat(LobbiesRecyclerAdapter.playerPos);
 
                 }
             });
@@ -266,9 +263,7 @@ public class LobbyActivity_temp extends AppCompatActivity {
                         chatRecyclerAdapter.notifyDataSetChanged();
                         chat_recycler.smoothScrollToPosition(a.size()-1);
 
-                    }
-
-                    if (doc.getType() == DocumentChange.Type.REMOVED){
+                        AnimateChat(chatPost.getPosition());
 
                     }
                 }
@@ -325,7 +320,7 @@ public class LobbyActivity_temp extends AppCompatActivity {
                 .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
-                        final ProgressDialog exitLoading = new ProgressDialog(LobbyActivity_temp.this, R.style.dialogTheme); // this = YourActivity
+                        final ProgressDialog exitLoading = new ProgressDialog(LobbyActivity.this, R.style.dialogTheme); // this = YourActivity
                         exitLoading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                         exitLoading.setIndeterminate(true);
                         exitLoading.setMessage("Exiting lobby...");
@@ -391,14 +386,14 @@ public class LobbyActivity_temp extends AppCompatActivity {
     }
 
     public void quitLobby(){
-        Intent mainIntent = new Intent(LobbyActivity_temp.this, MainActivity.class);
+        Intent mainIntent = new Intent(LobbyActivity.this, MainActivity.class);
         startActivity(mainIntent);
         finishAffinity();
 
     }
 
     public void lobby_back(View view){
-        Intent mainIntent = new Intent(LobbyActivity_temp.this, MainActivity.class);
+        Intent mainIntent = new Intent(LobbyActivity.this, MainActivity.class);
         startActivityIfNeeded(mainIntent, 0);
 
     }
@@ -407,7 +402,7 @@ public class LobbyActivity_temp extends AppCompatActivity {
         switch (pos){
             case 0:
                 ch1.clearAnimation();
-                lottieResult2 = LottieCompositionFactory.fromRawResSync(getBaseContext(), R.raw.ch1_admire);
+                lottieResult2 = LottieCompositionFactory.fromRawResSync(getBaseContext(), R.raw.ch1_talk);
                 ch1.setComposition(lottieResult2.getValue());
                 ch1.playAnimation();
                 break;

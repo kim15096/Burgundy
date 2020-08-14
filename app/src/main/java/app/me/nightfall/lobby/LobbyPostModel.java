@@ -6,18 +6,19 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LobbyPostModel {
 
-    public String lobbyID, title, category, hostID, p1_ID, p2_ID, p3_ID;
+    public String lobbyID, title, category, hostID, p1_ID, p2_ID, p3_ID, lang;
     public Object timestamp;
     public Long count;
 
     public LobbyPostModel() {
     }
 
-    public LobbyPostModel(String category, String hostID, Object timestamp, String lobbyID, String title, String p1_ID, String p2_ID, String p3_ID, Long count) {
+    public LobbyPostModel(String category, String hostID, Object timestamp, String lobbyID, String title, String p1_ID, String p2_ID, String p3_ID, Long count, String lang) {
         this.hostID = hostID;
         this.category = category;
         this.timestamp = timestamp;
         this.title = title;
+        this.lang = lang;
         this.lobbyID = lobbyID;
         this.p1_ID = p1_ID;
         this.p2_ID = p2_ID;
@@ -69,6 +70,10 @@ public class LobbyPostModel {
 
     public Long getCount() {
         return count;
+    }
+
+    public String getLang(){
+        return lang;
     }
 
 

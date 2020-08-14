@@ -47,7 +47,7 @@ public class Splash extends AppCompatActivity {
             if (currentUser != null) {
                 toHome();
             } else {
-                toLogin();
+                toClosed();
             }
         }
         else {

@@ -8,14 +8,16 @@ public class ChatPostModel {
 
     public String message, senderID, username;
     public Date timestamp;
+    public Long position;
 
     public ChatPostModel() {
     }
 
 
 
-    public ChatPostModel(String message, String senderID, Timestamp timestamp, String username) {
+    public ChatPostModel(String message, String senderID, Timestamp timestamp, String username, Long position) {
         this.message = message;
+        this.position = position;
         this.senderID = senderID;
         this.timestamp = timestamp.toDate();
         this.username = username;
@@ -35,6 +37,10 @@ public class ChatPostModel {
 
     public String getUsername() {
         return username;
+    }
+
+    public Integer getPosition() {
+        return position.intValue();
     }
 
 

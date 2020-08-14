@@ -9,10 +9,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.jaredrummler.materialspinner.MaterialSpinner;
@@ -29,7 +27,7 @@ public class AddLobbyActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private FirebaseUser firebaseUser;
     private Long lobbyCount;
-    private String category, lang;
+    private String category = "", lang;
 
 
     @Override
@@ -54,6 +52,7 @@ public class AddLobbyActivity extends AppCompatActivity {
 
         MaterialSpinner langSpinner = findViewById(R.id.langSpinner);
         langSpinner.setItems("English", "Chinese", "Korean", "Spanish", "Japanese");
+        langSpinner.setSelectedIndex(0);
         langSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
@@ -68,52 +67,66 @@ public class AddLobbyActivity extends AppCompatActivity {
     public void createLobby(final View view){
         final String lobby_title = title.getText().toString();
 
-        final FieldValue timestamp = FieldValue.serverTimestamp();
+        if (lobby_title.trim().isEmpty()){
+            Toast.makeText(this, "Please choose a title", Toast.LENGTH_SHORT).show();
 
-        final String id = db.collection("Lobbies").document().getId();
+        }
 
+        else if (category.equals("")){
+            Toast.makeText(this, "Please choose a category", Toast.LENGTH_SHORT).show();
+        }
 
-        Map<String, Object> createLobby = new HashMap<>();
-        createLobby.put("title", lobby_title);
-        createLobby.put("hostID", firebaseUser.getUid());
-        createLobby.put("lobbyID", id);
-        createLobby.put("p1_ID", "");
-        createLobby.put("p2_ID", "");
-        createLobby.put("p3_ID", "");
-        createLobby.put("lang", lang);
-        createLobby.put("timestamp", timestamp);
-        createLobby.put("count", 1);
-        createLobby.put("category", category);
-
-        db.collection("Lobbies").document(id).set(createLobby).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-
-                MainActivity.openLobby = true;
-                //MainActivity.inLobby = true;
+        else {
 
 
-                db.collection("Users").document(firebaseUser.getUid()).update("inLobby",  id);
+            final FieldValue timestamp = FieldValue.serverTimestamp();
 
-                final Map<String, Object> createlobby = new HashMap<>();
-                createlobby.put("senderID", "bot");
-                createlobby.put("username", firebaseUser.getUid());
-                createlobby.put("message", "nf_joined");
-                createlobby.put("timestamp", FieldValue.serverTimestamp());
-
-                db.collection("Lobbies").document(firebaseUser.getUid()).collection("Chat").document().set(createlobby).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Intent mainIntent = new Intent(AddLobbyActivity.this, LobbyActivity_temp.class);
-                        AddLobbyActivity.this.startActivity(mainIntent);
-                        AddLobbyActivity.this.finish();
-
-                    }
-                });
+            final String id = db.collection("Lobbies").document().getId();
 
 
-            }
-        });
+            final Map<String, Object> createLobby = new HashMap<>();
+            createLobby.put("title", lobby_title);
+            createLobby.put("hostID", firebaseUser.getUid());
+            createLobby.put("lobbyID", id);
+            createLobby.put("p1_ID", "");
+            createLobby.put("p2_ID", "");
+            createLobby.put("p3_ID", "");
+            createLobby.put("lang", lang);
+            createLobby.put("timestamp", timestamp);
+            createLobby.put("count", 1);
+            createLobby.put("category", category);
+
+            db.collection("Lobbies").document(id).set(createLobby).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+
+                    MainActivity.openLobby = true;
+                    //MainActivity.inLobby = true;
+
+
+                    db.collection("Users").document(firebaseUser.getUid()).update("inLobby", id);
+
+                    final Map<String, Object> createlobby = new HashMap<>();
+                    createlobby.put("senderID", "joined");
+                    createlobby.put("username", firebaseUser.getUid());
+                    createlobby.put("message", "");
+                    createlobby.put("position", LobbiesRecyclerAdapter.playerPos);
+                    createlobby.put("timestamp", FieldValue.serverTimestamp());
+
+                    db.collection("Lobbies").document(firebaseUser.getUid()).collection("Chat").document().set(createlobby).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Intent mainIntent = new Intent(AddLobbyActivity.this, LobbyActivity.class);
+                            AddLobbyActivity.this.startActivity(mainIntent);
+                            AddLobbyActivity.this.finish();
+
+                        }
+                    });
+
+
+                }
+            });
+        }
     }
 
     public void createlobby_back(View view){

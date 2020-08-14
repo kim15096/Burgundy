@@ -14,7 +14,7 @@
         <activity android:name=".login.Closed" android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".lobby.LobbyActivity_temp"
+            android:name=".lobby.LobbyActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ProfileActivity" />

@@ -8,35 +8,20 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.DragEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.slidingpanelayout.widget.SlidingPaneLayout;
-import androidx.transition.Transition;
-import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
@@ -52,12 +37,10 @@ import java.util.List;
 
 import app.me.nightfall.R;
 
-import app.me.nightfall.ProfileActivity;
 import app.me.nightfall.lobby.AddLobbyActivity;
 import app.me.nightfall.lobby.LobbiesRecyclerAdapter;
-import app.me.nightfall.lobby.LobbyActivity_temp;
+import app.me.nightfall.lobby.LobbyActivity;
 import app.me.nightfall.lobby.LobbyPostModel;
-import app.me.nightfall.lobby.LobbyFrag;
 import app.me.nightfall.login.Splash;
 
 public class MainActivity extends AppCompatActivity {
@@ -81,17 +64,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
-
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
-
-        /*ConstraintLayout pullTab = findViewById(R.id.dragView);
-        ViewGroup.LayoutParams params = pullTab.getLayoutParams();
-        params.height = height* 3/4;
-        params.width = width;
-        pullTab.setLayoutParams(params);*/
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -328,7 +300,7 @@ public class MainActivity extends AppCompatActivity {
                inLobby = lobbyID;
            }
        });
-       Intent mainIntent = new Intent(MainActivity.this, LobbyActivity_temp.class);
+       Intent mainIntent = new Intent(MainActivity.this, LobbyActivity.class);
        mainIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
        startActivityIfNeeded(mainIntent, 0);
 

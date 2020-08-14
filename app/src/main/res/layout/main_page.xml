@@ -165,17 +165,36 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:background="#0A0A1A"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@id/linearlayout"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.cardview.widget.CardView
+            <TextView
+                android:id="@+id/textView11"
                 android:layout_width="match_parent"
-                android:layout_height="150dp">
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:visibility="visible" />
 
-            </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Coming soon!"
+                android:textColor="@color/textColorGray"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:visibility="visible" />
 
         </LinearLayout>
 
