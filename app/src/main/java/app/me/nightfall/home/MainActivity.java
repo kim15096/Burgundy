@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView lobby_recycler;
     private LobbiesRecyclerAdapter recyclerAdapter;
     private Button toLobbyBtn, category;
-    public static String inLobby = "";
-    public static Boolean openLobby = false;
+
+    public static String inLobbyID = "";
     private SlidingUpPanelLayout slidingUpPanelLayout;
 
     @Override
@@ -75,10 +75,23 @@ public class MainActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        db.collection("Users").document(firebaseUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection("Users").document(firebaseUser.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                String displayName = documentSnapshot.get("username").toString();
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                if (documentSnapshot != null && documentSnapshot.exists()) {
+                    inLobbyID = documentSnapshot.get("inLobby").toString();
+
+                    if (inLobbyID != ""){
+                        create_fab.hide();
+                        toLobbyBtn.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        create_fab.show();
+                        toLobbyBtn.setVisibility(View.INVISIBLE);
+                    }
+
+
+                }
             }
         });
 
@@ -94,16 +107,7 @@ public class MainActivity extends AppCompatActivity {
        db.collection("Users").document(firebaseUser.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                inLobby = documentSnapshot.get("inLobby").toString();
 
-                if (inLobby != ""){
-                    create_fab.hide();
-                    toLobbyBtn.setVisibility(View.VISIBLE);
-                }
-                else{
-                    create_fab.show();
-                    toLobbyBtn.setVisibility(View.INVISIBLE);
-                }
 
             }
         });
@@ -169,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if (doc.getType() == DocumentChange.Type.ADDED) {
 
-                        indexList.add(0, doc.getDocument().get("hostID").toString());
+                        indexList.add(0, doc.getDocument().get("p1_ID").toString());
                         lobbyList.add(0, lobbyPost);
                         recyclerAdapter.notifyItemInserted(0);
                         recyclerAdapter.notifyDataSetChanged();
@@ -179,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     if (doc.getType() == DocumentChange.Type.REMOVED){
-                        Number index = indexList.indexOf(doc.getDocument().get("hostID").toString());
+                        Number index = indexList.indexOf(doc.getDocument().get("p1_ID").toString());
                         indexList.remove((int) index);
                         lobbyList.remove((int)index);
                         recyclerAdapter.notifyDataSetChanged();
@@ -187,6 +191,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        if (!inLobbyID.equals("")) {
+
+            db.collection("Lobbies").document(inLobbyID).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                }
+            });
+        }
 
 
 
@@ -292,14 +305,6 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
    public void backtoLobby(){
-
-       db.collection("Users").document(firebaseUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-           @Override
-           public void onSuccess(DocumentSnapshot documentSnapshot) {
-               String lobbyID = documentSnapshot.get("inLobby").toString();
-               inLobby = lobbyID;
-           }
-       });
        Intent mainIntent = new Intent(MainActivity.this, LobbyActivity.class);
        mainIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
        startActivityIfNeeded(mainIntent, 0);

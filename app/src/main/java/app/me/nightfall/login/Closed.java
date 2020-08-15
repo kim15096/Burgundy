@@ -75,7 +75,7 @@ public class Closed extends AppCompatActivity {
             }
         };
 
-        closedTv.setText("Opens in ...");
+        closedTv.setText("Zzz");
         frameLayout.setVisibility(View.VISIBLE);
 
         enterButton.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);

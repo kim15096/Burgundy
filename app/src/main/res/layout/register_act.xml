@@ -50,8 +50,7 @@
         app:met_baseColor="@color/lightGray"
         app:met_floatingLabel="highlight"
         app:met_textColor="@color/textColorGray"
-        app:met_textColorHint="@color/lightGray"
-        app:met_underlineColor="@color/lightGray" />
+        app:met_textColorHint="@color/lightGray" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/register_username"
@@ -69,8 +68,7 @@
         app:met_baseColor="@color/lightGray"
         app:met_floatingLabel="highlight"
         app:met_textColor="@color/textColorGray"
-        app:met_textColorHint="@color/lightGray"
-        app:met_underlineColor="@color/lightGray" />
+        app:met_textColorHint="@color/lightGray" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/register_password"
@@ -90,8 +88,7 @@
         app:met_baseColor="@color/lightGray"
         app:met_floatingLabel="highlight"
         app:met_textColor="@color/textColorGray"
-        app:met_textColorHint="@color/lightGray"
-        app:met_underlineColor="@color/lightGray" />
+        app:met_textColorHint="@color/lightGray" />
 
     <Button
         android:id="@+id/register_btn"

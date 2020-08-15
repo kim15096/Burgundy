@@ -199,10 +199,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/hostName"
+        android:id="@+id/user1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="kskkim"
         android:textColor="@color/textColorGray"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/ch1"
@@ -210,10 +209,9 @@
         app:layout_constraintStart_toStartOf="@+id/ch1" />
 
     <TextView
-        android:id="@+id/hostName2"
+        android:id="@+id/user2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="lpa"
         android:textColor="@color/textColorGray"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/ch2"
@@ -221,7 +219,7 @@
         app:layout_constraintStart_toStartOf="@+id/ch2" />
 
     <TextView
-        android:id="@+id/hostName3"
+        android:id="@+id/user3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="bosonX"
@@ -232,7 +230,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
     <TextView
-        android:id="@+id/hostName4"
+        android:id="@+id/user4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="xelovex"
@@ -244,8 +242,8 @@
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="52dp"
         app:layout_constraintBottom_toTopOf="@+id/lobbyTitle_tv"
@@ -254,11 +252,11 @@
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/lobbyTitle_tv"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/chat_recycler"
         app:layout_constraintStart_toEndOf="@+id/fire_animation"
         app:srcCompat="@drawable/ic_ch4" />
 

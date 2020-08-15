@@ -69,15 +69,20 @@ public class Register extends AppCompatActivity {
                                                    userInfo.put("username", username);
                                                    userInfo.put("inLobby", "");
 
+
                                                    FirebaseFirestore.getInstance().collection("Users").document(userID).set(userInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                        @Override
                                                        public void onComplete(@NonNull Task<Void> task) {
                                                            if (task.isSuccessful()){
-                                                               Log.d("e", "complete writing to database");
-                                                               Intent mainIntent = new Intent(Register.this, MainActivity.class);
-                                                               Register.this.startActivity(mainIntent);
-                                                               Register.this.finish();
-                                                               finishAffinity();
+                                                               UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                                                       .setDisplayName(username).build();
+
+                                                               firebaseUser.updateProfile(profileUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                   @Override
+                                                                   public void onSuccess(Void aVoid) {
+                                                                       onBackPressed();
+                                                                   }
+                                                               });
                                                            }
                                                        }
                                                    });

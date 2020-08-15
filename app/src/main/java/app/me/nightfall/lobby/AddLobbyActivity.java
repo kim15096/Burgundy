@@ -52,13 +52,14 @@ public class AddLobbyActivity extends AppCompatActivity {
 
         MaterialSpinner langSpinner = findViewById(R.id.langSpinner);
         langSpinner.setItems("English", "Chinese", "Korean", "Spanish", "Japanese");
-        langSpinner.setSelectedIndex(0);
         langSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 lang = item;
             }
         });
+
+        langSpinner.setSelectedIndex(0);
 
 
     }
@@ -86,11 +87,11 @@ public class AddLobbyActivity extends AppCompatActivity {
 
             final Map<String, Object> createLobby = new HashMap<>();
             createLobby.put("title", lobby_title);
-            createLobby.put("hostID", firebaseUser.getUid());
             createLobby.put("lobbyID", id);
-            createLobby.put("p1_ID", "");
+            createLobby.put("p1_ID", firebaseUser.getDisplayName());
             createLobby.put("p2_ID", "");
             createLobby.put("p3_ID", "");
+            createLobby.put("p4_ID", "");
             createLobby.put("lang", lang);
             createLobby.put("timestamp", timestamp);
             createLobby.put("count", 1);
@@ -100,20 +101,20 @@ public class AddLobbyActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(Void aVoid) {
 
-                    MainActivity.openLobby = true;
+                    MainActivity.inLobbyID = id;
                     //MainActivity.inLobby = true;
 
 
                     db.collection("Users").document(firebaseUser.getUid()).update("inLobby", id);
 
                     final Map<String, Object> createlobby = new HashMap<>();
-                    createlobby.put("senderID", "joined");
+                    createlobby.put("senderID", "bot");
                     createlobby.put("username", firebaseUser.getUid());
-                    createlobby.put("message", "");
+                    createlobby.put("message", "joined");
                     createlobby.put("position", LobbiesRecyclerAdapter.playerPos);
                     createlobby.put("timestamp", FieldValue.serverTimestamp());
 
-                    db.collection("Lobbies").document(firebaseUser.getUid()).collection("Chat").document().set(createlobby).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    db.collection("Lobbies").document(id).collection("Chat").document().set(createlobby).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Intent mainIntent = new Intent(AddLobbyActivity.this, LobbyActivity.class);

@@ -201,10 +201,10 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     String username = documentSnapshot.get("username").toString();
 
-                    if (state.equals("nf_joined")) {
+                    if (state.equals("joined")) {
                         botText.setText(username + " has joined the lobby.");
                     }
-                    else if (state.equals("nf_leave")){
+                    else if (state.equals("left")){
                         botText.setText(username + " has left the lobby.");
                     }
 

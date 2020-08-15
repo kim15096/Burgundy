@@ -45,10 +45,7 @@ public class LoginPage extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Intent mainIntent = new Intent(LoginPage.this, MainActivity.class);
-                            LoginPage.this.startActivity(mainIntent);
-                            LoginPage.this.finish();
-                            finishAffinity();
+                            onBackPressed();
 
                         }
                     }

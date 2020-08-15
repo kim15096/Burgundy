@@ -52,7 +52,7 @@ public class LobbyActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private String lobbyID, hostID, username, senderID;
-    private TextView title_tv;
+    private TextView title_tv, user1, user2, user3, user4;
     private AlertDialog alertDialog;
     private EditText chat_et;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -90,9 +90,19 @@ public class LobbyActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
         chat_recycler = findViewById(R.id.chat_recycler);
 
+        username  = firebaseUser.getDisplayName();
+
         title_tv = findViewById(R.id.lobbyTitle_tv);
         sendBtn = findViewById(R.id.msg_sendBtn);
         chat_et = findViewById(R.id.chat_et);
+
+        user1 =findViewById(R.id.user1);
+        user2 =findViewById(R.id.user2);
+        user3 =findViewById(R.id.user3);
+        user4 =findViewById(R.id.user4);
+
+
+
 
         ch1 = findViewById(R.id.ch1);
         ch2 = findViewById(R.id.ch2);
@@ -178,21 +188,31 @@ public class LobbyActivity extends AppCompatActivity {
         //user details
         senderID = firebaseUser.getUid();
 
-        firestore.collection("Users").document(firebaseUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                lobbyID = documentSnapshot.get("inLobby").toString();
-                username = documentSnapshot.get("username").toString();
+        if (!MainActivity.inLobbyID.equals("")){
+            firestore.collection("Lobbies").document(MainActivity.inLobbyID).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                    String lobbyTitle = documentSnapshot.get("title").toString();
+                    String user_1 = documentSnapshot.get("p1_ID").toString();
+                    String user_2 = documentSnapshot.get("p2_ID").toString();
+                    String user_3 = documentSnapshot.get("p3_ID").toString();
+                    String user_4 = documentSnapshot.get("p4_ID").toString();
 
-                firestore.collection("Lobbies").document(lobbyID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        String lobbyTitle = documentSnapshot.get("title").toString();
-                        title_tv.setText(lobbyTitle);
-                    }
-                });
-            }
-        });
+
+                    title_tv.setText(lobbyTitle);
+
+                    user1.setText(user_1);
+                    user2.setText((user_2));
+                    user3.setText((user_3));
+                    user4.setText((user_4));
+
+
+                }
+            });
+        }
+
+
+
 
 
 
@@ -250,7 +270,7 @@ public class LobbyActivity extends AppCompatActivity {
 
         
 
-        firestore.collection("Lobbies").document(MainActivity.inLobby).collection("Chat").orderBy("timestamp").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        firestore.collection("Lobbies").document(MainActivity.inLobbyID).collection("Chat").orderBy("timestamp").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
@@ -341,15 +361,22 @@ public class LobbyActivity extends AppCompatActivity {
                                                 String p1 = documentSnapshot.get("p1_ID").toString();
                                                 String p2 = documentSnapshot.get("p2_ID").toString();
                                                 String p3 = documentSnapshot.get("p3_ID").toString();
+                                                String p4 = documentSnapshot.get("p3_ID").toString();
 
-                                                if (p1.equals(firebaseUser.getUid())){
+
+                                                String username = firebaseUser.getDisplayName();
+                                                if (p1.equals(username)){
                                                     firestore.collection("Lobbies").document(lobbyID).update("p1_ID", "");
                                                 }
-                                                else if (p2.equals(firebaseUser.getUid())){
+                                                else if (p2.equals(username)){
                                                     firestore.collection("Lobbies").document(lobbyID).update("p2_ID", "");
                                                 }
-                                                else if (p3.equals(firebaseUser.getUid())){
+                                                else if (p3.equals(username)){
                                                     firestore.collection("Lobbies").document(lobbyID).update("p3_ID", "");
+                                                }
+
+                                                else if (p4.equals(username)){
+                                                    firestore.collection("Lobbies").document(lobbyID).update("p4_ID", "");
                                                 }
 
                                                 if (count >= 1) {
@@ -359,7 +386,8 @@ public class LobbyActivity extends AppCompatActivity {
                                                 final Map<String, Object> leaveChat = new HashMap<>();
                                                 leaveChat.put("senderID", "bot");
                                                 leaveChat.put("username", firebaseUser.getUid());
-                                                leaveChat.put("message", "nf_leave");
+                                                leaveChat.put("message", "left");
+                                                leaveChat.put("position", LobbiesRecyclerAdapter.playerPos);
                                                 leaveChat.put("timestamp", FieldValue.serverTimestamp());
 
                                                 firestore.collection("Lobbies").document(lobbyID)
