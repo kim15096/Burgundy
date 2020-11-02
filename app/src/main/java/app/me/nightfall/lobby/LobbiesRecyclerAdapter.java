@@ -43,9 +43,8 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
 
 
-    public LobbiesRecyclerAdapter(List<LobbyPostModel> lobbyList, MainActivity mainActivity){
+    public LobbiesRecyclerAdapter(List<LobbyPostModel> lobbyList){
         this.lobbyList = lobbyList;
-        this.mainActivity = mainActivity;
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -72,14 +71,10 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         context = parent.getContext();
 
         View MainView = LayoutInflater.from(parent.getContext()).inflate(R.layout.lobby_recycler_card, parent, false);
-        View AdView = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_recycler_ad, parent, false);
 
 
         if (viewType == VIEW_TYPES.Normal){
             return new ViewHolder0(MainView);
-        }
-        else if(viewType == VIEW_TYPES.Ads){
-            return new ViewHolderAds(AdView);
         }
         else{
             return new ViewHolder0(MainView);
@@ -104,7 +99,6 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
                 viewHolder0.setTitle(title);
                 viewHolder0.setCategory(category);
-                viewHolder0.setCount(count);
 
                 viewHolder0.joinBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -218,13 +212,6 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         public void setCategory(String text){
             TextView category = mView.findViewById(R.id.post_category);
             category.setText(text);
-        }
-
-        public void setCount(String count){
-            TextView lobbyCount = mView.findViewById(R.id.lobby_count);
-            String text = count + "/4";
-
-            lobbyCount.setText(text);
         }
 
     }

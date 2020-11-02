@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".login.Login">
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/username_et"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/et_bg"
+        android:ems="10"
+        android:hint="Choose a nickname"
+        android:inputType="textEmailAddress"
+        android:padding="6dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/enterBtn"
+        app:layout_constraintStart_toStartOf="@+id/enterBtn"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:met_baseColor="@color/lightGray"
+        app:met_floatingLabel="highlight"
+        app:met_textColor="@color/textColorGray"
+        app:met_textColorHint="@color/lightGray" />
+
+    <ir.samanjafari.easycountdowntimer.EasyCountDownTextview
+        android:id="@+id/easyCountDownTextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        app:colonColor="@color/textColorGray"
+        app:digitBackground="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:setAnimation="true"
+        app:showDays="false"
+        app:showHours="true"
+        app:start_automatically="true"
+        app:textColor="@color/textColorGray"
+        app:textSize="20sp"
+        tools:layout_editor_absoluteY="224dp" />
+
+    <Button
+        android:id="@+id/enterBtn"
+        android:layout_width="275dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/btn_bg_3"
+        android:foreground="?attr/selectableItemBackground"
+        android:text="Enter Nightstory"
+        android:textAllCaps="false"
+        android:textColor="@color/textColorGray"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username_et" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/fire_animation2"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="16dp"
+        android:alpha="0.8"
+        android:elevation="0dp"
+        android:scaleType="center"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/fire_animation"
+        app:lottie_scale="0.15"
+        app:lottie_speed="0.75" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15"
+        app:srcCompat="@drawable/ic_character" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

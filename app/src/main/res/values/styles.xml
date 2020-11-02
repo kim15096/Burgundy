@@ -62,5 +62,12 @@
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:layout_width">200dp</item>
     </style>
-v
+
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/textColorGray</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
 </resources>

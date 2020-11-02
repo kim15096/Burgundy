@@ -11,13 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".login.Closed" android:screenOrientation="portrait">
+        <activity android:name=".login.Login" android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".lobby.LobbyActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ProfileActivity" />
         <activity android:name=".lobby.AddLobbyActivity" />
         <activity
             android:name=".login.Splash"
@@ -28,9 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.Login" />
-        <activity android:name=".login.LoginPage" />
-        <activity android:name=".login.Register" />
+
         <service android:name=".lobby.BackgroundSoundService" />
         <activity
             android:name=".home.MainActivity"
