@@ -51,7 +51,7 @@ public class LobbyActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private String lobbyID, hostID, username, senderID;
-    private TextView lobby_title, host_name;
+    private TextView lobby_title, host_name, cur_views;
     private AlertDialog alertDialog;
     private EditText chat_et;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -72,6 +72,8 @@ public class LobbyActivity extends AppCompatActivity {
     private LottieAnimationView ch1, ch2;
     private LottieComposition composition;
     private Boolean emojipop = false;
+    private Long cur_view;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +90,7 @@ public class LobbyActivity extends AppCompatActivity {
         sendBtn = findViewById(R.id.msg_sendBtn);
         chat_et = findViewById(R.id.chat_et);
         ch1 = findViewById(R.id.ch1);
+        cur_views = findViewById(R.id.cur_views_tv);
 
 
 
@@ -116,9 +119,12 @@ public class LobbyActivity extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 String lobbyTitle = documentSnapshot.get("title").toString();
                 String hostName = documentSnapshot.get("hostName").toString();
+                cur_view = documentSnapshot.getLong("cur_views");
 
                 host_name.setText(hostName);
                 lobby_title.setText(lobbyTitle);
+                cur_views.setText(cur_view.toString());
+
 
 
 
@@ -344,13 +350,6 @@ public class LobbyActivity extends AppCompatActivity {
 
     }*/
 
-    public void quitLobby(View view){
-        Intent mainIntent = new Intent(LobbyActivity.this, MainActivity.class);
-        startActivity(mainIntent);
-        finishAffinity();
-
-    }
-
     public void lobby_back(View view){
         onBackPressed();
 
@@ -421,6 +420,9 @@ public class LobbyActivity extends AppCompatActivity {
                         firestore.collection("Users").document(firebaseUser.getUid()).update("inLobby", "").addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
+
+                                Long curView = cur_view - 1;
+                                firestore.collection("Lobbies").document(MainActivity.inLobbyID).update("cur_views", curView);
                                 LobbyActivity.super.onBackPressed();
                             }
                         });

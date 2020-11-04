@@ -124,7 +124,7 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                                                     cur_views = cur_views + 1;
 
                                                     db.collection("Lobbies").document(lobbyID).update("tot_views", tot_views);
-                                                    db.collection("Lobbies").document(lobbyID).update("tot_views", cur_views);
+                                                    db.collection("Lobbies").document(lobbyID).update("cur_views", cur_views);
 
                                                     MainActivity.inLobbyID = lobbyID;
                                                     Intent i1 = new Intent (context, LobbyActivity.class);

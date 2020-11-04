@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,12 +31,21 @@ public class Splash extends AppCompatActivity {
         int timeINT = Integer.parseInt(timeRN);
 
 
+
         final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if (currentUser != null) {
-            toHome();
-        } else {
-            toClosed();
-        }
+
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+
+                if (currentUser != null) {
+                    toHome();
+                } else {
+                    toClosed();
+                }
+
+            }}, 1000);
 
         /*if ((0<=timeINT && timeINT<=4) || (timeINT<=24 && timeINT>=20)) {
             final FirebaseUser currentUser = firebaseAuth.getCurrentUser();

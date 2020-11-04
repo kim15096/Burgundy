@@ -55,7 +55,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="12dp"
-                android:background="@drawable/et_bg"
+                android:background="@drawable/emoji_bg"
                 android:ems="10"
                 android:hint="Type here"
                 android:inputType="textShortMessage|textMultiLine|textPersonName|textCapSentences"
@@ -79,12 +79,12 @@
                 app:layout_constraintBottom_toBottomOf="@+id/chat_et"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/chat_et"
-                app:srcCompat="@drawable/ic_send_color" />
+                app:srcCompat="@drawable/ic_pencil" />
 
             <ImageView
                 android:id="@+id/emoji_btn"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_marginStart="16dp"
                 android:alpha="0.9"
                 android:onClick="emojiBtn"
@@ -132,7 +132,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0.2dp"
-        android:alpha="0.5"
+        android:alpha="0.65"
         android:background="@color/textColor"
         app:layout_constraintBottom_toTopOf="@+id/story_recycler"
         tools:layout_editor_absoluteX="46dp">
@@ -160,9 +160,9 @@
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:layout_marginEnd="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView2"
-        app:layout_constraintEnd_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toBottomOf="@+id/cur_views_tv"
+        app:layout_constraintEnd_toStartOf="@+id/cur_views_tv"
+        app:layout_constraintTop_toTopOf="@+id/cur_views_tv"
         app:srcCompat="@drawable/ic_person" />
 
     <Button
@@ -191,23 +191,23 @@
         app:layout_constraintTop_toTopOf="@+id/button4" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/cur_views_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:text="500"
         android:textColor="@color/textColorGray"
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/button4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button4" />
+        app:layout_constraintTop_toTopOf="@+id/button4"
+        tools:text="5" />
 
     <FrameLayout
         android:id="@+id/frameLayout2"
         android:layout_width="match_parent"
         android:layout_height="0.2dp"
-        android:alpha="0.5"
+        android:alpha="0.65"
         android:background="@color/textColor"
         app:layout_constraintTop_toBottomOf="@+id/story_recycler"
         tools:layout_editor_absoluteX="46dp">
@@ -228,7 +228,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/emojiPanel"
         android:layout_width="160dp"
-        android:layout_height="200dp"
+        android:layout_height="210dp"
         android:background="@drawable/emoji_bg"
         android:elevation="8dp"
         android:visibility="gone"
@@ -241,9 +241,9 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            android:background="@drawable/btn_bg_3"
+            android:background="@drawable/emoji_bg"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="AnimateLaugh"
             android:paddingLeft="16dp"
@@ -265,7 +265,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
-            android:background="@drawable/btn_bg_3"
+            android:background="@drawable/emoji_bg"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="AnimateTired"
             android:paddingLeft="16dp"
@@ -288,7 +288,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
-            android:background="@drawable/btn_bg_3"
+            android:background="@drawable/emoji_bg"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="AnimateAdmire"
             android:paddingLeft="16dp"
@@ -311,7 +311,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
-            android:background="@drawable/btn_bg_3"
+            android:background="@drawable/emoji_bg"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="AnimateSad"
             android:paddingLeft="16dp"
