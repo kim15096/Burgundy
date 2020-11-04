@@ -88,13 +88,12 @@ public class AddLobbyActivity extends AppCompatActivity {
             final Map<String, Object> createLobby = new HashMap<>();
             createLobby.put("title", lobby_title);
             createLobby.put("lobbyID", id);
-            createLobby.put("p1_ID", firebaseUser.getDisplayName());
-            createLobby.put("p2_ID", "");
-            createLobby.put("p3_ID", "");
-            createLobby.put("p4_ID", "");
+            createLobby.put("hostID", firebaseUser.getUid());
+            createLobby.put("hostName", MainActivity.nickname);
             createLobby.put("lang", lang);
             createLobby.put("timestamp", timestamp);
-            createLobby.put("count", 1);
+            createLobby.put("tot_views", 1);
+            createLobby.put("cur_views", 1);
             createLobby.put("category", category);
 
             db.collection("Lobbies").document(id).set(createLobby).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -102,27 +101,17 @@ public class AddLobbyActivity extends AppCompatActivity {
                 public void onSuccess(Void aVoid) {
 
                     MainActivity.inLobbyID = id;
-                    //MainActivity.inLobby = true;
+                    //MainActivity.inLobby = true
 
-
-                    db.collection("Users").document(firebaseUser.getUid()).update("inLobby", id);
-
-                    final Map<String, Object> createlobby = new HashMap<>();
-                    createlobby.put("senderID", "bot");
-                    createlobby.put("username", firebaseUser.getUid());
-                    createlobby.put("message", "joined");
-                    createlobby.put("position", LobbiesRecyclerAdapter.playerPos);
-                    createlobby.put("timestamp", FieldValue.serverTimestamp());
-
-                    db.collection("Lobbies").document(id).collection("Chat").document().set(createlobby).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    db.collection("Users").document(firebaseUser.getUid()).update("inLobby", id).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Intent mainIntent = new Intent(AddLobbyActivity.this, LobbyActivity.class);
                             AddLobbyActivity.this.startActivity(mainIntent);
                             AddLobbyActivity.this.finish();
-
                         }
                     });
+
 
 
                 }

@@ -1,6 +1,5 @@
 package app.me.nightfall.lobby;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,25 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.Timestamp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.sql.Time;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import app.me.nightfall.R;
 
-public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class StoryRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    public List<ChatPostModel> chatList;
+    public List<StoryPostModel> chatList;
 
 
-    public ChatRecyclerAdapter(List<ChatPostModel> chatList){
+    public StoryRecyclerAdapter(List<StoryPostModel> chatList){
         this.chatList = chatList;
 
     }
@@ -43,17 +33,9 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public int getItemViewType(int position) {
-        if (chatList.get(position).getSenderID().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+
             return VIEW_TYPES.User;
-        }
 
-        else if (chatList.get(position).getSenderID().equals("bot")) {
-            return VIEW_TYPES.Bot;
-        }
-        else {
-            return VIEW_TYPES.Other;
-
-        }
     }
 
     @NonNull
@@ -61,18 +43,14 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View UserView = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_recycler_user, parent, false);
+        View UserView = LayoutInflater.from(parent.getContext()).inflate(R.layout.story_recycler_post, parent, false);
         View OtherView = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_recycler_other, parent, false);
-        View BotView = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_recycler_bot, parent, false);
 
         if (viewType == VIEW_TYPES.User){
             return new UserViewHolder(UserView);
         }
-        else if(viewType == VIEW_TYPES.Other){
+        else {
             return new OtherViewHolder(OtherView);
-        }
-        else{
-            return new BotViewHolder(BotView);
         }
 
     }
@@ -85,7 +63,7 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             case VIEW_TYPES.User:
                 UserViewHolder userViewHolder = (UserViewHolder) holder;
 
-                String message = chatList.get(position).getMessage();
+                String message = chatList.get(position).getText();
                 userViewHolder.setMessage(message);
 
 
@@ -94,7 +72,7 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             case VIEW_TYPES.Other:
                 OtherViewHolder otherViewHolder = (OtherViewHolder) holder;
 
-                String message_other = chatList.get(position).getMessage();
+                String message_other = chatList.get(position).getText();
                 String sender_other = chatList.get(position).getUsername();
 
                 if (position!=0) {
@@ -112,12 +90,6 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 }
                 otherViewHolder.setMessage(message_other);
 
-                break;
-
-            case VIEW_TYPES.Bot:
-                BotViewHolder botViewHolder = (BotViewHolder) holder;
-
-                botViewHolder.setText(chatList.get(position).getUsername(), chatList.get(position).getMessage());
                 break;
 
 
@@ -186,32 +158,5 @@ public class    ChatRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     }
 
-    public static class BotViewHolder extends RecyclerView.ViewHolder{
-
-
-        public BotViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-        }
-        public void setText(String userID, final String state){
-
-            final TextView botText = itemView.findViewById(R.id.chatBot_tv);
-            FirebaseFirestore.getInstance().collection("Users").document(userID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    String username = documentSnapshot.get("username").toString();
-
-                    if (state.equals("joined")) {
-                        botText.setText(username + " has joined the lobby.");
-                    }
-                    else if (state.equals("left")){
-                        botText.setText(username + " has left the lobby.");
-                    }
-
-                }
-            });
-        }
-
-    }
 
 }

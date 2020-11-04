@@ -1,6 +1,8 @@
 package app.me.nightfall.home;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -8,13 +10,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +38,7 @@ import app.me.nightfall.R;
 
 import app.me.nightfall.lobby.AddLobbyActivity;
 import app.me.nightfall.lobby.LobbiesRecyclerAdapter;
+import app.me.nightfall.lobby.LobbyActivity;
 import app.me.nightfall.lobby.LobbyPostModel;
 import app.me.nightfall.login.Login;
 
@@ -51,16 +58,22 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     public static String inLobbyID = "";
     private ViewPagerAdapter viewPagerAdapter;
+    private TextView username;
 
     private SlidingUpPanelLayout slidingUpPanelLayout;
+
+    public static String nickname = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
 
+        username = findViewById(R.id.username);
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabLayout);
+
+
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.setCurrentItem(0);
@@ -76,6 +89,31 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setTabTextColors(getResources().getColor(R.color.textColorGray),
                 getResources().getColor(R.color.colorPrimary));
 
+        tabLayout.getTabAt(tabLayout.getSelectedTabPosition()).getIcon().setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
+        tabLayout.addOnTabSelectedListener(
+                new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
+
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        super.onTabSelected(tab);
+                        int tabIconColor = ContextCompat.getColor(MainActivity.this, R.color.colorPrimary);
+                        tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+                    }
+
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
+                        super.onTabUnselected(tab);
+                        int tabIconColor = ContextCompat.getColor(MainActivity.this, R.color.textColorGray);
+                        tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+                    }
+
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+                        super.onTabReselected(tab);
+                    }
+                }
+        );
+
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -83,17 +121,33 @@ public class MainActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        create_fab = findViewById(R.id.create_fab);
+        db.collection("Users").document(firebaseUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                inLobbyID = documentSnapshot.get("inLobby").toString();
 
-        indexList =new ArrayList<>();
+                if (!inLobbyID.equals("")){
+                    Intent mainIntent = new Intent(MainActivity.this, LobbyActivity.class);
+                    MainActivity.this.startActivity(mainIntent);
+                }
+            }
+        });
 
-       db.collection("Users").document(firebaseUser.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        db.collection("Users").document(firebaseUser.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+
+                nickname = documentSnapshot.get("username").toString();
+                username.setText("Welcome " + nickname + "!");
 
 
             }
         });
+
+        create_fab = findViewById(R.id.create_fab);
+
+        indexList =new ArrayList<>();
+
 
 
         VideoView view = findViewById(R.id.videoView);
@@ -190,29 +244,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-   /* public void showLobby(View view){
-
-        Fragment lobbyFrag  = getSupportFragmentManager().findFragmentByTag("lobby");
-        if (lobbyFrag == null){
-
-            LobbyFrag newLobby = new LobbyFrag();
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.lobby_frag_container, newLobby, "lobby").replace(R.id.lobby_frag_container, newLobby).addToBackStack(null).commit();
-        }
-        else {
-            getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).show(lobbyFrag).addToBackStack(null).commit();
-        }
-
-        openLobby = false;
-
-
-    }*/
-
    public void signOut(View view){
-       firebaseAuth.signOut();
-       Intent mainIntent = new Intent(MainActivity.this, Login.class);
-       MainActivity.this.startActivity(mainIntent);
+
+       new AlertDialog.Builder(this, R.style.dialogTheme)
+               .setTitle("Rename your sparkling?")
+               .setPositiveButton("Yes!", new DialogInterface.OnClickListener() {
+                   public void onClick(DialogInterface dialog, int which) {
+                       firebaseAuth.signOut();
+                       Intent mainIntent = new Intent(MainActivity.this, Login.class);
+                       MainActivity.this.startActivity(mainIntent);
+                       MainActivity.this.finish();
+                   }
+               })
+
+               .setNegativeButton("No!", null)
+               .show();
    }
 
-}
+   }

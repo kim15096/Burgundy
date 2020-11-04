@@ -3,11 +3,11 @@ package app.me.nightfall.lobby;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.animation.Animator;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -16,7 +16,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -52,60 +51,50 @@ public class LobbyActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private String lobbyID, hostID, username, senderID;
-    private TextView title_tv, user1, user2, user3, user4;
+    private TextView lobby_title, host_name;
     private AlertDialog alertDialog;
     private EditText chat_et;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     private SimpleDateFormat dateFormatDay = new SimpleDateFormat("yyyy-MM-dd");
     private SimpleDateFormat dateFormatHour = new SimpleDateFormat("aa hh:mm");
 
-    private RecyclerView chat_recycler;
-    private ChatRecyclerAdapter chatRecyclerAdapter;
-    private List<ChatPostModel> a;
+    private RecyclerView story_recycler;
+    private StoryRecyclerAdapter storyRecyclerAdapter;
+    private List<StoryPostModel> a;
 
     private VideoView view;
     private MediaPlayer mediaPlayer;
     private LottieResult<LottieComposition> lottieResult1;
+    private ConstraintLayout emojiPopup;
     private LottieResult<LottieComposition> lottieResult2;
 
     private ImageView sendBtn;
     private LottieAnimationView ch1, ch2;
     private LottieComposition composition;
+    private Boolean emojipop = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_lobby_frag);
+        setContentView(R.layout.activity_lobby);
 
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        firebaseAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+
+        emojiPopup = findViewById(R.id.emojiPanel);
+        lobby_title = findViewById(R.id.lobby_title);
+        host_name = findViewById(R.id.host_name);
+        sendBtn = findViewById(R.id.msg_sendBtn);
+        chat_et = findViewById(R.id.chat_et);
+        ch1 = findViewById(R.id.ch1);
+
 
 
         mediaPlayer = MediaPlayer.create(this, R.raw.sound);
         mediaPlayer.setLooping(true); // Set looping
         mediaPlayer.setVolume(10, 10);
         mediaPlayer.start();
-
-        firebaseAuth = FirebaseAuth.getInstance();
-        firestore = FirebaseFirestore.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        chat_recycler = findViewById(R.id.chat_recycler);
-
-        username  = firebaseUser.getDisplayName();
-
-        title_tv = findViewById(R.id.lobbyTitle_tv);
-        sendBtn = findViewById(R.id.msg_sendBtn);
-        chat_et = findViewById(R.id.chat_et);
-
-        user1 =findViewById(R.id.user1);
-        user2 =findViewById(R.id.user2);
-        user3 =findViewById(R.id.user3);
-        user4 =findViewById(R.id.user4);
-
-
-
-
-        ch1 = findViewById(R.id.ch1);
-        ch2 = findViewById(R.id.ch2);
 
         view = findViewById(R.id.lobby_bg_video);
         String path = "android.resource://" + getPackageName() + "/" + R.raw.chat_bg;
@@ -122,7 +111,22 @@ public class LobbyActivity extends AppCompatActivity {
             }
         });
 
-        // Animation
+        firestore.collection("Lobbies").document(MainActivity.inLobbyID).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                String lobbyTitle = documentSnapshot.get("title").toString();
+                String hostName = documentSnapshot.get("hostName").toString();
+
+                host_name.setText(hostName);
+                lobby_title.setText(lobbyTitle);
+
+
+
+
+            }
+        });
+
+        story_recycler = findViewById(R.id.story_recycler);
 
         ch1.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
@@ -150,141 +154,68 @@ public class LobbyActivity extends AppCompatActivity {
             }
         });
 
-        ch2.addAnimatorListener(new Animator.AnimatorListener() {
-         @Override
-         public void onAnimationStart(Animator animator) {
-
-         }
-
-         @Override
-         public void onAnimationEnd(Animator animator) {
-
-             lottieResult2 = LottieCompositionFactory.fromRawResSync(getBaseContext(), R.raw.ch2_idle);
-             ch2.clearAnimation();
-             ch2.setComposition(lottieResult2.getValue());
-             ch2.playAnimation();
-         }
-
-         @Override
-         public void onAnimationCancel(Animator animator) {
-
-         }
-
-         @Override
-         public void onAnimationRepeat(Animator animator) {
-
-         }
-     });
-
-
-
-
-
-
-
-
-
-
-        //user details
-        senderID = firebaseUser.getUid();
-
-        if (!MainActivity.inLobbyID.equals("")){
-            firestore.collection("Lobbies").document(MainActivity.inLobbyID).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                @Override
-                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                    String lobbyTitle = documentSnapshot.get("title").toString();
-                    String user_1 = documentSnapshot.get("p1_ID").toString();
-                    String user_2 = documentSnapshot.get("p2_ID").toString();
-                    String user_3 = documentSnapshot.get("p3_ID").toString();
-                    String user_4 = documentSnapshot.get("p4_ID").toString();
-
-
-                    title_tv.setText(lobbyTitle);
-
-                    user1.setText(user_1);
-                    user2.setText((user_2));
-                    user3.setText((user_3));
-                    user4.setText((user_4));
-
-
-                }
-            });
-        }
-
-
-
-
-
-
-
-
-        //recycler setting up
-
+        // storyboard recycler
 
         a = new ArrayList();
-        chatRecyclerAdapter = new ChatRecyclerAdapter(a);
-        chat_recycler.setLayoutManager(new LinearLayoutManager(this));
-        chat_recycler.setAdapter(chatRecyclerAdapter);
-        chat_recycler.setHasFixedSize(true);
-        chat_recycler.setNestedScrollingEnabled(false);
+        storyRecyclerAdapter = new StoryRecyclerAdapter(a);
+        story_recycler.setLayoutManager(new LinearLayoutManager(this));
+        story_recycler.setAdapter(storyRecyclerAdapter);
+        story_recycler.setHasFixedSize(true);
+        story_recycler.setNestedScrollingEnabled(false);
         //((LinearLayoutManager)chat_recycler.getLayoutManager()).setStackFromEnd(true);
 
-        chat_recycler.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+        story_recycler.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {
-                if ( i3 < i7 && chatRecyclerAdapter.getItemCount()!=0) {
-                    chat_recycler.smoothScrollToPosition(chatRecyclerAdapter.getItemCount()-1);
+                if ( i3 < i7 && storyRecyclerAdapter.getItemCount()!=0) {
+                    story_recycler.smoothScrollToPosition(storyRecyclerAdapter.getItemCount()-1);
                 }
             }
         });
 
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-            if (!chat_et.getText().toString().equals("")){
-            String msg = chat_et.getText().toString();
+                if (!chat_et.getText().toString().equals("")){
+                    String msg = chat_et.getText().toString();
 
-            final Map<String, Object> chat = new HashMap<>();
-            chat.put("senderID", senderID);
-            chat.put("username", username);
-            chat.put("message", msg);
-            chat.put("position", LobbiesRecyclerAdapter.playerPos);
-            chat.put("timestamp", FieldValue.serverTimestamp());
+                    final Map<String, Object> story = new HashMap<>();
+                    story.put("text", msg);
+                    story.put("timestamp", FieldValue.serverTimestamp());
 
-            chat_et.setText("");
+                    chat_et.setText("");
 
-            firestore.collection("Lobbies").document(lobbyID)
-                    .collection("Chat").document().set(chat).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
+                    firestore.collection("Lobbies").document(lobbyID)
+                            .collection("Chat").document().set(story).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
 
 
-                }
-            });
+                        }
+                    });
 
-        }}
+                }}
         });
 
 
-        
+
 
         firestore.collection("Lobbies").document(MainActivity.inLobbyID).collection("Chat").orderBy("timestamp").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
 
-                    ChatPostModel chatPost = doc.getDocument().toObject(ChatPostModel.class);
+                    StoryPostModel chatPost = doc.getDocument().toObject(StoryPostModel.class);
 
                     if (doc.getType() == DocumentChange.Type.ADDED) {
 
                         a.add(chatPost);
-                        chatRecyclerAdapter.notifyDataSetChanged();
-                        chat_recycler.smoothScrollToPosition(a.size()-1);
+                        storyRecyclerAdapter.notifyDataSetChanged();
+                        story_recycler.smoothScrollToPosition(a.size()-1);
 
-                        AnimateChat(chatPost.getPosition());
-
+                        AnimateChat();
                     }
                 }
             }
@@ -332,7 +263,7 @@ public class LobbyActivity extends AppCompatActivity {
         mediaPlayer.pause();
     }
 
-    public void exitLobby(final View view){
+    /*public void exitLobby(final View view){
 
         new AlertDialog.Builder(this, R.style.dialogTheme)
                 .setTitle("Exit lobby?")
@@ -411,9 +342,9 @@ public class LobbyActivity extends AppCompatActivity {
 
 
 
-    }
+    }*/
 
-    public void quitLobby(){
+    public void quitLobby(View view){
         Intent mainIntent = new Intent(LobbyActivity.this, MainActivity.class);
         startActivity(mainIntent);
         finishAffinity();
@@ -421,46 +352,82 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     public void lobby_back(View view){
-        Intent mainIntent = new Intent(LobbyActivity.this, MainActivity.class);
-        startActivityIfNeeded(mainIntent, 0);
+        onBackPressed();
 
     }
 
-    public void AnimateChat(Integer pos){
-        switch (pos){
-            case 0:
+    public void emojiBtn(View view){
+        if (!emojipop){
+            emojiPopup.setVisibility(View.VISIBLE);
+            emojipop = true;
+        }
+        else {
+            emojiPopup.setVisibility(View.GONE);
+            emojipop = false;
+        }
+    }
+
+
+    public void AnimateChat(){
+
                 ch1.clearAnimation();
                 lottieResult2 = LottieCompositionFactory.fromRawResSync(getBaseContext(), R.raw.ch1_talk);
                 ch1.setComposition(lottieResult2.getValue());
                 ch1.playAnimation();
-                break;
-
-            case 1:
 
 
+    }
 
-                break;
+    public void AnimateAdmire(View view){
 
-
-            case 2:
-
-
-                break;
-
-            default:
-                ch1.clearAnimation();
-                lottieResult2 = LottieCompositionFactory.fromRawResSync(getBaseContext(), R.raw.ch1_admire);
-                ch1.setComposition(lottieResult2.getValue());
-                ch1.playAnimation();
-                break;
+        ch1.clearAnimation();
+        lottieResult2 = LottieCompositionFactory.fromRawResSync(getBaseContext(), R.raw.ch1_admire);
+        ch1.setComposition(lottieResult2.getValue());
+        ch1.playAnimation();
 
 
+    }
 
-        }
+    public void AnimateTired(View view){
+
+        ch1.clearAnimation();
+        lottieResult2 = LottieCompositionFactory.fromRawResSync(getBaseContext(), R.raw.ch1_tired);
+        ch1.setComposition(lottieResult2.getValue());
+        ch1.playAnimation();
+    }
+
+    public void AnimateSad(View view){
+
+        ch1.clearAnimation();
+        lottieResult2 = LottieCompositionFactory.fromRawResSync(getBaseContext(), R.raw.ch1_sad);
+        ch1.setComposition(lottieResult2.getValue());
+        ch1.playAnimation();
+    }
+
+    public void AnimateLaugh(View view){
+
+        ch1.clearAnimation();
+        lottieResult2 = LottieCompositionFactory.fromRawResSync(getBaseContext(), R.raw.ch1_laugh);
+        ch1.setComposition(lottieResult2.getValue());
+        ch1.playAnimation();
     }
 
     @Override
     public void onBackPressed() {
-        lobby_back(null);
+        new AlertDialog.Builder(this, R.style.dialogTheme)
+                .setTitle("Exit lobby?")
+                .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        firestore.collection("Users").document(firebaseUser.getUid()).update("inLobby", "").addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                LobbyActivity.super.onBackPressed();
+                            }
+                        });
+                    }
+                })
+
+                .setNegativeButton("Stay", null)
+                .show();
     }
 }

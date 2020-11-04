@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,12 +17,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import app.me.nightfall.R;
 import app.me.nightfall.home.MainActivity;
@@ -95,7 +91,7 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
                 final String title = lobbyList.get(position).getTitle();
                 final String category = lobbyList.get(position).getCategory();
-                String count = lobbyList.get(position).getCount().toString();
+                Long tot_views = lobbyList.get(position).getTot_views();
 
                 viewHolder0.setTitle(title);
                 viewHolder0.setCategory(category);
@@ -106,17 +102,8 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
                         lobbyID = lobbyList.get(position).getLobbyID();
 
-
-                        if (lobbyList.get(position).getCount() >= 4){
-                            Toast.makeText(context, "Room is full!", Toast.LENGTH_SHORT).show();
-                        }
-                        else if (!MainActivity.inLobbyID.equals("")){
-                            Toast.makeText(context, "Already in lobby", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-
                             final ProgressDialog pd = new ProgressDialog(context, R.style.dialogTheme);
-                            pd.setMessage("Joining lobby");
+                            pd.setMessage("Joining campfire...");
                             pd.setCancelable(false);
                             pd.show();
 
@@ -127,45 +114,23 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                                         @Override
                                         public void onSuccess(Void aVoid) {
 
-                                            String username = firebaseUser.getDisplayName();
-
-                                            if (lobbyList.get(position).getP1_ID().equals("")){
-                                                db.collection("Lobbies").document(lobbyID).update("p1_ID", username);
-                                                playerPos = 1;
-                                            }
-                                            else if (lobbyList.get(position).getP2_ID().equals("")){
-                                                db.collection("Lobbies").document(lobbyID).update("p2_ID", username);
-                                                playerPos = 2;
-                                            }
-                                            else if (lobbyList.get(position).getP3_ID().equals("")){
-                                                db.collection("Lobbies").document(lobbyID).update("p3_ID", username);
-                                                playerPos = 3;
-                                            }
-
-                                            final Map<String, Object> joinLobby = new HashMap<>();
-                                            joinLobby.put("senderID", "bot");
-                                            joinLobby.put("username", userID);
-                                            joinLobby.put("position", LobbiesRecyclerAdapter.playerPos);
-                                            joinLobby.put("message", "joined");
-                                            joinLobby.put("timestamp", FieldValue.serverTimestamp());
-
                                             db.collection("Lobbies").document(lobbyID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                                 @Override
                                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                    Long count = documentSnapshot.getLong("count");
-                                                    count = count + 1;
-                                                    db.collection("Lobbies").document(lobbyID).update("count", count);
+                                                    Long tot_views = documentSnapshot.getLong("tot_views");
+                                                    tot_views = tot_views + 1;
 
-                                                    db.collection("Lobbies").document(lobbyID).collection("Chat").document().set(joinLobby).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void aVoid) {
-                                                            MainActivity.inLobbyID = lobbyID;
-                                                            Intent i1 = new Intent (context, LobbyActivity.class);
-                                                            context.startActivity(i1);
-                                                            pd.dismiss();
+                                                    Long cur_views = documentSnapshot.getLong("cur_views");
+                                                    cur_views = cur_views + 1;
 
-                                                        }
-                                                    });
+                                                    db.collection("Lobbies").document(lobbyID).update("tot_views", tot_views);
+                                                    db.collection("Lobbies").document(lobbyID).update("tot_views", cur_views);
+
+                                                    MainActivity.inLobbyID = lobbyID;
+                                                    Intent i1 = new Intent (context, LobbyActivity.class);
+                                                    context.startActivity(i1);
+                                                    pd.dismiss();
+
                                                 }
                                             });
 
@@ -177,7 +142,7 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                                 }
                             }, 1000);
 
-                        }
+
                     }
                 });
 
@@ -204,7 +169,7 @@ public class LobbiesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         }
 
         public void setTitle(String text){
-            TextView title_tv = mView.findViewById(R.id.post_title);
+            TextView title_tv = mView.findViewById(R.id.username);
             title_tv.setText(text);
 
         }

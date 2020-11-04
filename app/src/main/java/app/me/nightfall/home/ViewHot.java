@@ -70,17 +70,19 @@ public class ViewHot extends Fragment {
 
                     if (doc.getType() == DocumentChange.Type.ADDED) {
 
-                        indexList.add(0, doc.getDocument().get("p1_ID").toString());
-                        hot_list.add(0, lobbyPost);
-                        recyclerAdapter.notifyItemInserted(0);
-                        recyclerAdapter.notifyDataSetChanged();
-                        rv_hot.scheduleLayoutAnimation();
+                        if (doc.getDocument().getLong("cur_views") > 10){
+                            indexList.add(0, doc.getDocument().get("lobbyID").toString());
+                            hot_list.add(0, lobbyPost);
+                            recyclerAdapter.notifyItemInserted(0);
+                            recyclerAdapter.notifyDataSetChanged();
+                            rv_hot.scheduleLayoutAnimation();
 
+                        }
 
                     }
 
                     if (doc.getType() == DocumentChange.Type.REMOVED){
-                        Number index = indexList.indexOf(doc.getDocument().get("p1_ID").toString());
+                        Number index = indexList.indexOf(doc.getDocument().get("lobbyID").toString());
                         indexList.remove((int) index);
                         hot_list.remove((int)index);
                         recyclerAdapter.notifyDataSetChanged();

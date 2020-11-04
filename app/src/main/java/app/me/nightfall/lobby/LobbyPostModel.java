@@ -8,12 +8,12 @@ public class LobbyPostModel {
 
     public String lobbyID, title, category, hostID, p1_ID, p2_ID, p3_ID, lang;
     public Object timestamp;
-    public Long count;
+    public Long tot_views, cur_views;
 
     public LobbyPostModel() {
     }
 
-    public LobbyPostModel(String category, String hostID, Object timestamp, String lobbyID, String title, String p1_ID, String p2_ID, String p3_ID, Long count, String lang) {
+    public LobbyPostModel(String category, String hostID, Object timestamp, String lobbyID, String title, String p1_ID, String p2_ID, String p3_ID, Long tot_views, String lang) {
         this.hostID = hostID;
         this.category = category;
         this.timestamp = timestamp;
@@ -23,7 +23,7 @@ public class LobbyPostModel {
         this.p1_ID = p1_ID;
         this.p2_ID = p2_ID;
         this.p3_ID = p3_ID;
-        this.count = count;
+        this.tot_views = tot_views;
     }
 
     public String getLobbyID() {
@@ -56,20 +56,8 @@ public class LobbyPostModel {
 
     public String getHostID() {return hostID;}
 
-    public String getP1_ID() {
-        return p1_ID;
-    }
-
-    public String getP2_ID() {
-        return p2_ID;
-    }
-
-    public String getP3_ID() {
-        return p3_ID;
-    }
-
-    public Long getCount() {
-        return count;
+    public Long getTot_views() {
+        return tot_views;
     }
 
     public String getLang(){
