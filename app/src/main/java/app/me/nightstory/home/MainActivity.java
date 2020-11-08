@@ -145,25 +145,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-         /*Query query = db.collection("Lobbies").whereEqualTo("state", "closed");
-        ListenerRegistration registration = query.addSnapshotListener(
-                new EventListener<QuerySnapshot>() {
-                    // [START_EXCLUDE]
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot snapshots,
-                                        @Nullable FirebaseFirestoreException e) {
-
-                        List<DocumentSnapshot> documentSnapshotList = snapshots.getDocuments();
-                        for(int i=0; i<documentSnapshotList.size(); i++){
-                            DocumentSnapshot documentSnapshot = documentSnapshotList.get(i);
-                            db.collection("Lobbies").document(documentSnapshot.getId()).delete();
-                        }
-                        // ...
+        Query query = db.collection("Lobbies").whereEqualTo("state", "closed");
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        db.collection("Lobbies").document(document.getId()).delete();
                     }
-                    // [END_EXCLUDE]
-                });
-
-        // ...*/
+                } else {
+                    Log.d("a", "Error getting documents: ", task.getException());
+                }
+            }
+        });
 
 
         create_fab = findViewById(R.id.create_fab);
