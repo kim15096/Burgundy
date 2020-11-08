@@ -16,13 +16,15 @@
         android:ems="10"
         android:hint="Choose a nickname"
         android:inputType="textEmailAddress"
+        android:maxLength="10"
         android:padding="6dp"
-        android:textSize="14sp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="@+id/enterBtn"
         app:layout_constraintStart_toStartOf="@+id/enterBtn"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:met_baseColor="@color/lightGray"
-        app:met_floatingLabel="highlight"
+        app:met_floatingLabel="none"
+        app:met_maxCharacters="10"
         app:met_textColor="@color/textColorGray"
         app:met_textColorHint="@color/lightGray" />
 
@@ -49,7 +51,6 @@
         android:id="@+id/enterBtn"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
         android:background="@drawable/btn_bg_3"
         android:foreground="?attr/selectableItemBackground"
         android:text="Enter Nightstory"
@@ -88,7 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15"
+        app:layout_constraintVertical_bias="0.125"
         app:srcCompat="@drawable/ic_character" />
 
     <TextView

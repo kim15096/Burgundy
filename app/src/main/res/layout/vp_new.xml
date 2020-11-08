@@ -9,13 +9,20 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_fresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
         android:fadeScrollbars="true"
-        android:fadingEdge="vertical"
-        android:fadingEdgeLength="50dp"
+        android:fadingEdgeLength="65dp"
+        android:layoutAnimation="@anim/layout_animation"
         android:overScrollMode="never"
-        android:paddingTop="8dp"
-        android:paddingBottom="32dp"
-        android:requiresFadingEdge="vertical" />
+        android:paddingBottom="16dp"
+        android:requiresFadingEdge="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

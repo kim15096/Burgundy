@@ -4,8 +4,8 @@
         android:drawable="@color/colorPrimaryDark"/>
     <item
         android:drawable="@drawable/ic_ch"
-        android:width="60dp"
-        android:height="70dp"
+        android:width="70dp"
+        android:height="80dp"
         android:gravity="center"/>
 
 </layer-list>

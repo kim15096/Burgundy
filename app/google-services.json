@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "69136461367",
+    "firebase_url": "https://nightfall-alpha.firebaseio.com",
+    "project_id": "nightfall-alpha",
+    "storage_bucket": "nightfall-alpha.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:69136461367:android:0e7ffcdd4c7282499d99b2",
+        "android_client_info": {
+          "package_name": "app.me.nightstory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "69136461367-hbb3h9oe5uml44gei3jdosqpnan79t8e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKsV_IMDYXimvN-18HZLArGVtPE3cxV-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "69136461367-hbb3h9oe5uml44gei3jdosqpnan79t8e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

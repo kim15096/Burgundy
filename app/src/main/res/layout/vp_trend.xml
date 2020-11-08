@@ -4,4 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"/>
+    android:fitsSystemWindows="true">
+
+
+
+<androidx.recyclerview.widget.RecyclerView
+android:id="@+id/rv_trend"
+android:layout_width="match_parent"
+android:layout_height="0dp"
+android:background="@android:color/transparent"
+android:fadeScrollbars="true"
+android:fadingEdgeLength="65dp"
+android:layoutAnimation="@anim/layout_animation"
+android:overScrollMode="never"
+android:requiresFadingEdge="vertical"
+app:layout_behavior="@string/appbar_scrolling_view_behavior"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+tools:layout_editor_absoluteX="0dp">
+
+</androidx.recyclerview.widget.RecyclerView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

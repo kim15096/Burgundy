@@ -27,21 +27,24 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.5"
+        android:alpha="0.65"
         android:background="@android:color/black"
+        android:clickable="true"
         tools:visibility="gone">
 
     </FrameLayout>
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
+        android:id="@+id/hostLobbyCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="0dp"
         app:cardElevation="0dp"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:visibility="gone">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -61,8 +64,8 @@
                 android:inputType="textShortMessage|textMultiLine|textPersonName|textCapSentences"
                 android:maxLines="3"
                 android:padding="10dp"
-                android:paddingStart="16dp"
-                android:textColor="@android:color/white"
+                android:paddingStart="12dp"
+                android:textColor="@color/textColorGray"
                 android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/msg_sendBtn"
@@ -100,15 +103,16 @@
         android:id="@+id/story_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:clickable="true"
         android:clipToPadding="false"
         android:elevation="2dp"
         android:focusable="true"
+        android:focusableInTouchMode="true"
         android:overScrollMode="never"
         android:paddingTop="16dp"
         android:paddingBottom="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/cardView2"
+        app:layout_constraintBottom_toTopOf="@+id/hostLobbyCardView"
         app:layout_constraintTop_toBottomOf="@+id/ch1"
         tools:layout_editor_absoluteX="0dp" />
 
@@ -116,7 +120,8 @@
         android:id="@+id/fire_animation"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
         android:alpha="0.9"
         android:elevation="0dp"
         android:scaleType="center"
@@ -129,11 +134,84 @@
         app:lottie_scale="0.125"
         app:lottie_speed="1" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/viewLobbyCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/chat_view_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/emoji_bg"
+                android:ems="10"
+                android:hint="Type here"
+                android:inputType="textShortMessage|textMultiLine|textPersonName|textCapSentences"
+                android:maxLength="30"
+                android:maxLines="3"
+                android:padding="10dp"
+                android:paddingStart="12dp"
+                android:textColor="@color/textColorGray"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/viewer_sendBtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/viewer_sendBtn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="16dp"
+                android:alpha="0.9"
+                android:padding="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/chat_view_et"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/chat_view_et"
+                app:srcCompat="@drawable/ic_send_color" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/quitBtn"
+        android:layout_width="110dp"
+        android:layout_height="45dp"
+        android:layout_weight="1.8"
+        android:background="@drawable/quit_bg"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:onClick="lobby_back"
+        android:paddingTop="12dp"
+        android:text="Quit"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="0.2dp"
         android:alpha="0.65"
         android:background="@color/textColor"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/story_recycler"
         tools:layout_editor_absoluteX="46dp">
 
@@ -148,7 +226,7 @@
         android:scaleType="center"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4"
+        app:layout_constraintTop_toBottomOf="@+id/lobby_title"
         app:lottie_autoPlay="true"
         app:lottie_loop="false"
         app:lottie_rawRes="@raw/ch1_pop"
@@ -157,50 +235,49 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
         android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/cur_views_tv"
         app:layout_constraintEnd_toStartOf="@+id/cur_views_tv"
         app:layout_constraintTop_toTopOf="@+id/cur_views_tv"
         app:srcCompat="@drawable/ic_person" />
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/ic_back"
-        android:onClick="lobby_back"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/quitBtn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:srcCompat="@drawable/ic_category" />
 
     <TextView
         android:id="@+id/lobby_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:textColor="@color/textColorGray"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/imageView3"
-        app:layout_constraintStart_toEndOf="@+id/button4"
-        app:layout_constraintTop_toTopOf="@+id/button4" />
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quitBtn" />
 
     <TextView
         android:id="@+id/cur_views_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:includeFontPadding="false"
         android:textColor="@color/textColorGray"
         android:textSize="12sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/button4"
+        app:layout_constraintBottom_toBottomOf="@+id/quitBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button4"
         tools:text="5" />
 
     <FrameLayout
@@ -227,25 +304,27 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/emojiPanel"
-        android:layout_width="160dp"
-        android:layout_height="210dp"
+        android:layout_width="150dp"
+        android:layout_height="215dp"
         android:background="@drawable/emoji_bg"
+        android:clickable="true"
         android:elevation="8dp"
+        android:translationY="2dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/cardView2"
+        app:layout_constraintBottom_toTopOf="@+id/hostLobbyCardView"
         app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <Button
             android:id="@+id/laugh_btn"
             android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/emoji_bg"
             android:foreground="?attr/selectableItemBackground"
-            android:onClick="AnimateLaugh"
+            android:onClick="LaughBtn"
             android:paddingLeft="16dp"
             android:text="Laugh"
             android:textAlignment="viewStart"
@@ -256,18 +335,18 @@
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
         <Button
             android:id="@+id/laugh_btn2"
             android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/emoji_bg"
             android:foreground="?attr/selectableItemBackground"
-            android:onClick="AnimateTired"
+            android:onClick="TiredBtn"
             android:paddingLeft="16dp"
             android:text="Tired"
             android:textAlignment="viewStart"
@@ -285,12 +364,12 @@
             android:id="@+id/laugh_btn3"
             android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/emoji_bg"
             android:foreground="?attr/selectableItemBackground"
-            android:onClick="AnimateAdmire"
+            android:onClick="AdmireBtn"
             android:paddingLeft="16dp"
             android:text="Admire"
             android:textAlignment="viewStart"
@@ -308,12 +387,12 @@
             android:id="@+id/laugh_btn4"
             android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/emoji_bg"
             android:foreground="?attr/selectableItemBackground"
-            android:onClick="AnimateSad"
+            android:onClick="SadBtn"
             android:paddingLeft="16dp"
             android:text="Sad"
             android:textAlignment="viewStart"
@@ -326,6 +405,44 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/laugh_btn3" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:onClick="removePop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_down" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/lobby_cat_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:text="Career"
+        android:textColor="@color/textColorGray"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+        app:layout_constraintStart_toEndOf="@+id/imageView9"
+        app:layout_constraintTop_toTopOf="@+id/imageView9"
+        tools:text="Career" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/viewers_rv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fadingEdgeLength="24dp"
+        android:requiresFadingEdge="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/story_recycler"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fire_animation"
+        app:layout_constraintTop_toBottomOf="@+id/lobby_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

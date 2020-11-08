@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="app.me.nightfall">
+    package="app.me.nightstory">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,15 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".login.Login" android:screenOrientation="portrait" >
+        <activity android:name="app.me.nightstory.login.Login" android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".lobby.LobbyActivity"
+            android:name="app.me.nightstory.lobby.LobbyActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".lobby.AddLobbyActivity" />
+        <activity android:name="app.me.nightstory.lobby.AddLobbyActivity" />
         <activity
-            android:name=".login.Splash"
+            android:name="app.me.nightstory.login.Splash"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,9 +28,9 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".lobby.BackgroundSoundService" />
+        <service android:name="app.me.nightstory.lobby.BackgroundSoundService" />
         <activity
-            android:name=".home.MainActivity"
+            android:name="app.me.nightstory.home.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MainTheme"
             android:windowSoftInputMode="adjustResize" />
