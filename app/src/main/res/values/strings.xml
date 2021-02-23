@@ -1,35 +1,33 @@
 <resources>
     <string name="app_name">"Nightstory"</string>
+    <string name="start_your_campfire">Start Your Campfire</string>
+    <string name="addlobby_title">Title</string>
+    <string name="addLobby_category">Category</string>
+    <string name="addLobby_btn">Create Fire</string>
+    <string name="addLobby_hint">What is your story about?</string>
+    <string name="lobby_quit">Quit</string>
+    <string name="lobby_type">Type here...</string>
+    <string name="lobby_post">Post</string>
+    <string name="login_text">Give your sparkling a name!</string>
+    <string name="login_btn">Enter Nightstory</string>
+    <string name="tab_hot">Hot</string>
+    <string name="tab_trending">Trending</string>
+    <string name="tab_fresh">Fresh</string>
+    <string name="main_welcome">"Welcome "</string>
+    <string name="main_rename">Rename your Sparkling?</string>
+    <string name="main_yes">Yes!</string>
+    <string name="main_no">No!</string>
+    <string name="add_relationship">Relationship</string>
+    <string name="add_family">Family</string>
+    <string name="add_career">Career</string>
+    <string name="add_social">Social</string>
+    <string name="lobby_exit">Exit lobby?</string>
+    <string name="lobby_exitBtn">Exit</string>
+    <string name="lobby_stay">Stay</string>
+    <string name="add_selectCat">Select category</string>
+    <string name="add_schl">School</string>
+    <string name="add_health">Health</string>
+    <string name="add_misc">Miscellaneous</string>
+    <string name="joining">Joining campfire...</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_home">HomeActivity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-
-    <string name="home_second">Home Second</string>
-    <string name="title_activity_settings">Settings</string>
-
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>

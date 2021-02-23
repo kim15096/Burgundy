@@ -48,7 +48,7 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
             @Override
             public void onClick(View view) {
                 final ProgressDialog pd = new ProgressDialog(context, R.style.dialogTheme);
-                pd.setMessage("Joining campfire...");
+                pd.setMessage(context.getString(R.string.joining));
                 pd.setCancelable(false);
                 pd.show();
 
@@ -95,7 +95,7 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
 
 
                 final ProgressDialog pd = new ProgressDialog(context, R.style.dialogTheme);
-                pd.setMessage("Joining campfire...");
+                pd.setMessage(context.getString(R.string.joining));
                 pd.setCancelable(false);
                 pd.show();
 

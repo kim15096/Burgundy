@@ -29,6 +29,23 @@
             android:layout_height="match_parent"
             android:background="@drawable/lobbycard_bg">
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/live_indicator"
+                android:layout_width="45dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:alpha="0.75"
+                android:elevation="0dp"
+                android:scaleType="center"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/live_indicator"
+                app:lottie_scale="0.125" />
+
             <TextView
                 android:id="@+id/card_cur_views_tv"
                 android:layout_width="wrap_content"
@@ -58,13 +75,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="12dp"
+                android:layout_marginEnd="8dp"
                 android:inputType="textMultiLine|textCapSentences"
                 android:maxLines="2"
                 android:text="this is a post"
                 android:textColor="@color/textColorGray"
-                android:textSize="13sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/live_indicator"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

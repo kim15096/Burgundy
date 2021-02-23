@@ -50,6 +50,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/msg_sendBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/lobby_post"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/chat_et"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/chat_et" />
+
             <EditText
                 android:id="@+id/chat_et"
                 android:layout_width="0dp"
@@ -58,31 +72,19 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="12dp"
-                android:background="@drawable/emoji_bg"
+                android:background="@drawable/et_bg"
                 android:ems="10"
-                android:hint="Type here"
+                android:hint="@string/lobby_type"
                 android:inputType="textShortMessage|textMultiLine|textPersonName|textCapSentences"
                 android:maxLines="3"
                 android:padding="10dp"
                 android:paddingStart="12dp"
                 android:textColor="@color/textColorGray"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/msg_sendBtn"
                 app:layout_constraintStart_toEndOf="@+id/emoji_btn"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/msg_sendBtn"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginEnd="16dp"
-                android:alpha="0.9"
-                android:padding="4dp"
-                app:layout_constraintBottom_toBottomOf="@+id/chat_et"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/chat_et"
-                app:srcCompat="@drawable/ic_pencil" />
 
             <ImageView
                 android:id="@+id/emoji_btn"
@@ -155,16 +157,16 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="12dp"
-                android:background="@drawable/emoji_bg"
+                android:background="@drawable/et_bg"
                 android:ems="10"
-                android:hint="Type here"
-                android:inputType="textShortMessage|textMultiLine|textPersonName|textCapSentences"
+                android:hint="@string/lobby_type"
+                android:inputType="textShortMessage|textMultiLine|textCapSentences"
                 android:maxLength="30"
                 android:maxLines="3"
                 android:padding="10dp"
                 android:paddingStart="12dp"
                 android:textColor="@color/textColorGray"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/viewer_sendBtn"
                 app:layout_constraintStart_toStartOf="parent"
@@ -174,13 +176,12 @@
                 android:id="@+id/viewer_sendBtn"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginEnd="16dp"
-                android:alpha="0.9"
-                android:padding="4dp"
+                android:layout_marginEnd="24dp"
+                android:padding="2dp"
                 app:layout_constraintBottom_toBottomOf="@+id/chat_view_et"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/chat_view_et"
-                app:srcCompat="@drawable/ic_send_color" />
+                app:srcCompat="@drawable/ic_baseline_send_24" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -190,13 +191,13 @@
         android:layout_width="110dp"
         android:layout_height="45dp"
         android:layout_weight="1.8"
-        android:background="@drawable/quit_bg"
-        android:foreground="?attr/selectableItemBackground"
+        android:background="@drawable/quit_bg_ripple"
+        android:fontFamily="@font/roboto_medium"
         android:gravity="center"
         android:includeFontPadding="false"
         android:onClick="lobby_back"
         android:paddingTop="12dp"
-        android:text="Quit"
+        android:text="@string/lobby_quit"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
         android:textSize="15sp"
@@ -208,12 +209,15 @@
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="0.2dp"
+        android:layout_height="2dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:alpha="0.65"
-        android:background="@color/textColor"
+        android:background="@color/colorSecondary"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/story_recycler"
-        tools:layout_editor_absoluteX="46dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
     </FrameLayout>
 
@@ -238,9 +242,9 @@
         android:layout_width="14dp"
         android:layout_height="14dp"
         android:layout_marginEnd="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cur_views_tv"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
         app:layout_constraintEnd_toStartOf="@+id/cur_views_tv"
-        app:layout_constraintTop_toTopOf="@+id/cur_views_tv"
+        app:layout_constraintTop_toTopOf="@+id/imageView9"
         app:srcCompat="@drawable/ic_person" />
 
     <ImageView
@@ -260,8 +264,9 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
+        android:fontFamily="@font/roboto_medium"
         android:textColor="@color/textColorGray"
-        android:textSize="13sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/quitBtn" />
@@ -271,23 +276,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
         android:includeFontPadding="false"
         android:textColor="@color/textColorGray"
         android:textSize="12sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/quitBtn"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView3"
         tools:text="5" />
 
     <FrameLayout
         android:id="@+id/frameLayout2"
         android:layout_width="match_parent"
-        android:layout_height="0.2dp"
-        android:alpha="0.65"
-        android:background="@color/textColor"
-        app:layout_constraintTop_toBottomOf="@+id/story_recycler"
-        tools:layout_editor_absoluteX="46dp">
+        android:layout_height="1.5dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:alpha="0.75"
+        android:background="@color/colorSecondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/story_recycler">
 
     </FrameLayout>
 
@@ -424,11 +432,30 @@
         android:layout_marginStart="6dp"
         android:text="Career"
         android:textColor="@color/textColorGray"
-        android:textSize="11sp"
+        android:textSize="12sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageView9"
         app:layout_constraintStart_toEndOf="@+id/imageView9"
         app:layout_constraintTop_toTopOf="@+id/imageView9"
         tools:text="Career" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/live_indicator2"
+        android:layout_width="45dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        android:alpha="0.75"
+        android:elevation="0dp"
+        android:scaleType="center"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintVertical_bias="0.2"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/live_indicator"
+        app:lottie_scale="0.15" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/viewers_rv"
@@ -439,6 +466,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:fadingEdgeLength="24dp"
+        android:overScrollMode="never"
         android:requiresFadingEdge="vertical"
         app:layout_constraintBottom_toTopOf="@+id/story_recycler"
         app:layout_constraintEnd_toEndOf="parent"

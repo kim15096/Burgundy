@@ -2,12 +2,16 @@ package app.me.nightstory.lobby;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import app.me.nightstory.R;
@@ -38,6 +43,7 @@ public class AddLobbyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setLocale(this, "ko");
         setContentView(R.layout.activity_add_lobby);
 
         title = findViewById(R.id.lobbyTitle);
@@ -48,7 +54,8 @@ public class AddLobbyActivity extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         MaterialSpinner spinner = findViewById(R.id.categorySpinner);
-        spinner.setItems("Relationship", "Family", "Career", "Social", "School", "Health", "AMA", "Miscellaneous");
+        spinner.setItems(getString(R.string.add_relationship), getString(R.string.add_family), getString(R.string.add_career),
+                getString(R.string.add_social), getString(R.string.add_schl), getString(R.string.add_health), "AMA", getString(R.string.add_misc));
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
@@ -162,5 +169,14 @@ public class AddLobbyActivity extends AppCompatActivity {
 
     public void createlobby_back(View view){
         super.onBackPressed();
+    }
+
+    public static void setLocale(Activity activity, String languageCode) {
+        Locale locale = new Locale(languageCode);
+        Locale.setDefault(locale);
+        Resources resources = activity.getResources();
+        Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
     }
 }

@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:windowBackground">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">#121212</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorHint">@color/lightGray</item>
@@ -21,7 +21,7 @@
     <style name="MainTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:windowBackground">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">#121212</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:textColorHint">@color/lightGray</item>
@@ -59,10 +59,9 @@
     </style>
 
     <style name="dialogTheme" parent="Theme.AppCompat.Dialog.Alert">
-        <item name="android:background">#20212b</item>
+        <item name="android:background">@color/colorSecondary</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:layout_width">200dp</item>
-        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">

@@ -53,7 +53,7 @@ public class LobbyActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private String lobbyID = "", hostID, username, senderID;
-    private TextView lobby_title, host_name, cur_views, category_tv;
+    private TextView lobby_title, host_name, cur_views, category_tv, sendBtn;
     private AlertDialog alertDialog;
     private EditText chat_et, chat_viewer_et;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -72,7 +72,7 @@ public class LobbyActivity extends AppCompatActivity {
     private ConstraintLayout emojiPopup;
     private LottieResult<LottieComposition> lottieResult2;
 
-    private ImageView sendBtn, viewer_SendBtn;
+    private ImageView viewer_SendBtn;
     private LottieAnimationView ch1, ch2;
     private LottieComposition composition;
     private Boolean emojipop = false;
@@ -499,8 +499,8 @@ public class LobbyActivity extends AppCompatActivity {
         if (hostID.equals(firebaseUser.getUid())) {
 
             new AlertDialog.Builder(this, R.style.dialogTheme)
-                    .setTitle("Exit lobby?")
-                    .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.lobby_exit)
+                    .setPositiveButton(R.string.lobby_exitBtn, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             firestore.collection("Lobbies").document(MainActivity.inLobbyID).update("hostID", "").addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -511,13 +511,13 @@ public class LobbyActivity extends AppCompatActivity {
                         }
                     })
 
-                    .setNegativeButton("Stay", null)
+                    .setNegativeButton(R.string.lobby_stay, null)
                     .show();
 
         } else {
             new AlertDialog.Builder(this, R.style.dialogTheme)
-                    .setTitle("Exit lobby?")
-                    .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.lobby_exit)
+                    .setPositiveButton(R.string.lobby_exitBtn, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             firestore.collection("Users").document(firebaseUser.getUid()).update("inLobby", "").addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -531,7 +531,7 @@ public class LobbyActivity extends AppCompatActivity {
                         }
                     })
 
-                    .setNegativeButton("Stay", null)
+                    .setNegativeButton(R.string.lobby_stay, null)
                     .show();
         }
     }

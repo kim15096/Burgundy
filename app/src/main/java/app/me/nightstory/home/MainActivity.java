@@ -2,6 +2,8 @@ package app.me.nightstory.home;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -9,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -39,6 +42,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
+import java.util.Locale;
 
 import app.me.nightstory.R;
 
@@ -64,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setAppLocale("ko");
         setContentView(R.layout.main_page);
 
         username = findViewById(R.id.username);
@@ -79,11 +84,11 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setInlineLabel(true);
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_hot);
-        tabLayout.getTabAt(0).setText("Hot");
+        tabLayout.getTabAt(0).setText(R.string.tab_hot);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_trending);
-        tabLayout.getTabAt(1).setText("Trending");
+        tabLayout.getTabAt(1).setText(R.string.tab_trending);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_new);
-        tabLayout.getTabAt(2).setText("Fresh");
+        tabLayout.getTabAt(2).setText(R.string.tab_fresh);
         tabLayout.setTabTextColors(getResources().getColor(R.color.textColorGray),
                 getResources().getColor(R.color.colorPrimary));
 
@@ -136,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
                 nickname = documentSnapshot.get("username").toString();
-                username.setText("Welcome " + nickname);
+                username.setText(getString(R.string.main_welcome) + nickname);
 
 
             }
@@ -194,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // deleting lobbies
-        new Handler().postDelayed(new Runnable() {
+        /*new Handler().postDelayed(new Runnable() {
             public void run() {
                 Query query = db.collection("Lobbies").whereEqualTo("hostID", "");
                 query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -210,50 +215,17 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 1000);
+        }, 1000);*/
 
     }
 
-    public void changeName(View view){
-        final AlertDialog.Builder alert = new AlertDialog.Builder(this, R.style.dialogTheme);
-
-        alert.setTitle("Change nickname");
-
-// Set an EditText view to get user input
-        final EditText input = new EditText(this);
-        input.setTextColor(getResources().getColor(R.color.textColorGray));
-        input.setTextSize(13);
-        input.setPadding(16, 16, 16, 16);
-
-        alert.setView(input);
-
-        alert.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-            public void onClick(final DialogInterface dialog, int whichButton) {
-
-               String username = input.getText().toString();
-               db.collection("Users").document(firebaseUser.getUid()).update("username", username).addOnSuccessListener(new OnSuccessListener<Void>() {
-                   @Override
-                   public void onSuccess(Void aVoid) {
-                       dialog.cancel();
-                   }
-               });
-            }
-        });
-
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                // Canceled.
-            }
-        });
-
-        alert.show();
-    }
 
    public void signOut(View view){
 
        new AlertDialog.Builder(this, R.style.dialogTheme)
-               .setTitle("Back to home screen?")
-               .setPositiveButton("Yes!", new DialogInterface.OnClickListener() {
+               .setIcon(R.drawable.ic_lil_element)
+               .setTitle(R.string.main_rename)
+               .setPositiveButton(R.string.main_yes, new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int which) {
                        firebaseAuth.signOut();
                        Intent mainIntent = new Intent(MainActivity.this, Login.class);
@@ -262,8 +234,26 @@ public class MainActivity extends AppCompatActivity {
                    }
                })
 
-               .setNegativeButton("No!", null)
+               .setNegativeButton(R.string.main_no, null)
                .show();
    }
+
+    public void showInfo(View view){
+
+        new AlertDialog.Builder(this, R.style.dialogTheme)
+                .setTitle("Hello Sparklings!")
+                .setMessage("- Begin by creating your campfire \n- Choose your tile and category \n- Enjoy live-streaming to other people")
+                .show();
+    }
+
+    private void setAppLocale(String localeCode){
+        Resources resources = getResources();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        Configuration configuration = resources.getConfiguration();
+        configuration.setLocale(new Locale(localeCode.toLowerCase()));
+        resources.updateConfiguration(configuration, displayMetrics);
+        configuration.locale = new Locale(localeCode.toLowerCase());
+        resources.updateConfiguration(configuration, displayMetrics);
+    }
 
    }
