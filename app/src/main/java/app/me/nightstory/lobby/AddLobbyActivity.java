@@ -130,7 +130,6 @@ public class AddLobbyActivity extends AppCompatActivity {
             createLobby.put("title", lobby_title);
             createLobby.put("lobbyID", id);
             createLobby.put("emoji", "");
-            createLobby.put("state", "active");
             createLobby.put("hostID", firebaseUser.getUid());
             createLobby.put("hostName", MainActivity.nickname);
             createLobby.put("timestamp", timestamp);

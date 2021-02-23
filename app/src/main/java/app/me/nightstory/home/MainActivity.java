@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -135,27 +136,9 @@ public class MainActivity extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
                 nickname = documentSnapshot.get("username").toString();
-                username.setText("Welcome " + nickname + "!");
+                username.setText("Welcome " + nickname);
 
 
-            }
-        });
-
-        // deleting lobbies
-
-
-
-        Query query = db.collection("Lobbies").whereEqualTo("state", "closed");
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (DocumentSnapshot document : task.getResult()) {
-                        db.collection("Lobbies").document(document.getId()).delete();
-                    }
-                } else {
-                    Log.d("a", "Error getting documents: ", task.getException());
-                }
             }
         });
 
@@ -208,6 +191,26 @@ public class MainActivity extends AppCompatActivity {
                 mp.setLooping(true);
             }
         });
+
+
+        // deleting lobbies
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                Query query = db.collection("Lobbies").whereEqualTo("hostID", "");
+                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot document : task.getResult()) {
+                                db.collection("Lobbies").document(document.getId()).delete();
+                            }
+                        } else {
+                            Log.d("a", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+            }
+        }, 1000);
 
     }
 

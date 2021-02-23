@@ -117,35 +117,66 @@ public class LobbyActivity extends AppCompatActivity {
             }
         });
 
-        firestore.collection("Lobbies").document(MainActivity.inLobbyID).addSnapshotListener(LobbyActivity.this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+            firestore.collection("Lobbies").document(MainActivity.inLobbyID).addSnapshotListener(LobbyActivity.this, new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                String lobbyTitle = value.get("title").toString();
-                String hostName = value.get("hostName").toString();
-                String category = value.get("category").toString();
+                    String lobbyTitle = value.get("title").toString();
+                    String hostName = value.get("hostName").toString();
+                    String category = value.get("category").toString();
+
+                    String emoji = value.get("emoji").toString();
+                    String hostIDa = value.get("hostID").toString();
+
+                    hostID = value.get("hostID").toString();
+                    cur_view = value.getLong("cur_views");
+
+                    if (hostIDa.equals("")) {
+
+                        firestore.collection("Users").document(firebaseUser.getUid()).update("inLobby", "").addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                LobbyActivity.this.finish();
+                            }
+                        });
+                    }
 
 
-                hostID = value.get("hostID").toString();
-                cur_view = value.getLong("cur_views");
+                    switch (emoji) {
+                        case "Laugh":
+                            AnimateLaugh();
+                            break;
 
-                category_tv.setText(category);
-                host_name.setText(hostName);
-                lobby_title.setText(lobbyTitle);
-                cur_views.setText(cur_view.toString());
+                        case "Tired":
+                            AnimateTired();
+                            break;
 
-                if (hostID.equals(firebaseUser.getUid())) {
-                    chatCardView.setVisibility(View.VISIBLE);
-                    viewCardView.setVisibility(View.INVISIBLE);
-                } else {
-                    chatCardView.setVisibility(View.INVISIBLE);
-                    viewCardView.setVisibility(View.VISIBLE);
+                        case "Admire":
+                            AnimateAdmire();
+                            break;
+
+                        case "Sad":
+                            AnimateSad();
+                            break;
+                    }
+
+                    category_tv.setText(category);
+                    host_name.setText(hostName);
+                    lobby_title.setText(lobbyTitle);
+                    cur_views.setText(cur_view.toString());
+
+                    if (hostID.equals(firebaseUser.getUid())) {
+                        chatCardView.setVisibility(View.VISIBLE);
+                        viewCardView.setVisibility(View.INVISIBLE);
+                    } else {
+                        chatCardView.setVisibility(View.INVISIBLE);
+                        viewCardView.setVisibility(View.VISIBLE);
+
+                    }
+
 
                 }
-
-
-            }
-        });
+            });
 
 
 
@@ -169,65 +200,6 @@ public class LobbyActivity extends AppCompatActivity {
                 mp.setLooping(true);
             }
         });
-
-        /*Query query = firestore.collection("Lobbies").whereEqualTo("lobbyID", MainActivity.inLobbyID);
-        ListenerRegistration registration = query.addSnapshotListener(
-                new EventListener<QuerySnapshot>() {
-                    // [START_EXCLUDE]
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot snapshots,
-                                        @Nullable FirebaseFirestoreException e) {
-                        // ...
-                    }
-                    // [END_EXCLUDE]
-                });
-
-        // ...*/
-
-
-            firestore.collection("Lobbies").document(MainActivity.inLobbyID).addSnapshotListener(LobbyActivity.this, new EventListener<DocumentSnapshot>() {
-                @Override
-                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-
-                    String emoji = documentSnapshot.get("emoji").toString();
-                    String state = documentSnapshot.get("state").toString();
-
-
-                    switch (emoji) {
-                        case "Laugh":
-                            AnimateLaugh();
-                            break;
-
-                        case "Tired":
-                            AnimateTired();
-                            break;
-
-                        case "Admire":
-                            AnimateAdmire();
-                            break;
-
-                        case "Sad":
-                            AnimateSad();
-                            break;
-                    }
-
-                    if (state.equals("closed")) {
-
-                        firestore.collection("Users").document(firebaseUser.getUid()).update("inLobby", "").addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-
-
-                                LobbyActivity.super.onBackPressed();
-
-                            }
-                        });
-                    }
-
-
-                }
-            });
-
 
 
         story_recycler = findViewById(R.id.story_recycler);
@@ -530,7 +502,12 @@ public class LobbyActivity extends AppCompatActivity {
                     .setTitle("Exit lobby?")
                     .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            firestore.collection("Lobbies").document(MainActivity.inLobbyID).update("state", "closed");
+                            firestore.collection("Lobbies").document(MainActivity.inLobbyID).update("hostID", "").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                 LobbyActivity.this.finish();
+                                }
+                            });
                         }
                     })
 
