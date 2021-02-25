@@ -58,7 +58,7 @@ public class ViewNew extends Fragment {
         LobbyQuery = FirebaseFirestore.getInstance()
                 .collection("Lobbies")
                 .whereGreaterThanOrEqualTo("cur_views", 0)
-                .whereLessThan("cur_views", 4)
+                .whereLessThanOrEqualTo("cur_views", 3)
                 .orderBy("cur_views")
                 .orderBy("timestamp");
 

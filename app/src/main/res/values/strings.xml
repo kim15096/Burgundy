@@ -29,5 +29,16 @@
     <string name="add_health">Health</string>
     <string name="add_misc">Miscellaneous</string>
     <string name="joining">Joining campfire...</string>
+    <string name="lobby_laugh">Laugh</string>
+    <string name="lobby_tired">Tired</string>
+    <string name="lobby_admire">Admire</string>
+    <string name="lobby_sad">Sad</string>
+    <string name="mainInfo_title">Hello Sparklings!</string>
+    <string name="mainInfo_msg">- Begin by creating your campfire \n- Choose your tile and category \n- Enjoy live-streaming to other people</string>
+    <string name="closed_btn">Create your ID</string>
+    <string name="closed_enter">Enter Nightfall</string>
+    <string name="closed_Btn">Enter Nightfall</string>
+    <string name="closed_title">Come Tell Your Stories</string>
+    <string name="closed_titleClosed">Closed</string>
 
 </resources>

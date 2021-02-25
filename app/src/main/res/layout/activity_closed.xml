@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".login.Closed">
+
+    <FrameLayout
+        android:id="@+id/closed_dimFrame"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
+        android:alpha="0.75"
+        android:background="@color/colorPrimaryDark"
+        android:elevation="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/fire_animation2"
+        app:layout_constraintEnd_toEndOf="@+id/fire_animation2"
+        app:layout_constraintStart_toStartOf="@+id/fire_animation2">
+
+    </FrameLayout>
+
+    <ir.samanjafari.easycountdowntimer.EasyCountDownTextview
+        android:id="@+id/easyCountDownTextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="16dp"
+        app:colonColor="@color/textColorGray"
+        app:digitBackground="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/closed_tv"
+        app:setAnimation="true"
+        app:showDays="false"
+        app:showHours="true"
+        app:start_automatically="true"
+        app:textColor="@color/textColorGray"
+        app:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/closed_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/closed_titleClosed"
+        android:textColor="@color/textColorGray"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25"
+        tools:text="Closed" />
+
+    <Button
+        android:id="@+id/enterBtn"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/ripple_bg"
+        android:text="@string/closed_Btn"
+        android:textAllCaps="false"
+        android:textColor="@color/textColorGray"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/fire_animation2"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
+        android:elevation="0dp"
+        android:scaleType="center"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/closed_usernameTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/easyCountDownTextview"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/fire_animation"
+        app:lottie_scale="0.3"
+        app:lottie_speed="0.75" />
+
+    <TextView
+        android:id="@+id/closed_usernameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:textColor="@color/textColorGray"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/enterBtn"
+        app:layout_constraintEnd_toEndOf="@+id/enterBtn"
+        app:layout_constraintStart_toStartOf="@+id/enterBtn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

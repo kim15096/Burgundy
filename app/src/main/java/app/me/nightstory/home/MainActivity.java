@@ -241,8 +241,8 @@ public class MainActivity extends AppCompatActivity {
     public void showInfo(View view){
 
         new AlertDialog.Builder(this, R.style.dialogTheme)
-                .setTitle("Hello Sparklings!")
-                .setMessage("- Begin by creating your campfire \n- Choose your tile and category \n- Enjoy live-streaming to other people")
+                .setTitle(R.string.mainInfo_title)
+                .setMessage(R.string.mainInfo_msg)
                 .show();
     }
 

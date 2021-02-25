@@ -53,8 +53,8 @@ public class ViewTrend extends Fragment {
 
         LobbyQuery = FirebaseFirestore.getInstance()
                 .collection("Lobbies")
-                .whereGreaterThan("cur_views", 3)
-                .whereLessThan("cur_views", 8)
+                .whereGreaterThanOrEqualTo("cur_views", 4)
+                .whereLessThanOrEqualTo("cur_views", 7)
                 .orderBy("cur_views")
                 .orderBy("timestamp");
 

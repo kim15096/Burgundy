@@ -53,7 +53,7 @@ public class ViewHot extends Fragment {
 
         LobbyQuery = FirebaseFirestore.getInstance()
                 .collection("Lobbies")
-                .whereGreaterThan("cur_views", 10)
+                .whereGreaterThanOrEqualTo("cur_views", 8)
                 .orderBy("cur_views")
                 .orderBy("timestamp");
 

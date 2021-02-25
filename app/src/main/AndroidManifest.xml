@@ -18,6 +18,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name="app.me.nightstory.lobby.AddLobbyActivity" />
+        <activity android:name="app.me.nightstory.login.Closed" />
         <activity
             android:name="app.me.nightstory.login.Splash"
             android:theme="@style/SplashTheme">

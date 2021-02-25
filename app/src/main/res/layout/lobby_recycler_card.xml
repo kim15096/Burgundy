@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
         android:clickable="true"
@@ -27,7 +27,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/lobbycard_bg">
+            android:background="@drawable/et_bg">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/live_indicator"
@@ -76,6 +76,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_medium"
                 android:inputType="textMultiLine|textCapSentences"
                 android:maxLines="2"
                 android:text="this is a post"

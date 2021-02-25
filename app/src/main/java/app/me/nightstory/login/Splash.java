@@ -30,14 +30,14 @@ public class Splash extends AppCompatActivity {
         SimpleDateFormat time = new SimpleDateFormat("k");
         Date currentTime = Calendar.getInstance().getTime();
         String timeRN = time.format(currentTime);
-        int timeINT = Integer.parseInt(timeRN);
+        final int timeINT = Integer.parseInt(timeRN);
 
 
 
         final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
 
-        Handler handler = new Handler();
+        /*Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
 
@@ -47,19 +47,22 @@ public class Splash extends AppCompatActivity {
                     toClosed();
                 }
 
-            }}, 1000);
+            }}, 1000);*/
 
-        /*if ((0<=timeINT && timeINT<=4) || (timeINT<=24 && timeINT>=20)) {
-            final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+        if ((0<=timeINT && timeINT<=4) /*|| (timeINT<=24 && timeINT>=20)*/) {
             if (currentUser != null) {
                 toHome();
             } else {
-                toClosed();
+                toLogin();
             }
         }
         else {
             toClosed();
-        }*/
+        }
+        }}, 1000);
     }
 
     private void toHome(){
@@ -70,6 +73,12 @@ public class Splash extends AppCompatActivity {
 
 
     private void toClosed() {
+        Intent mainIntent = new Intent(Splash.this, Closed.class);
+        Splash.this.startActivity(mainIntent);
+        Splash.this.finish();
+    }
+
+    private void toLogin() {
         Intent mainIntent = new Intent(Splash.this, Login.class);
         Splash.this.startActivity(mainIntent);
         Splash.this.finish();

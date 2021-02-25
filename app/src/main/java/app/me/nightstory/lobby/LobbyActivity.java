@@ -183,7 +183,7 @@ public class LobbyActivity extends AppCompatActivity {
 
         mediaPlayer = MediaPlayer.create(this, R.raw.sound);
         mediaPlayer.setLooping(true); // Set looping
-        mediaPlayer.setVolume(10, 10);
+        mediaPlayer.setVolume(5, 5);
         mediaPlayer.start();
 
         view = findViewById(R.id.lobby_bg_video);
