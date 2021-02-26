@@ -8,7 +8,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/lobbyCardView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="90dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 android:fontFamily="@font/roboto_medium"
                 android:inputType="textMultiLine|textCapSentences"
                 android:maxLines="2"
@@ -106,11 +106,9 @@
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="35dp"
                 android:layout_marginBottom="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/username"
                 app:srcCompat="@drawable/ic_category" />
 
             <TextView

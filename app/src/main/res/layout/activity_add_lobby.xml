@@ -25,7 +25,7 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/ch1_talk"
         app:lottie_scale="0.125"
-        app:lottie_speed="1" />
+        app:lottie_speed="0.5" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/fire_animation4"

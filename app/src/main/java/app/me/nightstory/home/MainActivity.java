@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // deleting lobbies
-        /*new Handler().postDelayed(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
             public void run() {
                 Query query = db.collection("Lobbies").whereEqualTo("hostID", "");
                 query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 1000);*/
+        }, 1000);
 
     }
 

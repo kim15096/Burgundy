@@ -68,8 +68,8 @@ public class Closed extends AppCompatActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
 
         Date date = new Date();
-        date.setHours(0);
-        date.setMinutes(15);
+        date.setHours(18);
+        date.setMinutes(0);
         date.setSeconds(0);
         EVENT_DATE_TIME = dateFormat.format(date);
 

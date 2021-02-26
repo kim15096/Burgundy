@@ -37,22 +37,10 @@ public class Splash extends AppCompatActivity {
         final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
 
-        /*Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-
-                if (currentUser != null) {
-                    toHome();
-                } else {
-                    toClosed();
-                }
-
-            }}, 1000);*/
-
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-        if ((0<=timeINT && timeINT<=4) /*|| (timeINT<=24 && timeINT>=20)*/) {
+        if ((0<=timeINT && timeINT<=4) || (timeINT<=24 && timeINT>=18)) {
             if (currentUser != null) {
                 toHome();
             } else {
