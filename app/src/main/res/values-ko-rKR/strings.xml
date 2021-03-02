@@ -35,7 +35,7 @@
     <string name="lobby_admire">신기해</string>
     <string name="lobby_sad">슬프다</string>
     <string name="mainInfo_title">나잇스토리에 오신걸 환영합니다!</string>
-    <string name="mainInfo_msg">- Begin by creating your campfire \n- Choose your tile and category  \n- Enjoy live-streaming to other people</string>
+    <string name="mainInfo_msg">- 방을 만들어보세요! \n- 제목과 카테고리 정하기  \n- 라이브 텍스트 스트리밍 서비스를 즐겨보세요!</string>
     <string name="closed_Btn">나잇스토리 시작하기</string>
     <string name="closed_title">나잇스토리가 열렸습니다!</string>
     <string name="closed_titleClosed">운영시간이 아닙니다!</string>
