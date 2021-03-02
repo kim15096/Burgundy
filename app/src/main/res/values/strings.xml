@@ -35,10 +35,9 @@
     <string name="lobby_sad">Sad</string>
     <string name="mainInfo_title">Hello Sparklings!</string>
     <string name="mainInfo_msg">- Begin by creating your campfire \n- Choose your tile and category \n- Enjoy live-streaming to other people</string>
-    <string name="closed_btn">Create your ID</string>
-    <string name="closed_enter">Enter Nightfall</string>
     <string name="closed_Btn">Enter Nightfall</string>
     <string name="closed_title">Come Tell Your Stories</string>
     <string name="closed_titleClosed">Closed</string>
+    <string name="main_closedNotice">Room is now closed!</string>
 
 </resources>

@@ -19,7 +19,6 @@ import app.me.nightstory.R;
 import app.me.nightstory.lobby.LobbyPostModel;
 import app.me.nightstory.lobby.RoomRecyclerAdapter;
 import app.me.nightstory.lobby.RoomViewHolder;
-import app.me.nightstory.lobby.StoryPostModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,8 +28,6 @@ public class ViewTrend extends Fragment {
     private RecyclerView rv_trend;
     private FirestoreRecyclerAdapter<LobbyPostModel, RoomViewHolder> mAdapter;
     private Query LobbyQuery;
-
-    private FirebaseFirestore db;
 
 
     public ViewTrend() {
@@ -43,7 +40,6 @@ public class ViewTrend extends Fragment {
 
         View view = inflater.inflate(R.layout.vp_trend, container, false);
 
-        db = FirebaseFirestore.getInstance();
 
         rv_trend = view.findViewById(R.id.rv_trend);
 

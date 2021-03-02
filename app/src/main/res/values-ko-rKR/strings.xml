@@ -39,4 +39,5 @@
     <string name="closed_Btn">나잇스토리 시작하기</string>
     <string name="closed_title">나잇스토리가 열렸습니다!</string>
     <string name="closed_titleClosed">운영시간이 아닙니다!</string>
+    <string name="main_closedNotice">방이 만료됬습니다!</string>
 </resources>

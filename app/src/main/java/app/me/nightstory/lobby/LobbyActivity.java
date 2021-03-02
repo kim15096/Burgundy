@@ -1,5 +1,22 @@
 package app.me.nightstory.lobby;
 
+import android.animation.Animator;
+import android.content.DialogInterface;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.VideoView;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,19 +24,6 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.animation.Animator;
-import android.content.DialogInterface;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.VideoView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieComposition;
@@ -29,19 +33,19 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import app.me.nightstory.R;
@@ -52,7 +56,8 @@ public class LobbyActivity extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
-    private String lobbyID = "", hostID, username, senderID;
+    private DocumentReference userRef, lobbyRef;
+    private String hostID, fireBaseID;
     private TextView lobby_title, host_name, cur_views, category_tv, sendBtn;
     private AlertDialog alertDialog;
     private EditText chat_et, chat_viewer_et;
@@ -73,8 +78,7 @@ public class LobbyActivity extends AppCompatActivity {
     private LottieResult<LottieComposition> lottieResult2;
 
     private ImageView viewer_SendBtn;
-    private LottieAnimationView ch1, ch2;
-    private LottieComposition composition;
+    private LottieAnimationView ch1;
     private Boolean emojipop = false;
     private Long cur_view;
     private CardView chatCardView, viewCardView;
@@ -89,11 +93,16 @@ public class LobbyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setAppLocale("ko");
         setContentView(R.layout.activity_lobby);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+        fireBaseID = firebaseUser.getUid();
+
+        userRef = firestore.collection("Users").document(fireBaseID);
+        lobbyRef = firestore.collection("Lobbies").document(MainActivity.inLobbyID);
 
         chatCardView = findViewById(R.id.hostLobbyCardView);
         viewCardView = findViewById(R.id.viewLobbyCard);
@@ -108,23 +117,13 @@ public class LobbyActivity extends AppCompatActivity {
         ch1 = findViewById(R.id.ch1);
         cur_views = findViewById(R.id.cur_views_tv);
 
-        firestore.collection("Users").document(firebaseUser.getUid()).addSnapshotListener(LobbyActivity.this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                lobbyID = value.get("inLobby").toString();
-                username = value.get("username").toString();
-
-            }
-        });
-
-            firestore.collection("Lobbies").document(MainActivity.inLobbyID).addSnapshotListener(LobbyActivity.this, new EventListener<DocumentSnapshot>() {
+        lobbyRef.addSnapshotListener(LobbyActivity.this, new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
                     String lobbyTitle = value.get("title").toString();
                     String hostName = value.get("hostName").toString();
                     String category = value.get("category").toString();
-
                     String emoji = value.get("emoji").toString();
                     String hostIDa = value.get("hostID").toString();
 
@@ -133,14 +132,15 @@ public class LobbyActivity extends AppCompatActivity {
 
                     if (hostIDa.equals("")) {
 
-                        firestore.collection("Users").document(firebaseUser.getUid()).update("inLobby", "").addOnSuccessListener(new OnSuccessListener<Void>() {
+                        userRef.update("inLobby", "").addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
+                                Toast.makeText(LobbyActivity.this, R.string.main_closedNotice, Toast.LENGTH_SHORT).show();
                                 LobbyActivity.this.finish();
+
                             }
                         });
                     }
-
 
                     switch (emoji) {
                         case "Laugh":
@@ -182,7 +182,7 @@ public class LobbyActivity extends AppCompatActivity {
 
 
         mediaPlayer = MediaPlayer.create(this, R.raw.sound);
-        mediaPlayer.setLooping(true); // Set looping
+        mediaPlayer.setLooping(true);
         mediaPlayer.setVolume(5, 5);
         mediaPlayer.start();
 
@@ -193,7 +193,6 @@ public class LobbyActivity extends AppCompatActivity {
         }
         view.setVideoURI(Uri.parse(path));
         view.start();
-
         view.setOnPreparedListener (new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
@@ -250,7 +249,7 @@ public class LobbyActivity extends AppCompatActivity {
             }
         });
 
-        firestore.collection("Lobbies").document(MainActivity.inLobbyID).collection("Story").orderBy("timestamp").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        lobbyRef.collection("Story").orderBy("timestamp").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
@@ -281,7 +280,7 @@ public class LobbyActivity extends AppCompatActivity {
         comments_recycler.setNestedScrollingEnabled(false);
 
 
-        firestore.collection("Lobbies").document(MainActivity.inLobbyID).collection("Comments").orderBy("timestamp").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        lobbyRef.collection("Comments").orderBy("timestamp").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
@@ -319,8 +318,7 @@ public class LobbyActivity extends AppCompatActivity {
 
                     chat_et.setText("");
 
-                    firestore.collection("Lobbies").document(lobbyID)
-                            .collection("Story").document().set(story).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    lobbyRef.collection("Story").document().set(story).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
 
@@ -342,13 +340,12 @@ public class LobbyActivity extends AppCompatActivity {
 
                     final Map<String, Object> comments = new HashMap<>();
                     comments.put("comment", comment);
-                    comments.put("username", username);
+                    comments.put("username", MainActivity.nickname);
                     comments.put("timestamp", FieldValue.serverTimestamp());
 
                     chat_viewer_et.setText("");
 
-                    firestore.collection("Lobbies").document(lobbyID)
-                            .collection("Comments").document().set(comments).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    lobbyRef.collection("Comments").document().set(comments).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
 
@@ -368,14 +365,6 @@ public class LobbyActivity extends AppCompatActivity {
         super.onResume();
 
         mediaPlayer.start();
-
-        firestore.collection("Users").document(firebaseUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                lobbyID = documentSnapshot.get("inLobby").toString();
-
-            }
-        });
 
 
             String path = "android.resource://" + getPackageName() + "/" + R.raw.chat_bg;
@@ -436,16 +425,16 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     public void AdmireBtn(View view){
-        firestore.collection("Lobbies").document(MainActivity.inLobbyID).update("emoji", "Admire");
+        lobbyRef.update("emoji", "Admire");
     }
     public void LaughBtn(View view){
-        firestore.collection("Lobbies").document(MainActivity.inLobbyID).update("emoji", "Laugh");
+        lobbyRef.update("emoji", "Laugh");
     }
     public void SadBtn(View view){
-        firestore.collection("Lobbies").document(MainActivity.inLobbyID).update("emoji", "Sad");
+        lobbyRef.update("emoji", "Sad");
     }
     public void TiredBtn(View view){
-        firestore.collection("Lobbies").document(MainActivity.inLobbyID).update("emoji", "Tired");
+        lobbyRef.update("emoji", "Tired");
     }
 
 
@@ -456,7 +445,7 @@ public class LobbyActivity extends AppCompatActivity {
         ch1.setComposition(lottieResult2.getValue());
         ch1.playAnimation();
 
-        firestore.collection("Lobbies").document(MainActivity.inLobbyID).update("emoji", "");
+        lobbyRef.update("emoji", "");
 
 
     }
@@ -468,7 +457,7 @@ public class LobbyActivity extends AppCompatActivity {
         ch1.setComposition(lottieResult2.getValue());
         ch1.playAnimation();
 
-        firestore.collection("Lobbies").document(MainActivity.inLobbyID).update("emoji", "");
+        lobbyRef.update("emoji", "");
 
     }
 
@@ -479,7 +468,7 @@ public class LobbyActivity extends AppCompatActivity {
         ch1.setComposition(lottieResult2.getValue());
         ch1.playAnimation();
 
-        firestore.collection("Lobbies").document(MainActivity.inLobbyID).update("emoji", "");
+        lobbyRef.update("emoji", "");
 
     }
 
@@ -490,19 +479,19 @@ public class LobbyActivity extends AppCompatActivity {
         ch1.setComposition(lottieResult2.getValue());
         ch1.playAnimation();
 
-        firestore.collection("Lobbies").document(MainActivity.inLobbyID).update("emoji", "");
+        lobbyRef.update("emoji", "");
 
     }
 
     @Override
     public void onBackPressed() {
-        if (hostID.equals(firebaseUser.getUid())) {
+        if (hostID.equals(fireBaseID)) {
 
             new AlertDialog.Builder(this, R.style.dialogTheme)
                     .setTitle(R.string.lobby_exit)
                     .setPositiveButton(R.string.lobby_exitBtn, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            firestore.collection("Lobbies").document(MainActivity.inLobbyID).update("hostID", "").addOnSuccessListener(new OnSuccessListener<Void>() {
+                            lobbyRef.update("hostID", "").addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                  LobbyActivity.this.finish();
@@ -519,12 +508,12 @@ public class LobbyActivity extends AppCompatActivity {
                     .setTitle(R.string.lobby_exit)
                     .setPositiveButton(R.string.lobby_exitBtn, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            firestore.collection("Users").document(firebaseUser.getUid()).update("inLobby", "").addOnSuccessListener(new OnSuccessListener<Void>() {
+                            userRef.update("inLobby", "").addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
 
                                     Long curView = cur_view - 1;
-                                    firestore.collection("Lobbies").document(MainActivity.inLobbyID).update("cur_views", curView);
+                                    lobbyRef.update("cur_views", curView);
                                     LobbyActivity.super.onBackPressed();
                                 }
                             });
@@ -534,5 +523,14 @@ public class LobbyActivity extends AppCompatActivity {
                     .setNegativeButton(R.string.lobby_stay, null)
                     .show();
         }
+    }
+    private void setAppLocale(String localeCode){
+        Resources resources = getResources();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        Configuration configuration = resources.getConfiguration();
+        configuration.setLocale(new Locale(localeCode.toLowerCase()));
+        resources.updateConfiguration(configuration, displayMetrics);
+        configuration.locale = new Locale(localeCode.toLowerCase());
+        resources.updateConfiguration(configuration, displayMetrics);
     }
 }

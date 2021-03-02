@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,8 +29,6 @@ public class ViewNew extends Fragment {
     private FirestoreRecyclerAdapter<LobbyPostModel, RoomViewHolder> mAdapter;
     private Query LobbyQuery;
 
-    private FirebaseFirestore db;
-
     public ViewNew() {
         // Required empty public constructor
     }
@@ -44,10 +41,6 @@ public class ViewNew extends Fragment {
 
 
         View view = inflater.inflate(R.layout.vp_new, container, false);
-
-
-
-        db = FirebaseFirestore.getInstance();
 
         rv_fresh = view.findViewById(R.id.rv_fresh);
 

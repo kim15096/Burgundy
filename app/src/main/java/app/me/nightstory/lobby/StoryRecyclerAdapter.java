@@ -24,8 +24,6 @@ public class StoryRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private class VIEW_TYPES {
         public static final int User = 1;
-        public static final int Other = 2;
-        public static final int Bot = 3;
     }
 
 

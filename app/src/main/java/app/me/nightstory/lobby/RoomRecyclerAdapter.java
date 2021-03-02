@@ -13,6 +13,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -23,10 +24,10 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
 
     public Context context;
     private String userID;
-    public static String lobbyID;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
     private FirebaseUser firebaseUser;
+    private DocumentReference userRef;
 
     public RoomRecyclerAdapter(FirestoreRecyclerOptions recyclerOptions) {
         super(recyclerOptions);
@@ -35,6 +36,7 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
         db = FirebaseFirestore.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         userID = firebaseAuth.getCurrentUser().getUid();
+        userRef = db.collection("Users").document(userID);
 
     }
 
@@ -55,7 +57,7 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
-                        db.collection("Users").document(userID).update("inLobby", model.getLobbyID()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        userRef.update("inLobby", model.getLobbyID()).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
 
@@ -93,7 +95,6 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
             @Override
             public void onClick(View view) {
 
-
                 final ProgressDialog pd = new ProgressDialog(context, R.style.dialogTheme);
                 pd.setMessage(context.getString(R.string.joining));
                 pd.setCancelable(false);
@@ -102,7 +103,7 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
-                        db.collection("Users").document(userID).update("inLobby", model.getLobbyID()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        userRef.update("inLobby", model.getLobbyID()).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
 

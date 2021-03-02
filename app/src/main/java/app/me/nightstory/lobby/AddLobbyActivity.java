@@ -1,7 +1,5 @@
 package app.me.nightstory.lobby;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -11,11 +9,12 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,7 +47,6 @@ public class AddLobbyActivity extends AppCompatActivity {
 
         title = findViewById(R.id.lobbyTitle);
         createBtn = findViewById(R.id.createlob_btn);
-        //desc = findViewById(R.id.create_desc);
 
         db = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -127,7 +125,6 @@ public class AddLobbyActivity extends AppCompatActivity {
 
         else {
 
-
             final FieldValue timestamp = FieldValue.serverTimestamp();
 
             final String id = db.collection("Lobbies").document().getId();
@@ -149,7 +146,6 @@ public class AddLobbyActivity extends AppCompatActivity {
                 public void onSuccess(Void aVoid) {
 
                     MainActivity.inLobbyID = id;
-                    //MainActivity.inLobby = true
 
                     db.collection("Users").document(firebaseUser.getUid()).update("inLobby", id).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

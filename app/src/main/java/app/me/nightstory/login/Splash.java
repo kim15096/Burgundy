@@ -1,10 +1,10 @@
 package app.me.nightstory.login;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,6 +24,8 @@ public class Splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
 
 
 
@@ -31,10 +33,6 @@ public class Splash extends AppCompatActivity {
         Date currentTime = Calendar.getInstance().getTime();
         String timeRN = time.format(currentTime);
         final int timeINT = Integer.parseInt(timeRN);
-
-
-
-        final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
 
         Handler handler = new Handler();

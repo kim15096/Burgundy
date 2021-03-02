@@ -29,8 +29,6 @@ public class ViewHot extends Fragment {
     private FirestoreRecyclerAdapter<LobbyPostModel, RoomViewHolder> mAdapter;
     private Query LobbyQuery;
 
-    private FirebaseFirestore db;
-
     public ViewHot() {
         // Required empty public constructor
     }
@@ -40,8 +38,6 @@ public class ViewHot extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        db = FirebaseFirestore.getInstance();
 
         View view = inflater.inflate(R.layout.vp_hot, container, false);
 

@@ -29,7 +29,6 @@
             </intent-filter>
         </activity>
 
-        <service android:name="app.me.nightstory.lobby.BackgroundSoundService" />
         <activity
             android:name="app.me.nightstory.home.MainActivity"
             android:screenOrientation="portrait"

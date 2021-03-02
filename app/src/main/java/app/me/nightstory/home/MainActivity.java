@@ -14,7 +14,6 @@ import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -32,20 +31,17 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.List;
 import java.util.Locale;
 
 import app.me.nightstory.R;
-
 import app.me.nightstory.lobby.AddLobbyActivity;
 import app.me.nightstory.lobby.LobbyActivity;
 import app.me.nightstory.login.Login;
@@ -57,11 +53,14 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
+    private DocumentReference userRef;
     private ViewPager viewPager;
     private TabLayout tabLayout;
     public static String inLobbyID = "";
     private ViewPagerAdapter viewPagerAdapter;
     private TextView username;
+    private VideoView bgVid;
+    private String path;
 
     public static String nickname = "";
 
@@ -71,9 +70,19 @@ public class MainActivity extends AppCompatActivity {
         setAppLocale("ko");
         setContentView(R.layout.main_page);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+        userRef = db.collection("Users").document(firebaseUser.getUid());
+
         username = findViewById(R.id.username);
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabLayout);
+        bgVid = findViewById(R.id.videoView);
+        create_fab = findViewById(R.id.create_fab);
+
+
+        path = "android.resource://" + getPackageName() + "/" + R.raw.login_bg;
 
 
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -118,13 +127,7 @@ public class MainActivity extends AppCompatActivity {
         );
 
 
-
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-
-        db = FirebaseFirestore.getInstance();
-
-        db.collection("Users").document(firebaseUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 inLobbyID = documentSnapshot.get("inLobby").toString();
@@ -136,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        db.collection("Users").document(firebaseUser.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
@@ -144,27 +147,6 @@ public class MainActivity extends AppCompatActivity {
                 username.setText(getString(R.string.main_welcome) + nickname);
 
 
-            }
-        });
-
-
-        create_fab = findViewById(R.id.create_fab);
-
-
-
-
-        VideoView view = findViewById(R.id.videoView);
-        String path = "android.resource://" + getPackageName() + "/" + R.raw.login_bg;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            view.setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE);
-        }
-        view.setVideoURI(Uri.parse(path));
-        view.start();
-
-        view.setOnPreparedListener (new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mp.setLooping(true);
             }
         });
 
@@ -185,12 +167,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        VideoView view = findViewById(R.id.videoView);
-        String path = "android.resource://" + getPackageName() + "/" + R.raw.login_bg;
-        view.setVideoURI(Uri.parse(path));
-        view.start();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            bgVid.setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE);
+        }
+        bgVid.setVideoURI(Uri.parse(path));
+        bgVid.start();
 
-        view.setOnPreparedListener (new MediaPlayer.OnPreparedListener() {
+        bgVid.setOnPreparedListener (new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
                 mp.setLooping(true);

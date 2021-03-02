@@ -1,8 +1,5 @@
 package app.me.nightstory.login;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -16,16 +13,13 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,12 +35,10 @@ import java.util.Map;
 
 import app.me.nightstory.R;
 import app.me.nightstory.home.MainActivity;
-import ir.samanjafari.easycountdowntimer.EasyCountDownTextview;
 
 public class Login extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
     private EditText username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,25 +54,6 @@ public class Login extends AppCompatActivity {
         enterButton.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
         enterButton.setEnabled(false);
         enterButton.setTextColor(Color.GRAY);
-
-
-        /*final EasyCountDownTextview countDownTextview = findViewById(R.id.easyCountDownTextview);
-        countDownTextview.setTime(0, 0, 0, 3);
-        countDownTextview.startTimer();
-        countDownTextview.setOnTick(new CountDownInterface() {
-            @Override
-            public void onTick(long time) {
-
-            }
-            @Override
-            public void onFinish() {
-                enterButton.getBackground().setColorFilter(null);
-                enterButton.setEnabled(true);
-                enterButton.setTextColor(getResources().getColor(R.color.textColorGray));
-                frameLayout.setVisibility(View.INVISIBLE);
-                FadeOut(countDownTextview);
-            }
-        });*/
 
         username.addTextChangedListener(new TextWatcher() {
             @Override
@@ -171,32 +144,6 @@ public class Login extends AppCompatActivity {
         Intent mainIntent = new Intent(Login.this, MainActivity.class);
         Login.this.startActivity(mainIntent);
         Login.this.finish();
-    }
-
-
-    private void FadeOut(EasyCountDownTextview view){
-
-        Animation fadeOut = new AlphaAnimation(1, 0);
-        fadeOut.setInterpolator(new AccelerateInterpolator()); //and this
-        fadeOut.setStartOffset(100);
-        fadeOut.setDuration(500);
-
-        view.setAnimation(fadeOut);
-        view.setVisibility(View.INVISIBLE);
-    }
-
-    private void TranslateDown(TextView view){
-
-        Animation down = new TranslateAnimation(TranslateAnimation.RELATIVE_TO_SELF, 0f,
-                TranslateAnimation.RELATIVE_TO_SELF, 0f,
-                TranslateAnimation.RELATIVE_TO_SELF, 0f,
-                TranslateAnimation.RELATIVE_TO_SELF, 2f);
-        down.setInterpolator(new DecelerateInterpolator()); //and this
-        down.setStartOffset(100);
-        down.setDuration(1000);
-        down.setFillAfter(true);
-
-        view.setAnimation(down);
     }
 
     private void setAppLocale(String localeCode){

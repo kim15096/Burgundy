@@ -1,8 +1,5 @@
 package app.me.nightstory.login;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -10,27 +7,23 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -42,7 +35,6 @@ import ir.samanjafari.easycountdowntimer.EasyCountDownTextview;
 public class Closed extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
     private String EVENT_DATE_TIME;
     private String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
@@ -53,10 +45,11 @@ public class Closed extends AppCompatActivity {
         setContentView(R.layout.activity_closed);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
 
         final Button enterButton = findViewById(R.id.enterBtn);
         final TextView closedTv = findViewById(R.id.closed_tv);
-        final TextView userTV = findViewById(R.id.closed_usernameTV);
         final FrameLayout frameLayout = findViewById(R.id.closed_dimFrame);
 
         frameLayout.setVisibility(View.VISIBLE);
@@ -82,14 +75,14 @@ public class Closed extends AppCompatActivity {
 
         Date current_date = new Date();
         if (!current_date.after(event_date)) {
-            long diff = event_date.getTime() - current_date.getTime();
-            int Days = (int) diff / (24 * 60 * 60 * 1000);
-            int Hours = (int) diff / (60 * 60 * 1000) % 24;
-            int Minutes = (int) diff / (60 * 1000) % 60;
-            int Seconds = (int) diff / 1000 % 60;
+            long timeDiff = event_date.getTime() - current_date.getTime();
+            int d = (int) timeDiff / (24 * 60 * 60 * 1000);
+            int h = (int) timeDiff / (60 * 60 * 1000) % 24;
+            int m = (int) timeDiff / (60 * 1000) % 60;
+            int s = (int) timeDiff / 1000 % 60;
 
             final EasyCountDownTextview countDownTextview = findViewById(R.id.easyCountDownTextview);
-            countDownTextview.setTime(Days, Hours, Minutes, Seconds);
+            countDownTextview.setTime(d, h, m, s);
             countDownTextview.startTimer();
             countDownTextview.setOnTick(new CountDownInterface() {
                 @Override
@@ -114,7 +107,6 @@ public class Closed extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
                 if (currentUser != null) {
                     toHome();
                 } else {
@@ -123,17 +115,6 @@ public class Closed extends AppCompatActivity {
             }
         });
 
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        firebaseAuth.removeAuthStateListener(authStateListener);
     }
 
     private void toHome(){
@@ -172,6 +153,8 @@ public class Closed extends AppCompatActivity {
 
         view.setAnimation(down);
     }
+
+
     private void setAppLocale(String localeCode){
         Resources resources = getResources();
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();

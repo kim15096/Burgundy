@@ -79,7 +79,6 @@
         android:elevation="0dp"
         android:scaleType="center"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/closed_usernameTV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/easyCountDownTextview"
@@ -88,16 +87,5 @@
         app:lottie_rawRes="@raw/fire_animation"
         app:lottie_scale="0.3"
         app:lottie_speed="0.75" />
-
-    <TextView
-        android:id="@+id/closed_usernameTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:textColor="@color/textColorGray"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/enterBtn"
-        app:layout_constraintEnd_toEndOf="@+id/enterBtn"
-        app:layout_constraintStart_toStartOf="@+id/enterBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
