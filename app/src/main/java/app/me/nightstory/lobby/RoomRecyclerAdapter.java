@@ -23,11 +23,11 @@ import app.me.nightstory.home.MainActivity;
 public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel, RoomViewHolder> {
 
     public Context context;
-    private String userID;
-    private FirebaseAuth firebaseAuth;
-    private FirebaseFirestore db;
-    private FirebaseUser firebaseUser;
-    private DocumentReference userRef;
+    private final String userID;
+    private final FirebaseAuth firebaseAuth;
+    private final FirebaseFirestore db;
+    private final FirebaseUser firebaseUser;
+    private final DocumentReference userRef;
 
     public RoomRecyclerAdapter(FirestoreRecyclerOptions recyclerOptions) {
         super(recyclerOptions);

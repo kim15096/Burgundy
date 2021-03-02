@@ -36,7 +36,7 @@ public class Closed extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private String EVENT_DATE_TIME;
-    private String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    private final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

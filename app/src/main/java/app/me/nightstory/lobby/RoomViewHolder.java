@@ -12,7 +12,7 @@ import app.me.nightstory.R;
 
 public class RoomViewHolder extends RecyclerView.ViewHolder{
 
-    private View mView;
+    private final View mView;
     public ImageView joinBtn;
     public CardView cardView;
 

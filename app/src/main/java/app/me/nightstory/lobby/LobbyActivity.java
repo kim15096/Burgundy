@@ -61,9 +61,9 @@ public class LobbyActivity extends AppCompatActivity {
     private TextView lobby_title, host_name, cur_views, category_tv, sendBtn;
     private AlertDialog alertDialog;
     private EditText chat_et, chat_viewer_et;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    private SimpleDateFormat dateFormatDay = new SimpleDateFormat("yyyy-MM-dd");
-    private SimpleDateFormat dateFormatHour = new SimpleDateFormat("aa hh:mm");
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private final SimpleDateFormat dateFormatDay = new SimpleDateFormat("yyyy-MM-dd");
+    private final SimpleDateFormat dateFormatHour = new SimpleDateFormat("aa hh:mm");
 
     private RecyclerView story_recycler, comments_recycler;
     private StoryRecyclerAdapter storyRecyclerAdapter;
