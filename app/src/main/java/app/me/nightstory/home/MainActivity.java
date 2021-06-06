@@ -191,11 +191,11 @@ public class MainActivity extends AppCompatActivity {
         String timeRN = time.format(currentTime);
         final int timeINT = Integer.parseInt(timeRN);
 
-        if (!((0<=timeINT && timeINT<=4) || (timeINT<=24 && timeINT>=18))) {
+        /*if (!((0<=timeINT && timeINT<=4) || (timeINT<=24 && timeINT>=18))) {
             Intent mainIntent = new Intent(MainActivity.this, Closed.class);
             MainActivity.this.startActivity(mainIntent);
             MainActivity.this.finish();
-        }
+        }*/
 
         // deleting lobbies
         new Handler().postDelayed(new Runnable() {

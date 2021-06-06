@@ -102,7 +102,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username"
         app:tabIndicator="@drawable/tab_indicator"
-        app:tabIndicatorColor="@color/darkTrans"
+        app:tabIndicatorColor="@color/colorSecondary"
         app:tabIndicatorGravity="stretch"
         app:tabIndicatorHeight="3.5dp"
         app:tabRippleColor="@android:color/transparent"
@@ -148,7 +148,7 @@
 
     <ImageButton
         android:id="@+id/button2"
-        android:layout_width="70dp"
+        android:layout_width="65dp"
         android:layout_height="40dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/ripple_bg"

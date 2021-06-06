@@ -11,7 +11,7 @@
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:splitMotionEvents">false</item>
         <item name="android:windowFullscreen">false</item>
-        <item name="colorControlHighlight">#33b6b6b6</item>
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowActionBarOverlay">true</item>
 
@@ -27,7 +27,7 @@
         <item name="android:textColorHint">@color/lightGray</item>
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:splitMotionEvents">false</item>
-        <item name="colorControlHighlight">#33b6b6b6</item>
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowActionBarOverlay">true</item>
@@ -59,9 +59,8 @@
     </style>
 
     <style name="dialogTheme" parent="Theme.AppCompat.Dialog.Alert">
-        <item name="android:background">@color/colorSecondary</item>
+        <item name="android:windowBackground">@drawable/dialog_bg</item>
         <item name="colorAccent">@color/colorPrimary</item>
-        <item name="android:layout_width">200dp</item>
     </style>
 
     <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
