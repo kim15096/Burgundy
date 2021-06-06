@@ -84,6 +84,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:met_baseColor="@color/lightGray"
         app:met_floatingLabel="none"
+        app:met_hideUnderline="true"
         app:met_maxCharacters="100"
         app:met_primaryColor="@color/colorPrimary"
         app:met_textColor="@color/textColorGray"

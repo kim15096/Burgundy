@@ -15,6 +15,8 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -40,6 +42,7 @@ public class Login extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private EditText username;
+    private CheckBox checkBox;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +53,7 @@ public class Login extends AppCompatActivity {
 
         final Button enterButton = findViewById(R.id.enterBtn);
         username =  findViewById(R.id.username_et);
+        checkBox = findViewById(R.id.login_checkbox);
 
         enterButton.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
         enterButton.setEnabled(false);
@@ -58,7 +62,6 @@ public class Login extends AppCompatActivity {
         username.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -68,18 +71,36 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (username.getText().toString().equals("")){
+                if (!username.getText().toString().equals("") && checkBox.isChecked()==true){
 
-                    enterButton.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
-                    enterButton.setEnabled(false);
-                    enterButton.setTextColor(Color.GRAY);
-
-                }
-                else {
                     enterButton.getBackground().setColorFilter(null);
                     enterButton.setEnabled(true);
                     enterButton.setTextColor(getResources().getColor(R.color.textColorGray));
+
                 }
+                else {
+                    enterButton.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+                    enterButton.setEnabled(false);
+                    enterButton.setTextColor(Color.GRAY);
+                }
+            }
+        });
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+               if (isChecked==true && !username.getText().toString().equals("")){
+                   enterButton.getBackground().setColorFilter(null);
+                   enterButton.setEnabled(true);
+                   enterButton.setTextColor(getResources().getColor(R.color.textColorGray));
+
+               }
+               else {
+                   enterButton.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+                   enterButton.setEnabled(false);
+                   enterButton.setTextColor(Color.GRAY);
+
+               }
             }
         });
 

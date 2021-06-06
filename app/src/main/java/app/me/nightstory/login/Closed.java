@@ -48,15 +48,9 @@ public class Closed extends AppCompatActivity {
         final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
 
-        final Button enterButton = findViewById(R.id.enterBtn);
         final TextView closedTv = findViewById(R.id.closed_tv);
-        final FrameLayout frameLayout = findViewById(R.id.closed_dimFrame);
 
-        frameLayout.setVisibility(View.VISIBLE);
 
-        enterButton.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
-        enterButton.setEnabled(false);
-        enterButton.setTextColor(Color.GRAY);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
 
@@ -91,29 +85,16 @@ public class Closed extends AppCompatActivity {
                 }
                 @Override
                 public void onFinish() {
-                    enterButton.getBackground().setColorFilter(null);
-                    enterButton.setEnabled(true);
-                    enterButton.setTextColor(getResources().getColor(R.color.textColorGray));
-                    frameLayout.setVisibility(View.INVISIBLE);
-                    closedTv.setText(R.string.closed_title);
-                    FadeOut(countDownTextview);
-                    TranslateDown(closedTv);
+
+                    if (currentUser != null) {
+                        toHome();
+                    } else {
+                        toLogin();
+                    }
                 }
             });
         }
 
-
-        enterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (currentUser != null) {
-                    toHome();
-                } else {
-                    toLogin();
-                }
-            }
-        });
 
     }
 
@@ -138,6 +119,18 @@ public class Closed extends AppCompatActivity {
 
         view.setAnimation(fadeOut);
         view.setVisibility(View.INVISIBLE);
+    }
+
+    public void adminEnter(View view){
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            toHome();
+        } else {
+            toLogin();
+        }
     }
 
     private void TranslateDown(TextView view){

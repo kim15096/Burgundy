@@ -15,7 +15,7 @@
     <string name="tab_fresh">Fresh</string>
     <string name="main_welcome">"Welcome "</string>
     <string name="main_rename">Rename your Sparkling?</string>
-    <string name="main_yes">Yes!</string>
+    <string name="main_signout">Delete account</string>
     <string name="main_no">No!</string>
     <string name="add_relationship">Relationship</string>
     <string name="add_family">Family</string>
@@ -39,5 +39,7 @@
     <string name="closed_title">Come Tell Your Stories</string>
     <string name="closed_titleClosed">Closed</string>
     <string name="main_closedNotice">Room is now closed!</string>
+    <string name="login_terms">I have read the terms and agreements (required)</string>
+    <string name="login_name">Username</string>
 
 </resources>

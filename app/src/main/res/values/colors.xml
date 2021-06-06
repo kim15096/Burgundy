@@ -14,5 +14,6 @@
     <color name="bg1">#EB363447</color>
     <color name="gray1">#514E61</color>
     <color name="gray2">#8E8B9B</color>
+    <color name="darkTrans">#BF20212B</color>
 
 </resources>

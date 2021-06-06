@@ -39,12 +39,17 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import app.me.nightstory.R;
 import app.me.nightstory.lobby.AddLobbyActivity;
 import app.me.nightstory.lobby.LobbyActivity;
+import app.me.nightstory.login.Closed;
 import app.me.nightstory.login.Login;
+import app.me.nightstory.login.Splash;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -88,16 +93,16 @@ public class MainActivity extends AppCompatActivity {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.setCurrentItem(0);
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(1);
 
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setInlineLabel(true);
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_hot);
         tabLayout.getTabAt(0).setText(R.string.tab_hot);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_trending);
-        tabLayout.getTabAt(1).setText(R.string.tab_trending);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_new);
-        tabLayout.getTabAt(2).setText(R.string.tab_fresh);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_round_trending_up_24);
+        tabLayout.getTabAt(1).setText(R.string.tab_fresh);
+        /*tabLayout.getTabAt(2).setIcon(R.drawable.ic_new);
+        tabLayout.getTabAt(2).setText(R.string.tab_fresh);*/
         tabLayout.setTabTextColors(getResources().getColor(R.color.textColorGray),
                 getResources().getColor(R.color.colorPrimary));
 
@@ -143,8 +148,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
-                nickname = documentSnapshot.get("username").toString();
-                username.setText(getString(R.string.main_welcome) + nickname);
+                /*nickname = documentSnapshot.get("username").toString();
+                username.setText(nickname);*/
 
 
             }
@@ -181,6 +186,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        SimpleDateFormat time = new SimpleDateFormat("k");
+        Date currentTime = Calendar.getInstance().getTime();
+        String timeRN = time.format(currentTime);
+        final int timeINT = Integer.parseInt(timeRN);
+
+        if (!((0<=timeINT && timeINT<=4) || (timeINT<=24 && timeINT>=18))) {
+            Intent mainIntent = new Intent(MainActivity.this, Closed.class);
+            MainActivity.this.startActivity(mainIntent);
+            MainActivity.this.finish();
+        }
+
         // deleting lobbies
         new Handler().postDelayed(new Runnable() {
             public void run() {
@@ -203,29 +219,43 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-   public void signOut(View view){
-
-       new AlertDialog.Builder(this, R.style.dialogTheme)
-               .setIcon(R.drawable.ic_lil_element)
-               .setTitle(R.string.main_rename)
-               .setPositiveButton(R.string.main_yes, new DialogInterface.OnClickListener() {
-                   public void onClick(DialogInterface dialog, int which) {
-                       firebaseAuth.signOut();
-                       Intent mainIntent = new Intent(MainActivity.this, Login.class);
-                       MainActivity.this.startActivity(mainIntent);
-                       MainActivity.this.finish();
-                   }
-               })
-
-               .setNegativeButton(R.string.main_no, null)
-               .show();
-   }
-
     public void showInfo(View view){
 
         new AlertDialog.Builder(this, R.style.dialogTheme)
                 .setTitle(R.string.mainInfo_title)
                 .setMessage(R.string.mainInfo_msg)
+                .setPositiveButton(R.string.main_signout, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        confirmDel();
+                    }
+                })
+                .show();
+    }
+
+    public void createRoom(View view){
+        Intent mainIntent = new Intent(MainActivity.this, AddLobbyActivity.class);
+        MainActivity.this.startActivity(mainIntent);
+    }
+
+    public void confirmDel(){
+
+        new AlertDialog.Builder(this, R.style.dialogTheme)
+                .setIcon(R.drawable.ic_round_warning)
+                .setTitle("계정을 삭제하면 기존에 있는 데이터가 모두 삭제됩니다.")
+                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton(R.string.main_signout, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        firebaseAuth.signOut();
+                        Intent mainIntent = new Intent(MainActivity.this, Login.class);
+                        MainActivity.this.startActivity(mainIntent);
+                        MainActivity.this.finish();
+                    }
+                })
                 .show();
     }
 

@@ -30,9 +30,8 @@
         android:layout_marginStart="8dp"
         android:fontFamily="@font/roboto_medium"
         android:padding="1dp"
-        android:textColor="@color/textColorGray"
+        android:textColor="@color/textColor"
         android:textSize="11sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="Andrew :" />
