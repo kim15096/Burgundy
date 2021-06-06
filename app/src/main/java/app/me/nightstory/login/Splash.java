@@ -65,7 +65,7 @@ public class Splash extends AppCompatActivity {
     }
 
     private void toLogin() {
-        Intent mainIntent = new Intent(Splash.this, Login.class);
+        Intent mainIntent = new Intent(Splash.this, Sign.class);
         Splash.this.startActivity(mainIntent);
         Splash.this.finish();
     }

@@ -105,7 +105,7 @@ public class Closed extends AppCompatActivity {
     }
 
     private void toLogin(){
-        Intent mainIntent = new Intent(Closed.this, Login.class);
+        Intent mainIntent = new Intent(Closed.this, Sign.class);
         Closed.this.startActivity(mainIntent);
         Closed.this.finish();
     }

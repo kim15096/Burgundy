@@ -7,6 +7,20 @@
     android:fitsSystemWindows="true"
     tools:context=".login.Login">
 
+    <ImageButton
+        android:id="@+id/login_back"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:background="@android:color/transparent"
+        android:onClick="loginBack"
+        android:padding="2dp"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back" />
+
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/username_et"
         android:layout_width="0dp"
@@ -19,7 +33,7 @@
         android:maxLength="10"
         android:padding="6dp"
         android:textAlignment="textStart"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/enterBtn"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/enterBtn"
@@ -30,6 +44,7 @@
         app:met_floatingLabelAnimating="true"
         app:met_floatingLabelPadding="10dp"
         app:met_floatingLabelText="@string/login_name"
+        app:met_floatingLabelTextSize="12sp"
         app:met_hideUnderline="true"
         app:met_maxCharacters="10"
         app:met_textColor="@color/textColorGray"
@@ -74,30 +89,19 @@
         app:lottie_scale="0.125"
         app:lottie_speed="0.75" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.100000024"
-        app:srcCompat="@drawable/ic_login_ch" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/login_text"
         android:textColor="@color/textColorGray"
-        android:textSize="21sp"
+        android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/login_back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.100000024" />
 
     <TextView
         android:id="@+id/textView3"
@@ -116,7 +120,7 @@
         style="@style/Widget.AppCompat.CompoundButton.CheckBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="50dp"
         android:buttonTint="#F44336"
         android:text="@string/login_terms"
         android:textColor="@color/textColorGray"

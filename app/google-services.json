@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "69136461367-c3orlf1lfu9h2krfelcpmlb9u4frovqi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.me.nightstory",
+            "certificate_hash": "9e74db89908fd3692580639960f8abf667e3ff82"
+          }
+        },
+        {
           "client_id": "69136461367-hbb3h9oe5uml44gei3jdosqpnan79t8e.apps.googleusercontent.com",
           "client_type": 3
         }

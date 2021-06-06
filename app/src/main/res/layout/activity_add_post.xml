@@ -8,52 +8,6 @@
     android:fitsSystemWindows="true"
     tools:context=".lobby.AddLobbyActivity">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/ch"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:elevation="0dp"
-        android:scaleType="center"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/createlob_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.32"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categorySpinner"
-        app:layout_constraintVertical_bias="0.7"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/ch1_talk"
-        app:lottie_scale="0.125"
-        app:lottie_speed="0.5" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/fire_animation4"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="105dp"
-        android:alpha="0.9"
-        android:elevation="0dp"
-        android:scaleType="center"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/ch"
-        app:layout_constraintStart_toStartOf="@+id/ch"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/fire_animation"
-        app:lottie_scale="0.125"
-        app:lottie_speed="1" />
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/categorySpinner"
-        app:layout_constraintStart_toStartOf="@+id/categorySpinner"
-        app:srcCompat="@drawable/ic_category" />
-
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="16dp"
@@ -92,7 +46,7 @@
         app:met_underlineColor="@color/lightGray" />
 
     <ImageButton
-        android:id="@+id/createlobby_back"
+        android:id="@+id/createpst_back"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="24dp"
@@ -106,7 +60,7 @@
         app:srcCompat="@drawable/ic_back" />
 
     <Button
-        android:id="@+id/createlob_btn"
+        android:id="@+id/createpst_btn"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="40dp"
@@ -125,48 +79,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.jaredrummler.materialspinner.MaterialSpinner
-        android:id="@+id/categorySpinner"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="12dp"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/lobbyTitle"
-        app:layout_constraintStart_toStartOf="@+id/lobbyTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:ms_arrow_tint="@android:color/white"
-        app:ms_background_color="@color/colorSecondary"
-        app:ms_hint="@string/add_selectCat"
-        app:ms_hint_color="@color/lightGray"
-        app:ms_text_color="@color/textColorGray" />
-
     <TextView
-        android:id="@+id/createlobby_title"
+        android:id="@+id/createpst_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="@string/start_your_campfire"
+        android:text="글쓰기"
         android:textColor="@color/textColorGray"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/createlobby_back"
-        app:layout_constraintStart_toEndOf="@+id/createlobby_back"
-        app:layout_constraintTop_toTopOf="@+id/createlobby_back" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="32dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="@string/addLobby_category"
-        android:textColor="@color/textColorGray"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/lobbyTitle" />
+        app:layout_constraintBottom_toBottomOf="@+id/createpst_back"
+        app:layout_constraintStart_toEndOf="@+id/createpst_back"
+        app:layout_constraintTop_toTopOf="@+id/createpst_back" />
 
     <TextView
         android:id="@+id/textView2"
@@ -180,13 +105,6 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toBottomOf="@+id/createlobby_title" />
+        app:layout_constraintTop_toBottomOf="@+id/createpst_title" />
 
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="48dp"
-        android:layout_height="23dp"
-        app:layout_constraintBottom_toTopOf="@+id/fire_animation4"
-        app:layout_constraintEnd_toEndOf="@+id/ch"
-        app:srcCompat="@drawable/ic_thinking" />
 </androidx.constraintlayout.widget.ConstraintLayout>

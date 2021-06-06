@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -23,6 +24,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -43,6 +48,8 @@ public class Login extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private EditText username;
     private CheckBox checkBox;
+    private FirebaseFirestore firestore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +57,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
 
         final Button enterButton = findViewById(R.id.enterBtn);
         username =  findViewById(R.id.username_et);
@@ -114,45 +122,30 @@ public class Login extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
-
                     final ProgressDialog pd = new ProgressDialog(Login.this, R.style.MyGravity);
                     pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                     pd.setCancelable(false);
                     pd.show();
 
-                    firebaseAuth.signInAnonymously()
-                            .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                                        final Map<String, Object> createUser = new HashMap<>();
-                                        createUser.put("userID", user.getUid());
-                                        createUser.put("inLobby", "");
-                                        createUser.put("username", username.getText().toString());
 
-                                        FirebaseFirestore.getInstance().collection("Users").document(user.getUid()).set(createUser).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Handler handler = new Handler();
-                                                handler.postDelayed(new Runnable() {
-                                                    public void run() {
-                                                        toHome();
-                                                        pd.dismiss();
-                                                    }
-                                                }, 500);
-
-                                            }
-                                        });
-
-                                    } else {
-                                        Toast.makeText(Login.this, "Authentication failed.",
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-
+                    firestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).update("username", username.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                public void run() {
+                                    toHome();
+                                    pd.dismiss();
                                 }
-                            });
+                            }, 500);
+                        }
+                    });
+
+
+
+
+
                 }
 
             }
@@ -164,10 +157,36 @@ public class Login extends AppCompatActivity {
     private void toHome(){
         Intent mainIntent = new Intent(Login.this, MainActivity.class);
         Login.this.startActivity(mainIntent);
-        Login.this.finish();
+        finishAffinity();
     }
 
-    private void setAppLocale(String localeCode){
+    @Override
+    public void onBackPressed() {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null){
+            FirebaseFirestore.getInstance().collection("Users").document(user.getUid()).delete();
+            user.delete();
+
+        }
+
+        GoogleSignInClient googleSignInClient;
+
+        googleSignInClient = GoogleSignIn.getClient(Login.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
+
+        googleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Login.super.onBackPressed();
+                    Toast.makeText(getBaseContext(), "계정만들기를 실패했습니다!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+        private void setAppLocale(String localeCode){
         Resources resources = getResources();
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();
         Configuration configuration = resources.getConfiguration();
@@ -175,5 +194,9 @@ public class Login extends AppCompatActivity {
         resources.updateConfiguration(configuration, displayMetrics);
         configuration.locale = new Locale(localeCode.toLowerCase());
         resources.updateConfiguration(configuration, displayMetrics);
+    }
+
+    public void loginBack(View view){
+        onBackPressed();
     }
 }

@@ -24,6 +24,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -49,6 +52,7 @@ import app.me.nightstory.lobby.AddLobbyActivity;
 import app.me.nightstory.lobby.LobbyActivity;
 import app.me.nightstory.login.Closed;
 import app.me.nightstory.login.Login;
+import app.me.nightstory.login.Sign;
 import app.me.nightstory.login.Splash;
 
 public class MainActivity extends AppCompatActivity {
@@ -66,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView username;
     private VideoView bgVid;
     private String path;
+    private GoogleSignInClient googleSignInClient;
 
     public static String nickname = "";
 
@@ -148,8 +153,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
-                /*nickname = documentSnapshot.get("username").toString();
-                username.setText(nickname);*/
+                nickname = documentSnapshot.get("username").toString();
 
 
             }
@@ -224,6 +228,12 @@ public class MainActivity extends AppCompatActivity {
         new AlertDialog.Builder(this, R.style.dialogTheme)
                 .setTitle(R.string.mainInfo_title)
                 .setMessage(R.string.mainInfo_msg)
+                .setNegativeButton("로그아웃", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        confirmLogout();
+                    }
+                })
                 .setPositiveButton(R.string.main_signout, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         confirmDel();
@@ -235,6 +245,38 @@ public class MainActivity extends AppCompatActivity {
     public void createRoom(View view){
         Intent mainIntent = new Intent(MainActivity.this, AddLobbyActivity.class);
         MainActivity.this.startActivity(mainIntent);
+    }
+
+    public void confirmLogout() {
+
+
+        googleSignInClient = GoogleSignIn.getClient(MainActivity.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
+
+        googleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    firebaseAuth.signOut();
+
+                    SimpleDateFormat time = new SimpleDateFormat("k");
+                    Date currentTime = Calendar.getInstance().getTime();
+                    String timeRN = time.format(currentTime);
+                    final int timeINT = Integer.parseInt(timeRN);
+
+                    if ((0 <= timeINT && timeINT <= 4) || (timeINT <= 24 && timeINT >= 18)) {
+                        Intent mainIntent = new Intent(MainActivity.this, Sign.class);
+                        MainActivity.this.startActivity(mainIntent);
+                        MainActivity.this.finish();
+                    } else {
+                        Intent mainIntent = new Intent(MainActivity.this, Closed.class);
+                        MainActivity.this.startActivity(mainIntent);
+                        MainActivity.this.finish();
+                    }
+
+                }
+
+            }
+        });
     }
 
     public void confirmDel(){
@@ -250,10 +292,33 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .setPositiveButton(R.string.main_signout, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        firebaseAuth.signOut();
-                        Intent mainIntent = new Intent(MainActivity.this, Login.class);
-                        MainActivity.this.startActivity(mainIntent);
-                        MainActivity.this.finish();
+                        googleSignInClient = GoogleSignIn.getClient(MainActivity.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
+
+                        googleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()){
+                                    firebaseAuth.signOut();
+
+                                    SimpleDateFormat time = new SimpleDateFormat("k");
+                                    Date currentTime = Calendar.getInstance().getTime();
+                                    String timeRN = time.format(currentTime);
+                                    final int timeINT = Integer.parseInt(timeRN);
+
+                                    if ((0<=timeINT && timeINT<=4) || (timeINT<=24 && timeINT>=18)) {
+                                        Intent mainIntent = new Intent(MainActivity.this, Sign.class);
+                                        MainActivity.this.startActivity(mainIntent);
+                                        MainActivity.this.finish();
+                                    }
+                                    else{
+                                        Intent mainIntent = new Intent(MainActivity.this, Closed.class);
+                                        MainActivity.this.startActivity(mainIntent);
+                                        MainActivity.this.finish();
+                                    }
+
+                                }
+                            }
+                        });
                     }
                 })
                 .show();

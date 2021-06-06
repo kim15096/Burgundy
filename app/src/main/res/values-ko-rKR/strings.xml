@@ -9,7 +9,7 @@
     <string name="lobby_quit">나가기</string>
     <string name="lobby_type">여기에 입력하세요</string>
     <string name="lobby_post">글쓰기</string>
-    <string name="login_text">나잇스토리에 온걸 환영해!</string>
+    <string name="login_text">닉네임을 만들어요!</string>
     <string name="login_btn">나잇스토리 시작하기</string>
     <string name="tab_hot">인기</string>
     <string name="tab_trending">트렌딩</string>
@@ -41,5 +41,5 @@
     <string name="closed_titleClosed">아직 밤이 아니에요!</string>
     <string name="main_closedNotice">방이 만료됬습니다!</string>
     <string name="login_terms">이용약관 동의합니다 (필수)</string>
-    <string name="login_name">아이디</string>
+    <string name="login_name">닉네임</string>
 </resources>
