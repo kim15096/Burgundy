@@ -38,6 +38,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import app.me.nightstory.R;
+import app.me.nightstory.home.MainActivity;
 
 public class Sign extends AppCompatActivity {
 
@@ -49,7 +50,7 @@ public class Sign extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setAppLocale("ko");
+        MainActivity.setLocale(this,"ko");
         setContentView(R.layout.activity_sign);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -91,6 +92,7 @@ public class Sign extends AppCompatActivity {
                                     final Map<String, Object> createUser = new HashMap<>();
                                     createUser.put("userID", user.getUid());
                                     createUser.put("inLobby", "");
+                                    createUser.put("imageURL", "");
                                     createUser.put("username", "Random User");
 
                                     FirebaseFirestore.getInstance().collection("Users").document(user.getUid()).set(createUser).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -149,6 +151,7 @@ public class Sign extends AppCompatActivity {
                                     final Map<String, Object> createUser = new HashMap<>();
                                     createUser.put("userID", user.getUid());
                                     createUser.put("inLobby", "");
+                                    createUser.put("imageURL", "");
                                     createUser.put("username", "Random User");
 
                                     FirebaseFirestore.getInstance().collection("Users").document(user.getUid()).set(createUser).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -184,13 +187,4 @@ public class Sign extends AppCompatActivity {
 
     }
 
-    private void setAppLocale(String localeCode){
-        Resources resources = getResources();
-        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
-        Configuration configuration = resources.getConfiguration();
-        configuration.setLocale(new Locale(localeCode.toLowerCase()));
-        resources.updateConfiguration(configuration, displayMetrics);
-        configuration.locale = new Locale(localeCode.toLowerCase());
-        resources.updateConfiguration(configuration, displayMetrics);
-    }
 }

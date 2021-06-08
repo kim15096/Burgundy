@@ -23,9 +23,9 @@ class ViewPagerAdapter extends FragmentPagerAdapter {
                 ViewNew viewNew = new ViewNew();
                 return viewNew;
 
-            /*case 1:
-                ViewTrend viewTrend = new ViewTrend();
-                return viewTrend;*/
+            case 2:
+                ViewLive viewLive = new ViewLive();
+                return viewLive;
 
             case 0:
                 ViewHot viewHot = new ViewHot();
@@ -38,7 +38,7 @@ class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     public CharSequence getPageTitle(int position){

@@ -3,6 +3,8 @@
     package="app.me.nightstory">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -11,7 +13,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".lobby.AddPost"></activity>
         <activity android:name=".login.Sign" />
         <activity
             android:name=".login.Login"
@@ -21,6 +22,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".lobby.AddLobbyActivity" />
+        <activity android:name=".article.AddPost" />
         <activity android:name=".login.Closed" />
         <activity
             android:name=".login.Splash"
@@ -36,6 +38,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/MainTheme"
             android:windowSoftInputMode="adjustResize" />
+        <activity android:name="com.canhub.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>
     </application>
 
 </manifest>

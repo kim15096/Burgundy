@@ -1,10 +1,12 @@
 package app.me.nightstory.home;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -13,8 +15,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
@@ -24,12 +30,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
+import com.canhub.cropper.CropImageView;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,6 +51,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.mikhaellopez.circularimageview.CircularImageView;
+import com.canhub.cropper.CropImage;
+import com.canhub.cropper.CropImageActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -48,12 +64,11 @@ import java.util.Date;
 import java.util.Locale;
 
 import app.me.nightstory.R;
+import app.me.nightstory.article.AddPost;
 import app.me.nightstory.lobby.AddLobbyActivity;
 import app.me.nightstory.lobby.LobbyActivity;
 import app.me.nightstory.login.Closed;
-import app.me.nightstory.login.Login;
 import app.me.nightstory.login.Sign;
-import app.me.nightstory.login.Splash;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,19 +80,22 @@ public class MainActivity extends AppCompatActivity {
     private DocumentReference userRef;
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private StorageReference storageRef = storage.getReference();
     public static String inLobbyID = "";
     private ViewPagerAdapter viewPagerAdapter;
     private TextView username;
+    private UploadTask uploadTask;
     private VideoView bgVid;
-    private String path;
+    private String path, imageURL_STR = "", imageURL ="";
     private GoogleSignInClient googleSignInClient;
-
+    private CircularImageView ppSmall, ppBig;
     public static String nickname = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setAppLocale("ko");
+        setLocale(this,"ko");
         setContentView(R.layout.main_page);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -86,10 +104,13 @@ public class MainActivity extends AppCompatActivity {
         userRef = db.collection("Users").document(firebaseUser.getUid());
 
         username = findViewById(R.id.username);
+        ppSmall = findViewById(R.id.main_pp);
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabLayout);
         bgVid = findViewById(R.id.videoView);
         create_fab = findViewById(R.id.create_fab);
+
+
 
 
         path = "android.resource://" + getPackageName() + "/" + R.raw.login_bg;
@@ -98,21 +119,19 @@ public class MainActivity extends AppCompatActivity {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.setCurrentItem(0);
-        viewPager.setOffscreenPageLimit(1);
+        viewPager.setOffscreenPageLimit(2);
 
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setInlineLabel(true);
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_hot);
+        //tabLayout.getTabAt(0).setIcon(R.drawable.ic_hot);
         tabLayout.getTabAt(0).setText(R.string.tab_hot);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_round_trending_up_24);
+        //tabLayout.getTabAt(1).setIcon(R.drawable.ic_round_trending_up_24);
         tabLayout.getTabAt(1).setText(R.string.tab_fresh);
-        /*tabLayout.getTabAt(2).setIcon(R.drawable.ic_new);
-        tabLayout.getTabAt(2).setText(R.string.tab_fresh);*/
-        tabLayout.setTabTextColors(getResources().getColor(R.color.textColorGray),
-                getResources().getColor(R.color.colorPrimary));
+        //tabLayout.getTabAt(2).setIcon(R.drawable.ic_baseline_play_arrow_24);
+        tabLayout.getTabAt(2).setText("라이브");
 
-        tabLayout.getTabAt(tabLayout.getSelectedTabPosition()).getIcon().setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
-        tabLayout.addOnTabSelectedListener(
+        //tabLayout.getTabAt(tabLayout.getSelectedTabPosition()).getIcon().setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
+        /*tabLayout.addOnTabSelectedListener(
                 new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
 
                     @Override
@@ -134,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                         super.onTabReselected(tab);
                     }
                 }
-        );
+        );*/
 
 
         userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -149,26 +168,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
                 nickname = documentSnapshot.get("username").toString();
 
+                if (!documentSnapshot.get("imageURL").equals("")) {
+                    imageURL = documentSnapshot.get("imageURL").toString();
+                    Glide.with(MainActivity.this).load(imageURL).centerCrop()
+                            .into(ppSmall);
+                }
+
+                else {
+                    ppSmall.setImageDrawable(getResources().getDrawable(R.drawable.ic_deficon));
+                }
+
 
             }
         });
 
-
-        //when floating action button is clicked
-        create_fab.setOnClickListener(new View.OnClickListener() {
+        ppSmall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mainIntent = new Intent(MainActivity.this, AddLobbyActivity.class);
-                MainActivity.this.startActivity(mainIntent);
-
+                showInfo(null);
             }
         });
+
 
     }
 
@@ -225,26 +252,112 @@ public class MainActivity extends AppCompatActivity {
 
     public void showInfo(View view){
 
-        new AlertDialog.Builder(this, R.style.dialogTheme)
-                .setTitle(R.string.mainInfo_title)
-                .setMessage(R.string.mainInfo_msg)
-                .setNegativeButton("로그아웃", new DialogInterface.OnClickListener() {
+        final BottomSheetDialog profileBtmSheet = new BottomSheetDialog(MainActivity.this);
+        profileBtmSheet.setContentView(R.layout.bottom_sheet_profile);
+
+        TextView profileTv = profileBtmSheet.findViewById(R.id.profile_username);
+        ppBig = profileBtmSheet.findViewById(R.id.profile_image);
+
+
+        if (imageURL.equals("")){
+            ppBig.setImageDrawable(getResources().getDrawable(R.drawable.ic_deficon));
+        }else {
+            Glide.with(MainActivity.this).load(imageURL).centerCrop().into(ppBig);
+        }
+        LinearLayout settingsLay = profileBtmSheet.findViewById(R.id.profile_settingsLL);
+        LinearLayout ppLay = profileBtmSheet.findViewById(R.id.profile_ppLL);
+
+        profileTv.setText(nickname);
+        ppLay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] menuOptions = {"Change Profile Picture", "Remove Profile Picture"};
+
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(MainActivity.this, R.style.dialogTheme);
+
+                builder.setItems(menuOptions, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        confirmLogout();
+                        if (which == 0) {
+                            CropImage.activity()
+                                    .setActivityTitle("Edit")
+                                    .setCropMenuCropButtonTitle("Save")
+                                    .setGuidelines(CropImageView.Guidelines.ON)
+                                    .setCropShape(CropImageView.CropShape.OVAL)
+                                    .setMinCropResultSize(256, 256) // update image quality
+                                    .setAspectRatio(1, 1)
+                                    .setInitialCropWindowPaddingRatio((float) 0.1)
+                                    .start(MainActivity.this);
+
+
+                        } else if (which == 1) {
+                            userRef.update("imageURL", "").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    ppBig.setImageResource(R.drawable.ic_deficon);
+                                }
+                            });
+                        } else {
+                            Toast.makeText(MainActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                })
-                .setPositiveButton(R.string.main_signout, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        confirmDel();
-                    }
-                })
-                .show();
+                });
+                builder.show();
+            }
+        });
+
+        settingsLay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(MainActivity.this, R.style.dialogTheme)
+                        .setTitle(R.string.mainInfo_title)
+                        .setMessage(R.string.mainInfo_msg)
+                        .setNegativeButton("로그아웃", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                confirmLogout();
+                            }
+                        })
+                        .setPositiveButton(R.string.main_signout, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                confirmDel();
+                            }
+                        })
+                        .show();
+            }
+        });
+
+        profileBtmSheet.show();
+
     }
 
     public void createRoom(View view){
-        Intent mainIntent = new Intent(MainActivity.this, AddLobbyActivity.class);
-        MainActivity.this.startActivity(mainIntent);
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(MainActivity.this);
+        bottomSheetDialog.setContentView(R.layout.bottom_sheet_add);
+
+        LinearLayout postLay = bottomSheetDialog.findViewById(R.id.postLay);
+        LinearLayout liveLay = bottomSheetDialog.findViewById(R.id.liveLay);
+
+        postLay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(MainActivity.this, AddPost.class);
+                MainActivity.this.startActivity(mainIntent);
+                bottomSheetDialog.dismiss();
+            }
+        });
+
+        liveLay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(MainActivity.this, AddLobbyActivity.class);
+                MainActivity.this.startActivity(mainIntent);
+                bottomSheetDialog.dismiss();
+
+            }
+        });
+
+        bottomSheetDialog.show();
     }
 
     public void confirmLogout() {
@@ -324,14 +437,92 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void setAppLocale(String localeCode){
-        Resources resources = getResources();
-        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
-        Configuration configuration = resources.getConfiguration();
-        configuration.setLocale(new Locale(localeCode.toLowerCase()));
-        resources.updateConfiguration(configuration, displayMetrics);
-        configuration.locale = new Locale(localeCode.toLowerCase());
-        resources.updateConfiguration(configuration, displayMetrics);
+    public void changeName(View view){
+        final AlertDialog.Builder alert = new AlertDialog.Builder(this, R.style.dialogTheme);
+
+        alert.setTitle("닉네임 변경");
+
+// Set an EditText view to get user input
+        final EditText input = new EditText(this);
+        input.setTextColor(getResources().getColor(R.color.textColorGray));
+        input.setTextSize(14);
+        input.setHeight(100);
+        input.setWidth(340);
+        input.setGravity(Gravity.BOTTOM);
+
+        input.setPadding(16, 16, 16, 16);
+
+        alert.setView(input);
+
+        alert.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            public void onClick(final DialogInterface dialog, int whichButton) {
+
+                String username = input.getText().toString();
+                db.collection("Users").document(firebaseUser.getUid()).update("username", username).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        dialog.cancel();
+                    }
+                });
+            }
+        });
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Canceled.
+            }
+        });
+
+        alert.show();
+    }
+
+    public static void setLocale(Activity activity, String languageCode) {
+        Locale locale = new Locale(languageCode);
+        Locale.setDefault(locale);
+        Resources resources = activity.getResources();
+        Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+
+                Uri resultUri = result.getOriginalUri();
+                final StorageReference filepath = storageRef.child("Profile Images").child(firebaseUser.getUid()).child("Profile Image.jpg");
+                uploadTask = filepath.putFile(resultUri);
+
+                Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        if (!task.isSuccessful()) {
+                            throw task.getException();
+                        }
+                        // Continue with the task to get the download URL
+                        return filepath.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful()) {
+                            Uri downloadUri = task.getResult();
+                            imageURL_STR = downloadUri.toString();
+                            userRef.update("imageURL", imageURL_STR);
+                        } else {
+                            Toast.makeText(MainActivity.this, "DOWNLOAD URL DOESNT WORK FFS", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }
     }
 
    }

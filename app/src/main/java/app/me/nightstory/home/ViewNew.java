@@ -16,6 +16,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import app.me.nightstory.R;
+import app.me.nightstory.article.ArticlePostModel;
+import app.me.nightstory.article.ArticleRecyclerAdapter;
+import app.me.nightstory.article.ArticleViewHolder;
 import app.me.nightstory.lobby.LobbyPostModel;
 import app.me.nightstory.lobby.RoomRecyclerAdapter;
 import app.me.nightstory.lobby.RoomViewHolder;
@@ -26,8 +29,8 @@ import app.me.nightstory.lobby.RoomViewHolder;
 public class ViewNew extends Fragment {
 
     private RecyclerView rv_fresh;
-    private FirestoreRecyclerAdapter<LobbyPostModel, RoomViewHolder> mAdapter;
-    private Query LobbyQuery;
+    private FirestoreRecyclerAdapter<ArticlePostModel, ArticleViewHolder> recyclerAdapter;
+    private Query ArticleQuery;
 
     public ViewNew() {
         // Required empty public constructor
@@ -43,28 +46,24 @@ public class ViewNew extends Fragment {
         View view = inflater.inflate(R.layout.vp_new, container, false);
 
         rv_fresh = view.findViewById(R.id.rv_fresh);
-
         rv_fresh.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv_fresh.setNestedScrollingEnabled(false);
 
 
-        LobbyQuery = FirebaseFirestore.getInstance()
-                .collection("Lobbies")
-                .whereGreaterThanOrEqualTo("cur_views", 0)
-                .whereLessThanOrEqualTo("cur_views", 3)
-                .orderBy("cur_views")
-                .orderBy("timestamp");
+        ArticleQuery = FirebaseFirestore.getInstance()
+                .collection("Posts")
+                .orderBy("timestamp", Query.Direction.DESCENDING);
 
         // Set up Recycler Adapter
-        FirestoreRecyclerOptions<LobbyPostModel> recyclerOptions = new FirestoreRecyclerOptions.Builder<LobbyPostModel>()
-                .setQuery(LobbyQuery, LobbyPostModel.class)
+        FirestoreRecyclerOptions<ArticlePostModel> recyclerOptions = new FirestoreRecyclerOptions.Builder<ArticlePostModel>()
+                .setQuery(ArticleQuery, ArticlePostModel.class)
                 .setLifecycleOwner(this)
                 .build();
 
-        mAdapter = new RoomRecyclerAdapter(recyclerOptions);
+        recyclerAdapter = new ArticleRecyclerAdapter(recyclerOptions);
 
 
-        rv_fresh.setAdapter(mAdapter);
+        rv_fresh.setAdapter(recyclerAdapter);
 
         return view;
     }

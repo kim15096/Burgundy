@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">나잇스토리</string>
     <string name="addLobby_category">카테고리</string>
-    <string name="addlobby_title">제목</string>
+    <string name="addlobby_title">방 이름</string>
     <string name="addLobby_btn">방 만들기</string>
     <string name="start_your_campfire">스토리방 만들기</string>
     <string name="addLobby_hint">여기에 입력하세요</string>
@@ -13,7 +13,7 @@
     <string name="login_btn">나잇스토리 시작하기</string>
     <string name="tab_hot">인기</string>
     <string name="tab_trending">트렌딩</string>
-    <string name="tab_fresh">신규</string>
+    <string name="tab_fresh">최신</string>
     <string name="main_welcome">"환영합니다 "</string>
     <string name="main_rename">스파클링 이름 바꾸기</string>
     <string name="main_signout">계정 삭제</string>

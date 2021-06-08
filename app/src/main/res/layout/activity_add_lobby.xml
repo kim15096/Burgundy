@@ -148,7 +148,7 @@
         android:fontFamily="@font/roboto_medium"
         android:text="@string/start_your_campfire"
         android:textColor="@color/textColorGray"
-        android:textSize="18sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/createlobby_back"
         app:layout_constraintStart_toEndOf="@+id/createlobby_back"

@@ -23,34 +23,32 @@ import app.me.nightstory.lobby.RoomViewHolder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ViewTrend extends Fragment {
+public class ViewLive extends Fragment {
 
-    private RecyclerView rv_trend;
+    private RecyclerView rv_live;
     private FirestoreRecyclerAdapter<LobbyPostModel, RoomViewHolder> mAdapter;
     private Query LobbyQuery;
 
-
-    public ViewTrend() {
+    public ViewLive() {
         // Required empty public constructor
-
     }
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.vp_trend, container, false);
+        View view = inflater.inflate(R.layout.vp_live, container, false);
 
+        rv_live = view.findViewById(R.id.rv_live);
 
-        rv_trend = view.findViewById(R.id.rv_trend);
-
-        rv_trend.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rv_trend.setNestedScrollingEnabled(false);
+        rv_live.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rv_live.setNestedScrollingEnabled(false);
 
 
         LobbyQuery = FirebaseFirestore.getInstance()
                 .collection("Lobbies")
-                .whereGreaterThanOrEqualTo("cur_views", 4)
-                .whereLessThanOrEqualTo("cur_views", 7)
                 .orderBy("cur_views")
                 .orderBy("timestamp");
 
@@ -63,12 +61,14 @@ public class ViewTrend extends Fragment {
         mAdapter = new RoomRecyclerAdapter(recyclerOptions);
 
 
-        rv_trend.setAdapter(mAdapter);
+        rv_live.setAdapter(mAdapter);
 
 
-
-        // Inflate the layout for this fragment
         return view;
+
+
     }
 
+
 }
+

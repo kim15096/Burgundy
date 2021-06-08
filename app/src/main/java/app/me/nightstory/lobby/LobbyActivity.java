@@ -93,7 +93,7 @@ public class LobbyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setAppLocale("ko");
+        MainActivity.setLocale(this,"ko");
         setContentView(R.layout.activity_lobby);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -523,14 +523,5 @@ public class LobbyActivity extends AppCompatActivity {
                     .setNegativeButton(R.string.lobby_stay, null)
                     .show();
         }
-    }
-    private void setAppLocale(String localeCode){
-        Resources resources = getResources();
-        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
-        Configuration configuration = resources.getConfiguration();
-        configuration.setLocale(new Locale(localeCode.toLowerCase()));
-        resources.updateConfiguration(configuration, displayMetrics);
-        configuration.locale = new Locale(localeCode.toLowerCase());
-        resources.updateConfiguration(configuration, displayMetrics);
     }
 }
