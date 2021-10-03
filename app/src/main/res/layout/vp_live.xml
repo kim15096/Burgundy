@@ -7,22 +7,53 @@
     android:fitsSystemWindows="true">
 
 
+    <VideoView
+        android:id="@+id/videoBG"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="visible"
+        tools:visibility="gone" />
 
-<androidx.recyclerview.widget.RecyclerView
-android:id="@+id/rv_live"
-android:layout_width="match_parent"
-android:layout_height="0dp"
-android:background="@android:color/transparent"
-android:fadeScrollbars="true"
-android:fadingEdgeLength="65dp"
-android:layoutAnimation="@anim/layout_animation"
-android:overScrollMode="never"
-android:requiresFadingEdge="vertical"
-app:layout_behavior="@string/appbar_scrolling_view_behavior"
-app:layout_constraintBottom_toBottomOf="parent"
-app:layout_constraintTop_toTopOf="parent"
-tools:layout_editor_absoluteX="0dp">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.85"
+        android:background="@android:color/black"
+        tools:visibility="gone">
 
-</androidx.recyclerview.widget.RecyclerView>
+    </FrameLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/fire_animation6"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="16dp"
+        android:alpha="0.75"
+        android:elevation="0dp"
+        android:scaleType="center"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/fire_animation"
+        app:lottie_scale="0.125"
+        app:lottie_speed="0.75" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_live"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:clipToPadding="false"
+        android:layoutAnimation="@anim/layout_animation"
+        android:overScrollMode="never"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

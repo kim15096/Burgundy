@@ -4,164 +4,230 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/black"
     android:fitsSystemWindows="true">
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/create_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="50dp"
-        android:clickable="true"
-        android:visibility="gone"
-        app:elevation="6dp"
-        app:fabSize="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:maxImageSize="34dp"
-        app:srcCompat="@drawable/ic_round_add_24" />
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        tools:visibility="gone">
-
-        <VideoView
-            android:id="@+id/videoView"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true" />
-    </RelativeLayout>
-
-    <FrameLayout
+    <app.me.nightstory.slidinglayer.SlidingLayer
+        android:id="@+id/slideView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.75"
-        android:background="@android:color/black"
-        tools:visibility="gone">
+        android:elevation="6dp"
+        android:translationZ="15dp"
+        app:stickTo="right">
 
-    </FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/darkmodeBG">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/fire_animation3"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="16dp"
-        android:alpha="0.75"
-        android:elevation="0dp"
-        android:scaleType="center"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/fire_animation"
-        app:lottie_scale="0.125"
-        app:lottie_speed="0.75" />
 
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="cursive"
-        android:inputType="textMultiLine|textCapSentences"
-        android:maxLines="2"
-        android:text="Nightstory"
-        android:textColor="@color/textColorGray"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Nightstory" />
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This is the title"
+                android:textColor="@color/textColorGray"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="148dp"
+                tools:layout_editor_absoluteY="82dp" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
-        style="@style/tab_text"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username"
-        app:tabIndicator="@drawable/tab_indicator"
-        app:tabIndicatorColor="#3490e9"
-        app:tabIndicatorGravity="bottom"
-        app:tabIndicatorHeight="2dp"
-        app:tabPaddingEnd="-5dp"
-        app:tabPaddingStart="-5dp"
-        app:tabRippleColor="@android:color/transparent"
-        app:tabTextAppearance="@style/tab_text">
+            <ScrollView
+                android:id="@+id/itemSlider_ScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="#FFFFFF"
+                android:overScrollMode="never"
+                app:layout_constraintBottom_toTopOf="@id/item_toolbar_bottom"
+                app:layout_constraintVertical_bias="1.0"
+                tools:layout_editor_absoluteX="159dp">
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hot" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </ScrollView>
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/item_toolbar_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@android:color/white"
+                android:elevation="4dp"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:contentInsetStart="0dp"
+                app:layout_constraintBottom_toBottomOf="parent">
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Live" />
-    </com.google.android.material.tabs.TabLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <Button
+                        android:id="@+id/asdf"
+                        android:layout_width="150dp"
+                        android:layout_height="44dp"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/et_bg2"
+                        android:fontFamily="@font/roboto"
+                        android:text="Make Offer"
+                        android:textAllCaps="false"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/addToBasket"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/et_bg"
+                        android:fontFamily="@font/roboto"
+                        android:stateListAnimator="@null"
+                        android:text="Add To Basket"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.appcompat.widget.Toolbar>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </app.me.nightstory.slidinglayer.SlidingLayer>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="55dp"
         android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+        app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="1dp">
 
     </androidx.viewpager.widget.ViewPager>
 
-    <ImageButton
-        android:id="@+id/button2"
-        android:layout_width="50dp"
-        android:layout_height="36dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/ripple_bg"
-        android:drawableStart="@drawable/ic_round_add_24"
-        android:elevation="0dp"
-        android:onClick="createRoom"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_round_add_24"
-        android:textAlignment="center"
-        android:textColor="@color/textColorGray"
-        android:textSize="13sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tabLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tabLayout" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainHead"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:background="@color/darkmodeBG"
+        android:elevation="2dp"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/username"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/username"
-        app:srcCompat="@drawable/ic_lil_element" />
+        <FrameLayout
+            android:id="@+id/frameLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="0.75dp"
+            android:alpha="0.5"
+            android:background="@color/Gray"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="3dp">
 
-    <com.mikhaellopez.circularimageview.CircularImageView
-        android:id="@+id/main_pp"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="24dp"
-        app:civ_border="false"
-        app:layout_constraintBottom_toBottomOf="@+id/username"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/username"
-        app:srcCompat="@drawable/ic_deficon" />
+        </FrameLayout>
+
+        <ImageButton
+            android:id="@+id/button2"
+            android:layout_width="55dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/ripple_bg"
+            android:drawableStart="@drawable/ic_round_add_24"
+            android:elevation="0dp"
+            android:onClick="createRoom"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_round_add_24"
+            android:textAlignment="center"
+            android:textColor="@color/textColorGray"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tabLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tabLayout" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            style="@style/tab_text"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tabIndicator="@drawable/tab_indicator"
+            app:tabIndicatorColor="#3490e9"
+            app:tabIndicatorGravity="bottom"
+            app:tabIndicatorHeight="1.5dp"
+            app:tabPaddingEnd="-5dp"
+            app:tabPaddingStart="-5dp"
+            app:tabRippleColor="@android:color/transparent"
+            app:tabTextAppearance="@style/tab_text">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hot" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Live" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="cursive"
+            android:inputType="textMultiLine|textCapSentences"
+            android:maxLines="2"
+            android:text="Nightstory"
+            android:textColor="@color/textColorGray"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Nightstory" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_lil_element" />
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/main_pp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:civ_border="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_deficon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

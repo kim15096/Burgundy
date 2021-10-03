@@ -6,12 +6,12 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/postCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="2dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="2dp"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
         app:cardBackgroundColor="@android:color/transparent"
@@ -51,6 +51,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:alpha="0.85"
                 android:text="내용"
                 android:textColor="@color/textColorGray"
                 android:textSize="14sp"
@@ -62,10 +63,10 @@
 
             <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/postLay_pp"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 app:civ_border="false"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -75,6 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:alpha="0.9"
                 android:text="Posted by username"
                 android:textColor="@color/textColorGray"
                 android:textSize="11sp"
@@ -87,11 +89,12 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
                 android:background="@android:color/transparent"
                 android:padding="2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/postrecycler_content"
+                app:layout_constraintEnd_toStartOf="@+id/textView12"
                 app:layout_constraintTop_toBottomOf="@+id/postrecycler_content"
                 app:srcCompat="@drawable/ic_baseline_thumb_up" />
 
@@ -99,12 +102,12 @@
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:text="35"
                 android:textColor="@color/textColorGray"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/postL_thumpsup"
-                app:layout_constraintStart_toEndOf="@+id/postL_thumpsup"
+                app:layout_constraintEnd_toEndOf="@+id/postrecycler_content"
+                app:layout_constraintStart_toStartOf="@+id/postrecycler_content"
                 app:layout_constraintTop_toTopOf="@+id/postL_thumpsup" />
 
             <ImageButton

@@ -91,54 +91,18 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
             }
         });
 
-        holder.joinBtn.setOnClickListener(new View.OnClickListener() {
+        db.collection("Users").document(model.getHostID()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onClick(View view) {
-
-                final ProgressDialog pd = new ProgressDialog(context, R.style.dialogTheme);
-                pd.setMessage(context.getString(R.string.joining));
-                pd.setCancelable(false);
-                pd.show();
-
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        userRef.update("inLobby", model.getLobbyID()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-
-                                db.collection("Lobbies").document(model.getLobbyID()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                        Long tot_views = documentSnapshot.getLong("tot_views");
-                                        tot_views = tot_views + 1;
-
-                                        Long cur_views = documentSnapshot.getLong("cur_views");
-                                        cur_views = cur_views + 1;
-
-                                        db.collection("Lobbies").document(model.getLobbyID()).update("tot_views", tot_views);
-                                        db.collection("Lobbies").document(model.getLobbyID()).update("cur_views", cur_views);
-
-                                        MainActivity.inLobbyID = model.getLobbyID();
-                                        Intent i1 = new Intent(context, LobbyActivity.class);
-                                        context.startActivity(i1);
-                                        pd.dismiss();
-
-                                    }
-                                });
-
-
-                            }
-
-                        });
-
-                    }
-                }, 1000);
-
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (!(documentSnapshot.get("imageURL") ==null)) {
+                    String imageUrl = documentSnapshot.get("imageURL").toString();
+                    holder.setProfilePicture(imageUrl);
+                }
 
             }
-
         });
+
+
     }
 
     @Override

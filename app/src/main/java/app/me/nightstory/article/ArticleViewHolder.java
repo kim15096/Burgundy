@@ -23,6 +23,7 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder{
     private final View mView;
     public ImageButton thumpsUp;
     public ImageButton thumbsDown;
+    public CardView postCard;
 
 
 
@@ -32,6 +33,7 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder{
         mView = itemView;
         thumpsUp = mView.findViewById(R.id.postL_thumpsup);
         thumbsDown = mView.findViewById(R.id.postL_thumbsD);
+        postCard = mView.findViewById(R.id.postCardView);
 
     }
 

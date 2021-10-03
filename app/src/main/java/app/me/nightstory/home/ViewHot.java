@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,6 +34,7 @@ public class ViewHot extends Fragment {
     private RecyclerView rv_hot;
     private FirestoreRecyclerAdapter<ArticlePostModel, ArticleViewHolder> recyclerAdapter;
     private Query ArticleQuery;
+    private ConstraintLayout mainToolbar;
 
     public ViewHot() {
         // Required empty public constructor
@@ -44,6 +48,8 @@ public class ViewHot extends Fragment {
 
 
         View view = inflater.inflate(R.layout.vp_hot, container, false);
+
+        mainToolbar = getActivity().findViewById(R.id.mainHead);
 
 
 
@@ -67,6 +73,37 @@ public class ViewHot extends Fragment {
 
 
         rv_hot.setAdapter(recyclerAdapter);
+
+        rv_hot.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+            }
+            private static final int HIDE_THRESHOLD = 50;
+            private int scrolledDistance = 0;
+            private boolean controlsVisible = true;
+
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+                if (scrolledDistance > HIDE_THRESHOLD && controlsVisible) {
+                    controlsVisible = false;
+                    mainToolbar.animate().setInterpolator(new LinearInterpolator()).translationY(-140).setDuration(200);
+                    scrolledDistance = 0;
+                } else if (scrolledDistance < -HIDE_THRESHOLD && !controlsVisible) {
+                    controlsVisible = true;
+                    mainToolbar.animate().setInterpolator(new LinearInterpolator()).translationY(0).setDuration(200);
+
+                    scrolledDistance = 0;
+                }
+
+                if((controlsVisible && dy>0) || (!controlsVisible && dy<0)) {
+                    scrolledDistance += dy;
+                }
+
+            }
+
+        });
 
         return view;
     }

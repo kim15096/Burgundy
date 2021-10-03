@@ -69,6 +69,7 @@ import app.me.nightstory.lobby.AddLobbyActivity;
 import app.me.nightstory.lobby.LobbyActivity;
 import app.me.nightstory.login.Closed;
 import app.me.nightstory.login.Sign;
+import app.me.nightstory.slidinglayer.SlidingLayer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,10 +84,10 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private StorageReference storageRef = storage.getReference();
     public static String inLobbyID = "";
+    public static SlidingLayer slideLayer;
     private ViewPagerAdapter viewPagerAdapter;
     private TextView username;
     private UploadTask uploadTask;
-    private VideoView bgVid;
     private String path, imageURL_STR = "", imageURL ="";
     private GoogleSignInClient googleSignInClient;
     private CircularImageView ppSmall, ppBig;
@@ -107,13 +108,7 @@ public class MainActivity extends AppCompatActivity {
         ppSmall = findViewById(R.id.main_pp);
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabLayout);
-        bgVid = findViewById(R.id.videoView);
-        create_fab = findViewById(R.id.create_fab);
-
-
-
-
-        path = "android.resource://" + getPackageName() + "/" + R.raw.login_bg;
+        slideLayer = findViewById(R.id.slideView);
 
 
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -128,32 +123,9 @@ public class MainActivity extends AppCompatActivity {
         //tabLayout.getTabAt(1).setIcon(R.drawable.ic_round_trending_up_24);
         tabLayout.getTabAt(1).setText(R.string.tab_fresh);
         //tabLayout.getTabAt(2).setIcon(R.drawable.ic_baseline_play_arrow_24);
-        tabLayout.getTabAt(2).setText("라이브");
+        tabLayout.getTabAt(2).setText("난로앞");
 
-        //tabLayout.getTabAt(tabLayout.getSelectedTabPosition()).getIcon().setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
-        /*tabLayout.addOnTabSelectedListener(
-                new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
 
-                    @Override
-                    public void onTabSelected(TabLayout.Tab tab) {
-                        super.onTabSelected(tab);
-                        int tabIconColor = ContextCompat.getColor(MainActivity.this, R.color.colorPrimary);
-                        tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
-                    }
-
-                    @Override
-                    public void onTabUnselected(TabLayout.Tab tab) {
-                        super.onTabUnselected(tab);
-                        int tabIconColor = ContextCompat.getColor(MainActivity.this, R.color.textColorGray);
-                        tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
-                    }
-
-                    @Override
-                    public void onTabReselected(TabLayout.Tab tab) {
-                        super.onTabReselected(tab);
-                    }
-                }
-        );*/
 
 
         userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -202,20 +174,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            bgVid.setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE);
-        }
-        bgVid.setVideoURI(Uri.parse(path));
-        bgVid.start();
-
-        bgVid.setOnPreparedListener (new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mp.setLooping(true);
-            }
-        });
-
 
         SimpleDateFormat time = new SimpleDateFormat("k");
         Date currentTime = Calendar.getInstance().getTime();

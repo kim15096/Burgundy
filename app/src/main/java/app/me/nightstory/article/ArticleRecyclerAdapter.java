@@ -18,6 +18,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import app.me.nightstory.R;
+import app.me.nightstory.home.MainActivity;
 
 public class ArticleRecyclerAdapter extends FirestoreRecyclerAdapter<ArticlePostModel, ArticleViewHolder> {
 
@@ -46,6 +47,14 @@ public class ArticleRecyclerAdapter extends FirestoreRecyclerAdapter<ArticlePost
         holder.setTitle(model.getTitle());
         holder.setContent(model.getContent());
         holder.setUsername(model.getPoster());
+
+        holder.postCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.slideLayer.openLayer(true);
+            }
+        });
+
 
         holder.thumbsDown.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,8 +109,13 @@ public class ArticleRecyclerAdapter extends FirestoreRecyclerAdapter<ArticlePost
         db.collection("Users").document(model.getPosterID()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                String imageUrl = documentSnapshot.get("imageURL").toString();
-                holder.setProfilePicture(imageUrl);
+                if (!(documentSnapshot.get("imageURL") ==null)) {
+                    String imageUrl = documentSnapshot.get("imageURL").toString();
+                    holder.setProfilePicture(imageUrl);
+                }
+                else {
+
+                }
 
             }
         });

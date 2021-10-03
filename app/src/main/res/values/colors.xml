@@ -2,7 +2,7 @@
 <resources>
 
     <color name="colorPrimary">#ED4B48</color>
-    <color name="colorPrimaryDark">#070712</color>
+    <color name="colorPrimaryDark">#111114</color>
     <color name="colorSecondary">#20212b</color>
     <color name="colorAccent">#ED4B48</color>
     <color name="lightGray">#b6b6b6</color>
@@ -15,5 +15,7 @@
     <color name="gray1">#514E61</color>
     <color name="gray2">#8E8B9B</color>
     <color name="darkTrans">#BF20212B</color>
+    <color name="overlayColorDark">#0d0d11</color>
+    <color name="darkmodeBG">#111114</color>
 
 </resources>
