@@ -55,7 +55,7 @@
             android:layout_gravity="center_vertical"
             android:includeFontPadding="false"
             android:padding="8dp"
-            android:text="라이브방 만들기"
+            android:text="스토리방 만들기"
             android:textColor="@color/textColorGray"
             android:textSize="14sp"
             android:textStyle="bold" />

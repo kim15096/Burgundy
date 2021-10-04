@@ -3,9 +3,9 @@
     <item
         android:drawable="@color/colorPrimaryDark"/>
     <item
-        android:drawable="@drawable/ic_ch"
-        android:width="80dp"
-        android:height="80dp"
+        android:drawable="@drawable/testicno"
+        android:width="50dp"
+        android:height="70dp"
         android:gravity="center"/>
 
 </layer-list>

@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         //tabLayout.getTabAt(1).setIcon(R.drawable.ic_round_trending_up_24);
         tabLayout.getTabAt(1).setText(R.string.tab_fresh);
         //tabLayout.getTabAt(2).setIcon(R.drawable.ic_baseline_play_arrow_24);
-        tabLayout.getTabAt(2).setText("난로앞");
+        tabLayout.getTabAt(2).setText("스토리");
 
 
 
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 else {
-                    ppSmall.setImageDrawable(getResources().getDrawable(R.drawable.ic_deficon));
+                    ppSmall.setImageDrawable(getResources().getDrawable(R.drawable.ic_lil_element));
                 }
 
 
@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (imageURL.equals("")){
-            ppBig.setImageDrawable(getResources().getDrawable(R.drawable.ic_deficon));
+            ppBig.setImageDrawable(getResources().getDrawable(R.drawable.ic_lil_element));
         }else {
             Glide.with(MainActivity.this).load(imageURL).centerCrop().into(ppBig);
         }
@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
                             userRef.update("imageURL", "").addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    ppBig.setImageResource(R.drawable.ic_deficon);
+                                    ppBig.setImageResource(R.drawable.ic_lil_element);
                                 }
                             });
                         } else {

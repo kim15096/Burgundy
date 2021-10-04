@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="#080808"
     android:fitsSystemWindows="true">
 
 
@@ -14,7 +14,8 @@
         android:layout_height="match_parent"
         android:elevation="6dp"
         android:translationZ="15dp"
-        app:stickTo="right">
+        app:stickTo="right"
+        tools:visibility="gone">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -109,7 +110,7 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="50dp"
         android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -120,7 +121,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainHead"
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="105dp"
         android:background="@color/darkmodeBG"
         android:elevation="2dp"
         app:layout_constraintTop_toTopOf="parent">
@@ -167,7 +168,7 @@
             app:tabIndicator="@drawable/tab_indicator"
             app:tabIndicatorColor="#3490e9"
             app:tabIndicatorGravity="bottom"
-            app:tabIndicatorHeight="1.5dp"
+            app:tabIndicatorHeight="2dp"
             app:tabPaddingEnd="-5dp"
             app:tabPaddingStart="-5dp"
             app:tabRippleColor="@android:color/transparent"
@@ -190,12 +191,22 @@
                 android:text="Live" />
         </com.google.android.material.tabs.TabLayout>
 
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:alpha="0.85"
+            app:layout_constraintBottom_toBottomOf="@+id/main_pp"
+            app:layout_constraintEnd_toStartOf="@+id/main_pp"
+            app:layout_constraintTop_toTopOf="@+id/main_pp"
+            app:srcCompat="@drawable/ic_baseline_leaderboard_24" />
+
         <TextView
             android:id="@+id/username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="8dp"
             android:fontFamily="cursive"
             android:inputType="textMultiLine|textCapSentences"
             android:maxLines="2"
@@ -203,19 +214,21 @@
             android:textColor="@color/textColorGray"
             android:textSize="26sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
             tools:text="Nightstory" />
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_lil_element" />
+            app:srcCompat="@drawable/testicno" />
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/main_pp"
@@ -223,10 +236,11 @@
             android:layout_height="28dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            app:civ_background_color="@android:color/black"
             app:civ_border="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_deficon" />
+            app:srcCompat="@drawable/ic_lil_element" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
