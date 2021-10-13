@@ -1,7 +1,6 @@
 package app.me.nightstory.lobby;
 
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,7 +26,7 @@ public class RoomViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setTitle(String text){
-        TextView title_tv = mView.findViewById(R.id.username);
+        TextView title_tv = mView.findViewById(R.id.lobbyL_title);
         String newText = "\"" + text + "\"";
         title_tv.setText(newText);
 
@@ -45,12 +44,13 @@ public class RoomViewHolder extends RecyclerView.ViewHolder{
 
     public void setProfilePicture(String text){
         CircularImageView pp = mView.findViewById(R.id.live_PP);
-        if (!text.equals("")){
             Glide.with(itemView).load(text).centerCrop().into(pp);
-        }
-        else {
-            pp.setImageResource(R.drawable.ic_deficon);
-        }
+
+    }
+
+    public void setUsername(String text){
+        TextView username = mView.findViewById(R.id.lobbyL_username);
+        username.setText(text);
     }
 
 }

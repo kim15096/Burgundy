@@ -4,152 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/darkClrBg"
     android:clickable="true"
     android:fitsSystemWindows="true"
     android:focusable="true"
     tools:context=".lobby.LobbyActivity">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="1000dp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
-
-        <VideoView
-            android:id="@+id/lobby_bg_video"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true" />
-    </RelativeLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.9"
-        android:background="@android:color/black"
-        android:clickable="true"
-        tools:visibility="gone">
-
-    </FrameLayout>
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/hostLobbyCardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="0dp"
-        app:cardElevation="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:visibility="visible">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/msg_sendBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:fontFamily="@font/roboto_medium"
-                android:padding="4dp"
-                android:text="@string/lobby_post"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/chat_et"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/chat_et" />
-
-            <EditText
-                android:id="@+id/chat_et"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="12dp"
-                android:background="@drawable/et_bg"
-                android:ems="10"
-                android:hint="@string/lobby_type"
-                android:inputType="textShortMessage|textMultiLine|textPersonName|textCapSentences"
-                android:maxLines="3"
-                android:padding="10dp"
-                android:paddingStart="12dp"
-                android:textColor="@color/textColorGray"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/msg_sendBtn"
-                app:layout_constraintStart_toEndOf="@+id/emoji_btn"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/emoji_btn"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="16dp"
-                android:alpha="0.9"
-                android:onClick="emojiBtn"
-                android:padding="2dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_emoji" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
-    <ImageView
-        android:id="@+id/imageView14"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="12dp"
-        android:alpha="0.8"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/fire_animation"
-        app:srcCompat="@drawable/ic_ellipse" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/story_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:clickable="true"
         android:clipToPadding="false"
         android:elevation="2dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:overScrollMode="never"
-        android:paddingTop="16dp"
+        android:paddingTop="8dp"
         android:paddingBottom="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/hostLobbyCardView"
-        app:layout_constraintTop_toBottomOf="@+id/ch1"
+        app:layout_constraintBottom_toTopOf="@+id/viewLobbyCard"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
         tools:layout_editor_absoluteX="0dp" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/fire_animation"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        android:alpha="0.9"
-        android:elevation="0dp"
-        android:scaleType="center"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/story_recycler"
-        app:layout_constraintStart_toEndOf="@+id/host_name"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/fire_animation"
-        app:lottie_scale="0.125"
-        app:lottie_speed="1" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/viewLobbyCard"
@@ -159,21 +36,22 @@
         app:cardCornerRadius="0dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:visibility="invisible">
+        tools:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/darkmodeBG">
 
             <EditText
                 android:id="@+id/chat_view_et"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="42dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="12dp"
-                android:background="@drawable/et_bg"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/et_bg3"
                 android:ems="10"
                 android:hint="@string/lobby_type"
                 android:inputType="textShortMessage|textMultiLine|textCapSentences"
@@ -188,295 +66,186 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/viewer_sendBtn"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:layout_marginEnd="24dp"
-                android:padding="3dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginEnd="16dp"
+                android:clickable="true"
+                app:fabCustomSize="38dp"
+                app:fabSize="mini"
                 app:layout_constraintBottom_toBottomOf="@+id/chat_view_et"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/chat_view_et"
+                app:maxImageSize="22dp"
                 app:srcCompat="@drawable/ic_round_send_24" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/quitBtn"
-        android:layout_width="85dp"
-        android:layout_height="38dp"
-        android:layout_weight="1.8"
-        android:background="@drawable/quit_bg_ripple"
-        android:drawableTop="@drawable/ic_round_home_24"
-        android:elevation="2dp"
-        android:fontFamily="@font/roboto_medium"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:onClick="lobby_back"
-        android:paddingTop="8dp"
-        android:textAllCaps="false"
-        android:textColor="@color/textColorGray"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginBottom="4dp"
-        android:alpha="0.65"
-        android:background="@color/colorSecondary"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/story_recycler"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-    </FrameLayout>
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/ch1"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:elevation="0dp"
-        android:scaleType="center"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lobby_title"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="false"
-        app:lottie_rawRes="@raw/ch1_pop"
-        app:lottie_scale="0.125"
-        app:lottie_speed="1" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="14dp"
-        android:layout_height="14dp"
-        android:layout_marginEnd="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
-        app:layout_constraintEnd_toStartOf="@+id/cur_views_tv"
-        app:layout_constraintTop_toTopOf="@+id/imageView9"
-        app:srcCompat="@drawable/ic_person" />
-
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/quitBtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_category" />
-
-    <TextView
-        android:id="@+id/lobby_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/roboto_medium"
-        android:textColor="@color/textColorGray"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quitBtn" />
-
-    <TextView
-        android:id="@+id/cur_views_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:includeFontPadding="false"
-        android:textColor="@color/textColorGray"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
-        tools:text="5" />
-
     <TextView
         android:id="@+id/host_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
         android:fontFamily="@font/roboto_medium"
         android:textColor="@color/textColorGray"
         android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="@+id/ch1"
-        app:layout_constraintEnd_toEndOf="@+id/ch1"
-        app:layout_constraintStart_toStartOf="@+id/ch1"
+        tools:layout_editor_absoluteX="76dp"
+        tools:layout_editor_absoluteY="207dp"
         tools:text="xelovex" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/emojiPanel"
-        android:layout_width="130dp"
-        android:layout_height="210dp"
-        android:background="@drawable/emoji_bg"
-        android:clickable="true"
-        android:elevation="8dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/hostLobbyCardView"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="gone">
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/darkmodeBG"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
 
-        <Button
-            android:id="@+id/laugh_btn"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/live_PP5"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="8dp"
+            app:civ_border="false"
+            app:civ_border_color="@color/darkmodeBG"
+            app:civ_border_width="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/live_PP6"
+            app:layout_constraintStart_toEndOf="@+id/live_PP6"
+            app:layout_constraintTop_toTopOf="@+id/live_PP6"
+            app:srcCompat="@drawable/ic_ch"
+            tools:srcCompat="@drawable/ic_ch" />
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/live_PP6"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="8dp"
+            app:civ_border="false"
+            app:civ_border_color="@color/darkmodeBG"
+            app:civ_border_width="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/live_PP7"
+            app:layout_constraintStart_toEndOf="@+id/live_PP7"
+            app:layout_constraintTop_toTopOf="@+id/live_PP7"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/ic_ch"
+            tools:srcCompat="@drawable/ic_ch" />
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/live_PP7"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="8dp"
+            app:civ_border="false"
+            app:civ_border_color="@color/darkmodeBG"
+            app:civ_border_width="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/activity_pp1"
+            app:layout_constraintStart_toEndOf="@+id/activity_pp1"
+            app:layout_constraintTop_toTopOf="@+id/activity_pp1"
+            app:srcCompat="@drawable/splash"
+            tools:srcCompat="@drawable/splash" />
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/activity_pp1"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/et_bg"
-            android:fontFamily="@font/roboto_medium"
-            android:foreground="?attr/selectableItemBackground"
-            android:onClick="LaughBtn"
-            android:text="@string/lobby_laugh"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/textColorGray"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            app:civ_border="false"
+            app:civ_border_color="@color/darkmodeBG"
+            app:civ_border_width="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/laugh_btn2"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/et_bg"
-            android:fontFamily="@font/roboto_medium"
-            android:foreground="?attr/selectableItemBackground"
-            android:onClick="TiredBtn"
-            android:text="@string/lobby_tired"
-            android:textAlignment="center"
-            android:textAllCaps="false"
+        <TextView
+            android:id="@+id/cur_views_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="152dp"
+            android:includeFontPadding="false"
             android:textColor="@color/textColorGray"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
-            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/laugh_btn" />
-
-        <Button
-            android:id="@+id/laugh_btn3"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/et_bg"
-            android:fontFamily="@font/roboto_medium"
-            android:foreground="?attr/selectableItemBackground"
-            android:onClick="AdmireBtn"
-            android:text="@string/lobby_admire"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/textColorGray"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/laugh_btn2" />
-
-        <Button
-            android:id="@+id/laugh_btn4"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/et_bg"
-            android:fontFamily="@font/roboto_medium"
-            android:foreground="?attr/selectableItemBackground"
-            android:onClick="SadBtn"
-            android:text="@string/lobby_sad"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/textColorGray"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/laugh_btn3" />
-
-        <ImageView
-            android:id="@+id/imageView8"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:onClick="removePop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_down" />
+            tools:text="5" />
+
+        <Button
+            android:id="@+id/quitBtn"
+            android:layout_width="85dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1.8"
+            android:background="@drawable/loginbtnbg"
+            android:elevation="2dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:onClick="lobby_back"
+            android:text="나가기"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/lobby_cat_tv"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:text="Career"
-        android:textColor="@color/textColorGray"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
-        app:layout_constraintStart_toEndOf="@+id/imageView9"
-        app:layout_constraintTop_toTopOf="@+id/imageView9"
-        tools:text="Career" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/live_indicator2"
-        android:layout_width="45dp"
-        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:alpha="0.75"
-        android:elevation="0dp"
-        android:scaleType="center"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.2"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/live_indicator"
-        app:lottie_scale="0.15" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/viewers_rv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="12dp"
-        android:background="@drawable/comment_bg"
-        android:fadingEdgeLength="24dp"
-        android:overScrollMode="never"
-        android:padding="2dp"
-        android:requiresFadingEdge="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/story_recycler"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ch1"
-        app:layout_constraintTop_toBottomOf="@+id/lobby_title" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/post_bg">
+
+            <TextView
+                android:id="@+id/lobby_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@color/textColorGray"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="This is the title" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:alpha="0.85"
+                android:text="Hello my name is Jerry and im the developer of this app. This section is for brief introduction"
+                android:textColor="@color/textColorGray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/lobby_title"
+                app:layout_constraintStart_toStartOf="@+id/lobby_title"
+                app:layout_constraintTop_toBottomOf="@+id/lobby_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

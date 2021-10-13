@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -21,6 +22,7 @@ import com.google.firebase.firestore.Query;
 import app.me.nightstory.R;
 import app.me.nightstory.article.ArticlePostModel;
 import app.me.nightstory.article.ArticleRecyclerAdapter;
+import app.me.nightstory.article.ArticleRecyclerAdapterHot;
 import app.me.nightstory.article.ArticleViewHolder;
 import app.me.nightstory.lobby.LobbyPostModel;
 import app.me.nightstory.lobby.RoomRecyclerAdapter;
@@ -53,14 +55,18 @@ public class ViewHot extends Fragment {
 
 
 
+
+
         rv_hot = view.findViewById(R.id.rv_hot);
         rv_hot.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv_hot.setNestedScrollingEnabled(false);
 
+        ((SimpleItemAnimator) rv_hot.getItemAnimator()).setSupportsChangeAnimations(false);
+
 
         ArticleQuery = FirebaseFirestore.getInstance()
                 .collection("Posts")
-                .whereGreaterThanOrEqualTo("likes", 10)
+                .whereGreaterThanOrEqualTo("likes", 50)
                 .orderBy("likes", Query.Direction.DESCENDING);
 
         // Set up Recycler Adapter
@@ -69,7 +75,7 @@ public class ViewHot extends Fragment {
                 .setLifecycleOwner(this)
                 .build();
 
-        recyclerAdapter = new ArticleRecyclerAdapter(recyclerOptions);
+        recyclerAdapter = new ArticleRecyclerAdapterHot(recyclerOptions);
 
 
         rv_hot.setAdapter(recyclerAdapter);

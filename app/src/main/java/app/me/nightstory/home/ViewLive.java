@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -57,6 +58,9 @@ public class ViewLive extends Fragment {
         mainToolbar = getActivity().findViewById(R.id.mainHead);
 
         rv_live = view.findViewById(R.id.rv_live);
+
+        ((SimpleItemAnimator) rv_live.getItemAnimator()).setSupportsChangeAnimations(false);
+
 
         rv_live.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
@@ -131,17 +135,7 @@ public class ViewLive extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        String path = "android.resource://" + getActivity().getPackageName() + "/" + R.raw.login_bg;
 
-        bgVid.setVideoURI(Uri.parse(path));
-        bgVid.start();
-
-        bgVid.setOnPreparedListener (new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mp.setLooping(true);
-            }
-        });
     }
 }
 

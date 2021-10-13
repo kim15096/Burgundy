@@ -27,7 +27,7 @@
             android:layout_gravity="center_vertical"
             android:includeFontPadding="false"
             android:padding="8dp"
-            android:text="글 올리기"
+            android:text="게시물 올리기"
             android:textColor="@color/textColorGray"
             android:textSize="14sp"
             android:textStyle="bold" />

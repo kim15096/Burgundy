@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class StoryPostModel {
 
-    public String text;
+    public String text, ppURL, chatUsername;
     public Date timestamp;
 
     public StoryPostModel() {
@@ -14,8 +14,10 @@ public class StoryPostModel {
 
 
 
-    public StoryPostModel(String text, Timestamp timestamp) {
+    public StoryPostModel(String text, Timestamp timestamp, String ppURL, String chatUsername) {
         this.text = text;
+        this.ppURL = ppURL;
+        this.chatUsername = chatUsername;
         this.timestamp = timestamp.toDate();
     }
 
@@ -27,7 +29,13 @@ public class StoryPostModel {
         return timestamp;
     }
 
+    public String getPpURL() {
+        return ppURL;
+    }
 
+    public String getChatUsername() {
+        return chatUsername;
+    }
 }
 
 

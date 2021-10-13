@@ -8,14 +8,14 @@ public class ArticlePostModel {
 
     public String content, title, postID, poster, posterID;
     public Date timestamp;
-    public Long likes;
+    public Long likes, funny, sad;
     public Long tot_views;
 
     public ArticlePostModel() {
     }
 
 
-    public ArticlePostModel(String content, String title, String postID, String posterID, String poster, Timestamp timestamp, Long likes, Long tot_views) {
+    public ArticlePostModel(String content, String title, String postID, String posterID, String poster, Timestamp timestamp, Long likes, Long tot_views, Long funny, Long sad) {
         this.content = content;
         this.timestamp = timestamp.toDate();
         this.title = title;
@@ -23,7 +23,21 @@ public class ArticlePostModel {
         this.posterID = posterID;
         this.poster = poster;
         this.likes = likes;
+        this.funny = funny;
+        this.sad = sad;
         this.tot_views = tot_views;
+    }
+
+    public Long getFunny() {
+        return funny;
+    }
+
+    public Long getSad() {
+        return sad;
+    }
+
+    public String getPostID() {
+        return postID;
     }
 
     public String getContent() {

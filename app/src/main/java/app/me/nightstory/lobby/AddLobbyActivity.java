@@ -33,7 +33,7 @@ import app.me.nightstory.home.MainActivity;
 
 public class AddLobbyActivity extends AppCompatActivity {
 
-    private EditText title;
+    private EditText title, info;
     private FirebaseFirestore db;
     private FirebaseUser firebaseUser;
     private String category = "";
@@ -47,33 +47,12 @@ public class AddLobbyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_lobby);
 
         title = findViewById(R.id.lobbyTitle);
+        info = findViewById(R.id.addLobby_info);
         createBtn = findViewById(R.id.createlob_btn);
 
         db = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        MaterialSpinner spinner = findViewById(R.id.categorySpinner);
-        spinner.setItems(getString(R.string.add_relationship), getString(R.string.add_family), getString(R.string.add_career),
-                getString(R.string.add_social), getString(R.string.add_schl), getString(R.string.add_health), "AMA", getString(R.string.add_misc));
-        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-
-            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                category = item;
-
-                if (title.getText().toString().equals("") || category.equals("")){
-
-                    createBtn.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
-                    createBtn.setEnabled(false);
-                    createBtn.setTextColor(Color.GRAY);
-
-                }
-                else {
-                    createBtn.getBackground().setColorFilter(null);
-                    createBtn.setEnabled(true);
-                    createBtn.setTextColor(getResources().getColor(R.color.textColorGray));
-                }
-            }
-        });
 
         createBtn.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
         createBtn.setEnabled(false);
@@ -92,7 +71,35 @@ public class AddLobbyActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (title.getText().toString().equals("") || category.equals("")){
+                if (title.getText().toString().equals("") || info.getText().toString().equals("")){
+
+                    createBtn.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+                    createBtn.setEnabled(false);
+                    createBtn.setTextColor(Color.GRAY);
+
+                }
+                else {
+                    createBtn.getBackground().setColorFilter(null);
+                    createBtn.setEnabled(true);
+                    createBtn.setTextColor(getResources().getColor(R.color.textColorGray));
+                }
+            }
+        });
+
+        info.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (title.getText().toString().equals("") || info.getText().toString().equals("")){
 
                     createBtn.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
                     createBtn.setEnabled(false);
@@ -118,10 +125,6 @@ public class AddLobbyActivity extends AppCompatActivity {
         if (lobby_title.trim().isEmpty()){
             Toast.makeText(this, "Please choose a title", Toast.LENGTH_SHORT).show();
 
-        }
-
-        else if (category.equals("")){
-            Toast.makeText(this, "Please choose a category", Toast.LENGTH_SHORT).show();
         }
 
         else {

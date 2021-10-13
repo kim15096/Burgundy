@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -54,6 +55,9 @@ public class ViewNew extends Fragment {
         rv_fresh = view.findViewById(R.id.rv_fresh);
         rv_fresh.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv_fresh.setNestedScrollingEnabled(false);
+
+        ((SimpleItemAnimator) rv_fresh.getItemAnimator()).setSupportsChangeAnimations(false);
+
 
 
         ArticleQuery = FirebaseFirestore.getInstance()

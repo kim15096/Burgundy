@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#080808"
+    android:background="@color/darkClrBg"
     android:fitsSystemWindows="true">
 
 
@@ -20,94 +20,251 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/darkmodeBG">
+            android:background="@color/darkClrBg"
+            android:fitsSystemWindows="true">
 
 
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="This is the title"
-                android:textColor="@color/textColorGray"
-                android:textSize="18sp"
-                tools:layout_editor_absoluteX="148dp"
-                tools:layout_editor_absoluteY="82dp" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@color/darkmodeBG"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:layout_constraintTop_toTopOf="parent"
+                app:navigationIcon="@drawable/ic_back"
+                app:title="글" />
 
             <ScrollView
-                android:id="@+id/itemSlider_ScrollView"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="#FFFFFF"
-                android:overScrollMode="never"
-                app:layout_constraintBottom_toTopOf="@id/item_toolbar_bottom"
-                app:layout_constraintVertical_bias="1.0"
-                tools:layout_editor_absoluteX="159dp">
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" />
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        app:cardBackgroundColor="@android:color/transparent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/post_bg">
+
+                            <Button
+                                android:id="@+id/button3"
+                                style="@style/Widget.AppCompat.Button.Small"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:layout_marginTop="24dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginBottom="12dp"
+                                android:background="@drawable/loginbtnbg"
+                                android:paddingStart="4dp"
+                                android:paddingEnd="4dp"
+                                android:stateListAnimator="@null"
+                                android:text="👍 0"
+                                android:textColor="@color/textColorGray"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+                            <Button
+                                android:id="@+id/button5"
+                                style="@style/Widget.AppCompat.Button.Small"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/loginbtnbg"
+                                android:paddingStart="4dp"
+                                android:paddingEnd="4dp"
+                                android:stateListAnimator="@null"
+                                android:text="😥 0"
+                                android:textColor="@color/textColorGray"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="@+id/button3"
+                                app:layout_constraintEnd_toStartOf="@+id/button3"
+                                app:layout_constraintTop_toTopOf="@+id/button3" />
+
+                            <Button
+                                android:id="@+id/button6"
+                                style="@style/Widget.AppCompat.Button.Small"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/loginbtnbg"
+                                android:paddingStart="4dp"
+                                android:paddingEnd="4dp"
+                                android:stateListAnimator="@null"
+                                android:text="😂 0"
+                                android:textColor="@color/textColorGray"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="@+id/button3"
+                                app:layout_constraintEnd_toStartOf="@+id/button5"
+                                app:layout_constraintTop_toTopOf="@+id/button3" />
+
+                            <TextView
+                                android:id="@+id/textView18"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="12dp"
+                                android:layout_marginEnd="16dp"
+                                android:text="This is the title"
+                                android:textColor="@color/textColorGray"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:text="This is the title" />
+
+                            <TextView
+                                android:id="@+id/textView19"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:alpha="0.85"
+                                android:text="THi sia sdfaskdfa sldkf ajskldf aksdfj ak lsdf jklsdfjksldf skdjfkls dfjsdk fjlksd fjlskd fjksldf jklsd fskdjfsdkf sdlkf sdklf "
+                                android:textColor="@color/textColorGray"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toEndOf="@+id/textView18"
+                                app:layout_constraintStart_toStartOf="@+id/textView18"
+                                app:layout_constraintTop_toBottomOf="@+id/textView18"
+                                tools:text="This is the content for the post there will be information here asdjfjh asdfasdj faklsdjf alksdfj aslkdf kalsdf jaklsdf jkalsdf jklasd jfakls fkalsd fjalsdfasdlfjas dfjasldkf askdlf asdklfj " />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.mikhaellopez.circularimageview.CircularImageView
+                            android:id="@+id/postmore_pp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="16dp"
+                            app:civ_background_color="@color/Gray"
+                            app:civ_border="true"
+                            app:civ_border_color="@color/Gray"
+                            app:civ_border_width="1.5dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/textView15"
+                            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+                        <TextView
+                            android:id="@+id/textView15"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="32dp"
+                            android:text="글 올린이"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/textColorGray"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/textView21"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="24dp"
+                            android:text="댓글"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/textColorGray"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@+id/textView21" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
             </ScrollView>
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/item_toolbar_bottom"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/viewLobbyCard"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@android:color/white"
-                android:elevation="4dp"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"
-                app:contentInsetStart="0dp"
-                app:layout_constraintBottom_toBottomOf="parent">
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:visibility="visible">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@color/darkmodeBG">
 
-
-                    <Button
-                        android:id="@+id/asdf"
-                        android:layout_width="150dp"
-                        android:layout_height="44dp"
+                    <EditText
+                        android:id="@+id/postmore_et"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
                         android:layout_marginStart="16dp"
-                        android:background="@drawable/et_bg2"
-                        android:fontFamily="@font/roboto"
-                        android:text="Make Offer"
-                        android:textAllCaps="false"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/et_bg3"
+                        android:ems="10"
+                        android:hint="@string/lobby_type"
+                        android:inputType="textShortMessage|textMultiLine|textCapSentences"
+                        android:maxLength="30"
+                        android:maxLines="3"
+                        android:padding="10dp"
+                        android:paddingStart="12dp"
+                        android:textColor="@color/textColorGray"
+                        android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/postmore_comment"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <Button
-                        android:id="@+id/addToBasket"
-                        android:layout_width="0dp"
-                        android:layout_height="44dp"
-                        android:layout_marginStart="8dp"
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/postmore_comment"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
                         android:layout_marginEnd="16dp"
-                        android:background="@drawable/et_bg"
-                        android:fontFamily="@font/roboto"
-                        android:stateListAnimator="@null"
-                        android:text="Add To Basket"
-                        android:textAllCaps="false"
-                        android:textColor="@android:color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
+                        android:clickable="true"
+                        app:fabCustomSize="38dp"
+                        app:fabSize="mini"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:maxImageSize="22dp"
+                        app:srcCompat="@drawable/ic_round_send_24" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
-
-            </androidx.appcompat.widget.Toolbar>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </app.me.nightstory.slidinglayer.SlidingLayer>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
+        android:id="@+id/test_vp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="50dp"
@@ -142,8 +299,8 @@
             android:id="@+id/button2"
             android:layout_width="55dp"
             android:layout_height="36dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/ripple_bg"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ripple_bg_fab"
             android:drawableStart="@drawable/ic_round_add_24"
             android:elevation="0dp"
             android:onClick="createRoom"
@@ -157,6 +314,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tabLayout" />
 
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             style="@style/tab_text"
@@ -166,7 +324,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:tabIndicator="@drawable/tab_indicator"
-            app:tabIndicatorColor="#3490e9"
+            app:tabIndicatorColor="@color/blue"
             app:tabIndicatorGravity="bottom"
             app:tabIndicatorHeight="2dp"
             app:tabPaddingEnd="-5dp"
@@ -193,20 +351,21 @@
 
         <ImageView
             android:id="@+id/imageView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:layout_marginEnd="16dp"
             android:alpha="0.85"
+            android:onClick="launchTest"
             app:layout_constraintBottom_toBottomOf="@+id/main_pp"
             app:layout_constraintEnd_toStartOf="@+id/main_pp"
             app:layout_constraintTop_toTopOf="@+id/main_pp"
             app:srcCompat="@drawable/ic_baseline_leaderboard_24" />
 
         <TextView
-            android:id="@+id/username"
+            android:id="@+id/lobbyL_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="6dp"
             android:fontFamily="cursive"
             android:inputType="textMultiLine|textCapSentences"
             android:maxLines="2"
@@ -221,8 +380,8 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
             android:visibility="visible"
@@ -232,15 +391,16 @@
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/main_pp"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            app:civ_background_color="@android:color/black"
-            app:civ_border="false"
+            app:civ_background_color="@color/darkClrBg"
+            app:civ_border="true"
+            app:civ_border_color="@color/Gray"
+            app:civ_border_width="1.5dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_lil_element" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

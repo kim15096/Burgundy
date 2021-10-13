@@ -1,5 +1,6 @@
 package app.me.nightstory.lobby;
 
+import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -45,6 +47,7 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
         holder.setTitle(model.getTitle());
         holder.setCategory(model.getCategory());
         holder.setCur_views(model.getCur_views());
+        holder.setUsername(model.getHostName());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,5 +118,6 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
 
         return new RoomViewHolder(view);
     }
+
 
 }

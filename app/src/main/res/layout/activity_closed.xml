@@ -41,24 +41,6 @@
         app:layout_constraintVertical_bias="0.25"
         tools:text="Closed" />
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/fire_animation2"
-        android:layout_width="135dp"
-        android:layout_height="135dp"
-        android:elevation="0dp"
-        android:scaleType="center"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/easyCountDownTextview"
-        app:layout_constraintVertical_bias="0.3"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/fire_animation"
-        app:lottie_scale="0.3"
-        app:lottie_speed="0.75" />
-
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"

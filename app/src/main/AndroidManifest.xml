@@ -24,6 +24,7 @@
         <activity android:name=".lobby.AddLobbyActivity" />
         <activity android:name=".article.AddPost" />
         <activity android:name=".login.Closed" />
+        <activity android:name=".home.MyPostsActivity"/>
         <activity
             android:name=".login.Splash"
             android:theme="@style/SplashTheme">

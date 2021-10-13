@@ -1,33 +1,25 @@
 package app.me.nightstory.home;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
@@ -50,13 +42,13 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.canhub.cropper.CropImage;
-import com.canhub.cropper.CropImageActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -85,10 +77,15 @@ public class MainActivity extends AppCompatActivity {
     private StorageReference storageRef = storage.getReference();
     public static String inLobbyID = "";
     public static SlidingLayer slideLayer;
+    public static String defaultPP =
+            "https://firebasestorage.googleapis.com/v0/b/nightfall-alpha.appspot.com/o/Admin%2Fpngwing.com.png?alt=media&token=41da1f77-f4b1-4138-9ad3-9f9f59457fc7";
+    public static String myPpURL = defaultPP;
+    public static String myUserID;
+
     private ViewPagerAdapter viewPagerAdapter;
     private TextView username;
     private UploadTask uploadTask;
-    private String path, imageURL_STR = "", imageURL ="";
+    private String path, imageURL_STR = "", imageURL = "";
     private GoogleSignInClient googleSignInClient;
     private CircularImageView ppSmall, ppBig;
     public static String nickname = "";
@@ -96,17 +93,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setLocale(this,"ko");
+        setLocale(this, "ko");
         setContentView(R.layout.main_page);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+        myUserID = firebaseUser.getUid();
         db = FirebaseFirestore.getInstance();
         userRef = db.collection("Users").document(firebaseUser.getUid());
 
-        username = findViewById(R.id.username);
+        username = findViewById(R.id.lobbyL_title);
         ppSmall = findViewById(R.id.main_pp);
-        viewPager = findViewById(R.id.viewPager);
+        viewPager = findViewById(R.id.test_vp);
         tabLayout = findViewById(R.id.tabLayout);
         slideLayer = findViewById(R.id.slideView);
 
@@ -123,9 +121,10 @@ public class MainActivity extends AppCompatActivity {
         //tabLayout.getTabAt(1).setIcon(R.drawable.ic_round_trending_up_24);
         tabLayout.getTabAt(1).setText(R.string.tab_fresh);
         //tabLayout.getTabAt(2).setIcon(R.drawable.ic_baseline_play_arrow_24);
-        tabLayout.getTabAt(2).setText("스토리");
+        tabLayout.getTabAt(2).setText("스토리방");
 
-
+        //adminDeleteUsers
+        //adminDeleteUsers();
 
 
         userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -133,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 inLobbyID = documentSnapshot.get("inLobby").toString();
 
-                if (!inLobbyID.equals("")){
+                if (!inLobbyID.equals("")) {
                     Intent mainIntent = new Intent(MainActivity.this, LobbyActivity.class);
                     MainActivity.this.startActivity(mainIntent);
                 }
@@ -146,16 +145,14 @@ public class MainActivity extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
                 nickname = documentSnapshot.get("username").toString();
+                imageURL = documentSnapshot.get("imageURL").toString();
 
-                if (!documentSnapshot.get("imageURL").equals("")) {
-                    imageURL = documentSnapshot.get("imageURL").toString();
-                    Glide.with(MainActivity.this).load(imageURL).centerCrop()
-                            .into(ppSmall);
+                if (!documentSnapshot.get("imageURL").toString().equals(MainActivity.defaultPP)) {
+                    myPpURL = imageURL;
                 }
 
-                else {
-                    ppSmall.setImageDrawable(getResources().getDrawable(R.drawable.ic_lil_element));
-                }
+                Glide.with(MainActivity.this).load(imageURL).centerCrop()
+                        .into(ppSmall);
 
 
             }
@@ -203,12 +200,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 1000);
+        }, 2000);
 
     }
 
-
-    public void showInfo(View view){
+    public void showInfo(View view) {
 
         final BottomSheetDialog profileBtmSheet = new BottomSheetDialog(MainActivity.this);
         profileBtmSheet.setContentView(R.layout.bottom_sheet_profile);
@@ -216,20 +212,36 @@ public class MainActivity extends AppCompatActivity {
         TextView profileTv = profileBtmSheet.findViewById(R.id.profile_username);
         ppBig = profileBtmSheet.findViewById(R.id.profile_image);
 
+        userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
-        if (imageURL.equals("")){
-            ppBig.setImageDrawable(getResources().getDrawable(R.drawable.ic_lil_element));
-        }else {
-            Glide.with(MainActivity.this).load(imageURL).centerCrop().into(ppBig);
-        }
+                imageURL = documentSnapshot.get("imageURL").toString();
+
+                Glide.with(profileBtmSheet.getContext()).load(imageURL).centerCrop()
+                        .into(ppBig);
+
+            }
+        });
+
         LinearLayout settingsLay = profileBtmSheet.findViewById(R.id.profile_settingsLL);
         LinearLayout ppLay = profileBtmSheet.findViewById(R.id.profile_ppLL);
+        LinearLayout myPosts = profileBtmSheet.findViewById(R.id.profile_postsLL);
 
         profileTv.setText(nickname);
+
+        myPosts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(MainActivity.this, MyPostsActivity.class);
+                MainActivity.this.startActivity(mainIntent);
+            }
+        });
+
         ppLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] menuOptions = {"Change Profile Picture", "Remove Profile Picture"};
+                String[] menuOptions = {"프로필 사진 변경", "프로필 사진 제거"};
 
                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(MainActivity.this, R.style.dialogTheme);
 
@@ -237,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (which == 0) {
+
                             CropImage.activity()
                                     .setActivityTitle("Edit")
                                     .setCropMenuCropButtonTitle("Save")
@@ -249,10 +262,14 @@ public class MainActivity extends AppCompatActivity {
 
 
                         } else if (which == 1) {
-                            userRef.update("imageURL", "").addOnSuccessListener(new OnSuccessListener<Void>() {
+                            final ProgressDialog pd = new ProgressDialog(MainActivity.this, R.style.MyGravity);
+                            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                            pd.setCancelable(false);
+                            pd.show();
+                            userRef.update("imageURL", MainActivity.defaultPP).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    ppBig.setImageResource(R.drawable.ic_lil_element);
+                                    pd.dismiss();
                                 }
                             });
                         } else {
@@ -289,7 +306,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void createRoom(View view){
+    public void launchTest(View view) {
+        Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show();
+    }
+
+    public void createRoom(View view) {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(MainActivity.this);
         bottomSheetDialog.setContentView(R.layout.bottom_sheet_add);
 
@@ -350,7 +371,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void confirmDel(){
+    public void confirmDel() {
 
         new AlertDialog.Builder(this, R.style.dialogTheme)
                 .setIcon(R.drawable.ic_round_warning)
@@ -368,7 +389,7 @@ public class MainActivity extends AppCompatActivity {
                         googleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()){
+                                if (task.isSuccessful()) {
                                     firebaseAuth.signOut();
 
                                     SimpleDateFormat time = new SimpleDateFormat("k");
@@ -376,12 +397,11 @@ public class MainActivity extends AppCompatActivity {
                                     String timeRN = time.format(currentTime);
                                     final int timeINT = Integer.parseInt(timeRN);
 
-                                    if ((0<=timeINT && timeINT<=4) || (timeINT<=24 && timeINT>=18)) {
+                                    if ((0 <= timeINT && timeINT <= 4) || (timeINT <= 24 && timeINT >= 18)) {
                                         Intent mainIntent = new Intent(MainActivity.this, Sign.class);
                                         MainActivity.this.startActivity(mainIntent);
                                         MainActivity.this.finish();
-                                    }
-                                    else{
+                                    } else {
                                         Intent mainIntent = new Intent(MainActivity.this, Closed.class);
                                         MainActivity.this.startActivity(mainIntent);
                                         MainActivity.this.finish();
@@ -395,24 +415,20 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    public void changeName(View view){
+    public void changeName(View view) {
+
+        final View vw = getLayoutInflater().inflate(R.layout.nicknamelayout, null);
+
         final AlertDialog.Builder alert = new AlertDialog.Builder(this, R.style.dialogTheme);
 
         alert.setTitle("닉네임 변경");
 
+        final EditText input = vw.findViewById(R.id.nameET);
+
 // Set an EditText view to get user input
-        final EditText input = new EditText(this);
-        input.setTextColor(getResources().getColor(R.color.textColorGray));
-        input.setTextSize(14);
-        input.setHeight(100);
-        input.setWidth(340);
-        input.setGravity(Gravity.BOTTOM);
+        alert.setView(vw);
 
-        input.setPadding(16, 16, 16, 16);
-
-        alert.setView(input);
-
-        alert.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             public void onClick(final DialogInterface dialog, int whichButton) {
 
                 String username = input.getText().toString();
@@ -425,7 +441,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton("취소", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 // Canceled.
             }
@@ -451,6 +467,11 @@ public class MainActivity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
 
+                final ProgressDialog pd = new ProgressDialog(MainActivity.this, R.style.MyGravity);
+                pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                pd.setCancelable(false);
+                pd.show();
+
                 Uri resultUri = result.getOriginalUri();
                 final StorageReference filepath = storageRef.child("Profile Images").child(firebaseUser.getUid()).child("Profile Image.jpg");
                 uploadTask = filepath.putFile(resultUri);
@@ -470,9 +491,15 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Uri downloadUri = task.getResult();
                             imageURL_STR = downloadUri.toString();
-                            userRef.update("imageURL", imageURL_STR);
+                            userRef.update("imageURL", imageURL_STR).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    pd.dismiss();
+                                }
+                            });
                         } else {
                             Toast.makeText(MainActivity.this, "DOWNLOAD URL DOESNT WORK FFS", Toast.LENGTH_SHORT).show();
+                            pd.dismiss();
                         }
                     }
                 });
@@ -483,4 +510,28 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-   }
+    @Override
+    public void onBackPressed() {
+
+        if (slideLayer.isOpened()) {
+            slideLayer.closeLayer(true);
+        } else if (slideLayer.isClosed()) {
+            super.onBackPressed();
+        }
+    }
+
+    private void adminDeleteUsers() {
+        db.collection("Lobbies").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    if (task.isSuccessful()) {
+                        if (document.get("imageURL").equals("")) {
+                            db.collection("Users").document(document.getId()).delete();
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
