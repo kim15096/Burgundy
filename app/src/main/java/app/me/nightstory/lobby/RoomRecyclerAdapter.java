@@ -13,6 +13,7 @@ import android.view.animation.LinearInterpolator;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.common.io.Resources;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -21,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import app.me.nightstory.R;
 import app.me.nightstory.home.MainActivity;
+import app.me.nightstory.login.Login;
 
 public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel, RoomViewHolder> {
 
@@ -52,8 +54,9 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final ProgressDialog pd = new ProgressDialog(context, R.style.dialogTheme);
-                pd.setMessage(context.getString(R.string.joining));
+                final ProgressDialog pd = new ProgressDialog(context, R.style.MyGravity);
+                pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                pd.setMessage("방 참여중...");
                 pd.setCancelable(false);
                 pd.show();
 

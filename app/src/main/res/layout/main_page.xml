@@ -267,10 +267,9 @@
         android:id="@+id/test_vp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="50dp"
         android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainHead"
         tools:layout_editor_absoluteX="1dp">
 
     </androidx.viewpager.widget.ViewPager>
@@ -298,9 +297,8 @@
         <ImageButton
             android:id="@+id/button2"
             android:layout_width="55dp"
-            android:layout_height="36dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/ripple_bg_fab"
+            android:layout_height="40dp"
+            android:background="@drawable/ripple_bg_fab_new"
             android:drawableStart="@drawable/ic_round_add_24"
             android:elevation="0dp"
             android:onClick="createRoom"
@@ -310,17 +308,16 @@
             android:textColor="@color/textColorGray"
             android:textSize="13sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tabLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tabLayout" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             style="@style/tab_text"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="4dp"
+            android:layout_width="150dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:tabIndicator="@drawable/tab_indicator"
@@ -333,20 +330,16 @@
             app:tabTextAppearance="@style/tab_text">
 
             <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hot" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New" />
-
-            <com.google.android.material.tabs.TabItem
                 android:id="@+id/tabItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Live" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabItem2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Join" />
         </com.google.android.material.tabs.TabLayout>
 
         <ImageView
@@ -365,42 +358,41 @@
             android:id="@+id/lobbyL_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="14dp"
             android:fontFamily="cursive"
             android:inputType="textMultiLine|textCapSentences"
             android:maxLines="2"
             android:text="Nightstory"
             android:textColor="@color/textColorGray"
-            android:textSize="26sp"
+            android:textSize="28sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView"
-            tools:text="Nightstory" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="16dp"
-            android:visibility="visible"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/testicno" />
+            tools:text="Nightstory" />
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/main_pp"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_marginEnd="16dp"
             app:civ_background_color="@color/darkClrBg"
             app:civ_border="true"
             app:civ_border_color="@color/Gray"
             app:civ_border_width="1.5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/lobbyL_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/lobbyL_title" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/lobbyL_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/lobbyL_title"
+            app:srcCompat="@drawable/ic_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

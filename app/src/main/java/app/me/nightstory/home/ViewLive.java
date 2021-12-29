@@ -62,7 +62,7 @@ public class ViewLive extends Fragment {
         ((SimpleItemAnimator) rv_live.getItemAnimator()).setSupportsChangeAnimations(false);
 
 
-        rv_live.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        rv_live.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         bgVid = view.findViewById(R.id.videoBG);
 
@@ -82,20 +82,10 @@ public class ViewLive extends Fragment {
 
         rv_live.setAdapter(mAdapter);
 
-        final int spacing = 10;
 
 // apply spacing
-        rv_live.setPadding(spacing, 175, spacing, spacing);
-        rv_live.setClipToPadding(false);
-        rv_live.setClipChildren(false);
-        rv_live.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                outRect.set(spacing, spacing, spacing, spacing);
-            }
-        });
 
-        rv_live.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        /*rv_live.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -109,7 +99,7 @@ public class ViewLive extends Fragment {
 
                 if (scrolledDistance > HIDE_THRESHOLD && controlsVisible) {
                     controlsVisible = false;
-                    mainToolbar.animate().setInterpolator(new LinearInterpolator()).translationY(-140).setDuration(200);
+                    mainToolbar.animate().setInterpolator(new LinearInterpolator()).translationY(-150).setDuration(200);
                     scrolledDistance = 0;
                 } else if (scrolledDistance < -HIDE_THRESHOLD && !controlsVisible) {
                     controlsVisible = true;
@@ -124,7 +114,7 @@ public class ViewLive extends Fragment {
 
             }
 
-        });
+        });*/
 
 
         return view;

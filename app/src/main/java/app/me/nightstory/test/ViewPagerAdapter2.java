@@ -7,9 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import app.me.nightstory.home.ViewHot;
 import app.me.nightstory.home.ViewLive;
-import app.me.nightstory.home.ViewNew;
 
 class ViewPagerAdapter2 extends FragmentPagerAdapter {
 
@@ -23,17 +21,10 @@ class ViewPagerAdapter2 extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
 
         switch(position) {
-            case 1:
-                ViewNew viewNew = new ViewNew();
-                return viewNew;
-
             case 2:
                 ViewLive viewLive = new ViewLive();
                 return viewLive;
 
-            case 0:
-                ViewHot viewHot = new ViewHot();
-                return viewHot;
 
             default:
                 return null;

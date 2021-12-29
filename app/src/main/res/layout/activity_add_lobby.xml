@@ -98,8 +98,8 @@
 
     <ImageButton
         android:id="@+id/createlobby_back"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:alpha="0.85"
@@ -113,9 +113,9 @@
     <Button
         android:id="@+id/createlob_btn"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="42dp"
-        android:layout_marginEnd="42dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="45dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/ripple_bg"
         android:elevation="2dp"

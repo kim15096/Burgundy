@@ -112,16 +112,14 @@ public class MainActivity extends AppCompatActivity {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.setCurrentItem(0);
-        viewPager.setOffscreenPageLimit(2);
 
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setInlineLabel(true);
         //tabLayout.getTabAt(0).setIcon(R.drawable.ic_hot);
-        tabLayout.getTabAt(0).setText(R.string.tab_hot);
+        tabLayout.getTabAt(0).setText("Open");
+        tabLayout.getTabAt(1).setText("Join");
         //tabLayout.getTabAt(1).setIcon(R.drawable.ic_round_trending_up_24);
-        tabLayout.getTabAt(1).setText(R.string.tab_fresh);
-        //tabLayout.getTabAt(2).setIcon(R.drawable.ic_baseline_play_arrow_24);
-        tabLayout.getTabAt(2).setText("스토리방");
+
 
         //adminDeleteUsers
         //adminDeleteUsers();
@@ -184,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
         // deleting lobbies
-        new Handler().postDelayed(new Runnable() {
+        /*new Handler().postDelayed(new Runnable() {
             public void run() {
                 Query query = db.collection("Lobbies").whereEqualTo("hostID", "");
                 query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -200,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 2000);
+        }, 2000);*/
 
     }
 
@@ -311,32 +309,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createRoom(View view) {
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(MainActivity.this);
-        bottomSheetDialog.setContentView(R.layout.bottom_sheet_add);
-
-        LinearLayout postLay = bottomSheetDialog.findViewById(R.id.postLay);
-        LinearLayout liveLay = bottomSheetDialog.findViewById(R.id.liveLay);
-
-        postLay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent mainIntent = new Intent(MainActivity.this, AddPost.class);
-                MainActivity.this.startActivity(mainIntent);
-                bottomSheetDialog.dismiss();
-            }
-        });
-
-        liveLay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent mainIntent = new Intent(MainActivity.this, AddLobbyActivity.class);
-                MainActivity.this.startActivity(mainIntent);
-                bottomSheetDialog.dismiss();
-
-            }
-        });
-
-        bottomSheetDialog.show();
+        Intent mainIntent = new Intent(MainActivity.this, AddLobbyActivity.class);
+        MainActivity.this.startActivity(mainIntent);
     }
 
     public void confirmLogout() {
