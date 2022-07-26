@@ -7,24 +7,6 @@
     android:fitsSystemWindows="true"
     tools:context=".login.Closed">
 
-    <ir.samanjafari.easycountdowntimer.EasyCountDownTextview
-        android:id="@+id/easyCountDownTextview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="32dp"
-        app:colonColor="@color/textColorGray"
-        app:digitBackground="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/closed_tv"
-        app:setAnimation="true"
-        app:showDays="false"
-        app:showHours="true"
-        app:start_automatically="true"
-        app:textColor="@color/textColorGray"
-        app:textSize="18sp" />
-
     <TextView
         android:id="@+id/closed_tv"
         android:layout_width="wrap_content"

@@ -68,7 +68,6 @@ public class ViewLive extends Fragment {
 
         LobbyQuery = FirebaseFirestore.getInstance()
                 .collection("Lobbies")
-                .orderBy("cur_views")
                 .orderBy("timestamp");
 
         // Set up Recycler Adapter

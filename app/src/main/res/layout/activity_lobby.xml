@@ -102,63 +102,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp">
 
-        <com.mikhaellopez.circularimageview.CircularImageView
-            android:id="@+id/live_PP5"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="8dp"
-            app:civ_border="false"
-            app:civ_border_color="@color/darkmodeBG"
-            app:civ_border_width="4dp"
-            app:layout_constraintBottom_toBottomOf="@+id/live_PP6"
-            app:layout_constraintStart_toEndOf="@+id/live_PP6"
-            app:layout_constraintTop_toTopOf="@+id/live_PP6"
-            app:srcCompat="@drawable/ic_ch"
-            tools:srcCompat="@drawable/ic_ch" />
-
-        <com.mikhaellopez.circularimageview.CircularImageView
-            android:id="@+id/live_PP6"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="8dp"
-            app:civ_border="false"
-            app:civ_border_color="@color/darkmodeBG"
-            app:civ_border_width="4dp"
-            app:layout_constraintBottom_toBottomOf="@+id/live_PP7"
-            app:layout_constraintStart_toEndOf="@+id/live_PP7"
-            app:layout_constraintTop_toTopOf="@+id/live_PP7"
-            app:layout_constraintVertical_bias="1.0"
-            app:srcCompat="@drawable/ic_ch"
-            tools:srcCompat="@drawable/ic_ch" />
-
-        <com.mikhaellopez.circularimageview.CircularImageView
-            android:id="@+id/live_PP7"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="8dp"
-            app:civ_border="false"
-            app:civ_border_color="@color/darkmodeBG"
-            app:civ_border_width="4dp"
-            app:layout_constraintBottom_toBottomOf="@+id/activity_pp1"
-            app:layout_constraintStart_toEndOf="@+id/activity_pp1"
-            app:layout_constraintTop_toTopOf="@+id/activity_pp1"
-            app:srcCompat="@drawable/splash"
-            tools:srcCompat="@drawable/splash" />
-
-        <com.mikhaellopez.circularimageview.CircularImageView
-            android:id="@+id/activity_pp1"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="4dp"
-            app:civ_border="false"
-            app:civ_border_color="@color/darkmodeBG"
-            app:civ_border_width="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/cur_views_tv"
             android:layout_width="wrap_content"
@@ -188,7 +131,7 @@
             android:onClick="lobby_back"
             android:text="나가기"
             android:textAllCaps="false"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@android:color/white"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -232,7 +175,7 @@
                 tools:text="This is the title" />
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/lobby_desc"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

@@ -277,8 +277,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainHead"
         android:layout_width="match_parent"
-        android:layout_height="105dp"
-        android:background="@color/darkmodeBG"
+        android:layout_height="70dp"
+        android:background="@color/darkClrBg"
         android:elevation="2dp"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -294,36 +294,19 @@
 
         </FrameLayout>
 
-        <ImageButton
-            android:id="@+id/button2"
-            android:layout_width="55dp"
-            android:layout_height="40dp"
-            android:background="@drawable/ripple_bg_fab_new"
-            android:drawableStart="@drawable/ic_round_add_24"
-            android:elevation="0dp"
-            android:onClick="createRoom"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_round_add_24"
-            android:textAlignment="center"
-            android:textColor="@color/textColorGray"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             style="@style/tab_text"
-            android:layout_width="150dp"
-            android:layout_height="42dp"
-            android:layout_marginStart="8dp"
+            android:layout_width="160dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/main_pp"
             app:tabIndicator="@drawable/tab_indicator"
-            app:tabIndicatorColor="@color/blue"
+            app:tabIndicatorColor="@color/colorPrimary"
             app:tabIndicatorGravity="bottom"
-            app:tabIndicatorHeight="2dp"
+            app:tabIndicatorHeight="1.5dp"
             app:tabPaddingEnd="-5dp"
             app:tabPaddingStart="-5dp"
             app:tabRippleColor="@android:color/transparent"
@@ -342,57 +325,37 @@
                 android:text="Join" />
         </com.google.android.material.tabs.TabLayout>
 
-        <ImageView
-            android:id="@+id/imageView11"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:layout_marginEnd="16dp"
-            android:alpha="0.85"
-            android:onClick="launchTest"
-            app:layout_constraintBottom_toBottomOf="@+id/main_pp"
-            app:layout_constraintEnd_toStartOf="@+id/main_pp"
-            app:layout_constraintTop_toTopOf="@+id/main_pp"
-            app:srcCompat="@drawable/ic_baseline_leaderboard_24" />
-
-        <TextView
-            android:id="@+id/lobbyL_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="14dp"
-            android:fontFamily="cursive"
-            android:inputType="textMultiLine|textCapSentences"
-            android:maxLines="2"
-            android:text="Nightstory"
-            android:textColor="@color/textColorGray"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Nightstory" />
-
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/main_pp"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginEnd="16dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="16dp"
             app:civ_background_color="@color/darkClrBg"
             app:civ_border="true"
             app:civ_border_color="@color/Gray"
             app:civ_border_width="1.5dp"
-            app:layout_constraintBottom_toBottomOf="@+id/lobbyL_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/lobbyL_title" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/lobbyL_title"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/lobbyL_title"
-            app:srcCompat="@drawable/ic_icon" />
+            app:layout_constraintTop_toTopOf="@+id/tabLayout" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="75dp"
+            android:layout_height="32dp"
+            android:background="@drawable/ripple_bg"
+            android:fontFamily="@font/roboto_medium"
+            android:onClick="createRoom"
+            android:padding="8dp"
+            android:text="방 만들기"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tabLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.85"
+            app:layout_constraintStart_toEndOf="@+id/tabLayout"
+            app:layout_constraintTop_toTopOf="@+id/tabLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

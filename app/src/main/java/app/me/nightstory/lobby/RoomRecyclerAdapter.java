@@ -47,7 +47,6 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
     @Override
     protected void onBindViewHolder(RoomViewHolder holder, final int position, final LobbyPostModel model) {
         holder.setTitle(model.getTitle());
-        holder.setCategory(model.getCategory());
         holder.setCur_views(model.getCur_views());
         holder.setUsername(model.getHostName());
 
@@ -100,7 +99,7 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
         db.collection("Users").document(model.getHostID()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (!(documentSnapshot.get("imageURL") ==null)) {
+                if (!(documentSnapshot.get("imageURL") == null)) {
                     String imageUrl = documentSnapshot.get("imageURL").toString();
                     holder.setProfilePicture(imageUrl);
                 }

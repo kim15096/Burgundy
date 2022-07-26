@@ -1,6 +1,7 @@
 package app.me.nightstory.lobby;
 
 import android.animation.Animator;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -9,6 +10,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
@@ -60,7 +62,7 @@ public class LobbyActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private DocumentReference userRef, lobbyRef;
     private String hostID, fireBaseID;
-    private TextView lobby_title, host_name, cur_views, category_tv;
+    private TextView lobby_title, host_name, cur_views, lobby_desc;
     private AlertDialog alertDialog;
     private EditText chat_et;
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -85,6 +87,8 @@ public class LobbyActivity extends AppCompatActivity {
     private Long cur_view;
     private CardView chatCardView, viewCardView;
 
+    public static String lobbyIDLocal = "";
+
 
     @Override
     protected void onStart() {
@@ -103,16 +107,20 @@ public class LobbyActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
         fireBaseID = firebaseUser.getUid();
 
+
         userRef = firestore.collection("Users").document(fireBaseID);
         lobbyRef = firestore.collection("Lobbies").document(MainActivity.inLobbyID);
 
+        lobbyIDLocal = MainActivity.inLobbyID;
+
+
         viewCardView = findViewById(R.id.viewLobbyCard);
         lobby_title = findViewById(R.id.lobby_title);
+        lobby_desc = findViewById(R.id.lobby_desc);
         host_name = findViewById(R.id.host_name);
         sendBtn = findViewById(R.id.viewer_sendBtn);
         chat_et = findViewById(R.id.chat_view_et);
         cur_views = findViewById(R.id.cur_views_tv);
-        pp1 = findViewById(R.id.activity_pp1);
 
         lobbyRef.addSnapshotListener(LobbyActivity.this, new EventListener<DocumentSnapshot>() {
                 @Override
@@ -121,11 +129,13 @@ public class LobbyActivity extends AppCompatActivity {
                     String lobbyTitle = value.get("title").toString();
                     String hostName = value.get("hostName").toString();
                     String hostIDa = value.get("hostID").toString();
+                    String active = value.get("active").toString();
+                    String lobbyDesc = value.get("desc").toString();
                     hostID = value.get("hostID").toString();
                     cur_view = value.getLong("cur_views");
 
 
-                    if (hostIDa.equals("")) {
+                    if (!hostID.equals(fireBaseID) && active.equals("false")) {
 
                         userRef.update("inLobby", "").addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -138,6 +148,7 @@ public class LobbyActivity extends AppCompatActivity {
                     }
                     host_name.setText(hostName);
                     lobby_title.setText(lobbyTitle);
+                    lobby_desc.setText(lobbyDesc);
                     cur_views.setText(cur_view.toString());
 
 
@@ -198,6 +209,7 @@ public class LobbyActivity extends AppCompatActivity {
                     final Map<String, Object> story = new HashMap<>();
                     story.put("text", msg);
                     story.put("chatUsername", MainActivity.nickname);
+                    story.put("userID", fireBaseID);
                     story.put("ppURL", MainActivity.myPpURL);
                     story.put("timestamp", FieldValue.serverTimestamp());
 
@@ -230,10 +242,12 @@ public class LobbyActivity extends AppCompatActivity {
                     .setTitle(R.string.lobby_exit)
                     .setPositiveButton(R.string.lobby_exitBtn, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            lobbyRef.update("hostID", "").addOnSuccessListener(new OnSuccessListener<Void>() {
+                            lobbyRef.update("active", "false").addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    LobbyActivity.this.finish();
+                                    userRef.update("inLobby", "");
+                                            LobbyActivity.this.finish();
+
                                 }
                             });
                         }

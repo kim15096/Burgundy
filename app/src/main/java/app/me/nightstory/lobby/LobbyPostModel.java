@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class LobbyPostModel {
 
-    public String category, title, lobbyID, hostName, hostID;
+    public String active, desc, title, lobbyID, hostName, hostID;
     public Date timestamp;
     public Long cur_views, tot_views;
 
@@ -15,27 +15,36 @@ public class LobbyPostModel {
 
 
 
-    public LobbyPostModel(String category, String title, String lobbyID, String hostID, String hostName, Timestamp timestamp, Long cur_views, Long tot_views) {
-        this.category = category;
+    public LobbyPostModel(String active, String desc, String title, String lobbyID, String hostID, String hostName, Timestamp timestamp, Long cur_views, Long tot_views) {
+        this.desc = desc;
         this.timestamp = timestamp.toDate();
         this.title = title;
         this.lobbyID = lobbyID;
+        this.active = active;
         this.hostID = hostID;
         this.hostName = hostName;
         this.cur_views = cur_views;
         this.tot_views = tot_views;
     }
 
-    public String getCategory() {
-        return category;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public String getTitle() {
         return title;
+    }
+
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
     }
 
     public void setTitle(String title) {

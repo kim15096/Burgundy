@@ -1,4 +1,4 @@
-package app.me.nightstory.home;
+  package app.me.nightstory.home;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!inLobbyID.equals("")) {
                     Intent mainIntent = new Intent(MainActivity.this, LobbyActivity.class);
                     MainActivity.this.startActivity(mainIntent);
+
                 }
             }
         });
@@ -484,6 +485,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void ADMIN_del_story() {
+
+    }
+
     @Override
     public void onBackPressed() {
 
@@ -502,6 +507,28 @@ public class MainActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         if (document.get("imageURL").equals("")) {
                             db.collection("Users").document(document.getId()).delete();
+                        }
+                    }
+                }
+            }
+        });
+
+    }
+
+    private void deleteYourPost(){
+        if(!LobbyActivity.lobbyIDLocal.equals("")) {
+            db.collection("Lobbies").document(LobbyActivity.lobbyIDLocal).delete();
+        }
+    }
+
+    private void adminDeleteInactive() {
+        db.collection("Lobbies").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    if (task.isSuccessful()) {
+                        if (document.get("active").equals("false")) {
+                            db.collection("Lobbies").document(document.getId()).delete();
                         }
                     }
                 }

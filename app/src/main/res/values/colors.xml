@@ -16,7 +16,7 @@
     <color name="gray1">#514E61</color>
     <color name="gray2">#8E8B9B</color>
     <color name="darkTrans">#BF20212B</color>
-    <color name="darkClrBg">#111111</color>
-    <color name="darkmodeBG">#222222</color>
+    <color name="darkClrBg">#212224</color>
+    <color name="darkmodeBG">#28292b</color>
 
 </resources>

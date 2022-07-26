@@ -36,7 +36,7 @@ public class AddLobbyActivity extends AppCompatActivity {
     private EditText title, info;
     private FirebaseFirestore db;
     private FirebaseUser firebaseUser;
-    private String category = "";
+    private String desc = "";
     private Button createBtn;
 
 
@@ -121,6 +121,7 @@ public class AddLobbyActivity extends AppCompatActivity {
 
     public void createLobby(final View view){
         final String lobby_title = title.getText().toString();
+        String lobby_desc = info.getText().toString();
 
         if (lobby_title.trim().isEmpty()){
             Toast.makeText(this, "Please choose a title", Toast.LENGTH_SHORT).show();
@@ -137,13 +138,13 @@ public class AddLobbyActivity extends AppCompatActivity {
             final Map<String, Object> createLobby = new HashMap<>();
             createLobby.put("title", lobby_title);
             createLobby.put("lobbyID", id);
-            createLobby.put("emoji", "");
             createLobby.put("hostID", firebaseUser.getUid());
             createLobby.put("hostName", MainActivity.nickname);
             createLobby.put("timestamp", timestamp);
             createLobby.put("tot_views", 1);
             createLobby.put("cur_views", 1);
-            createLobby.put("category", category);
+            createLobby.put("active", "true");
+            createLobby.put("desc", lobby_desc);
 
             db.collection("Lobbies").document(id).set(createLobby).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override

@@ -19,7 +19,7 @@
         android:inputType="textShortMessage|textMultiLine|textCapSentences"
         android:maxLength="500"
         android:padding="6dp"
-        android:textSize="15sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/lobbyTitle"
         app:layout_constraintStart_toStartOf="@+id/lobbyTitle"
         app:layout_constraintTop_toBottomOf="@+id/textView6"
@@ -31,43 +31,6 @@
         app:met_textColor="@color/textColorGray"
         app:met_textColorHint="@color/lightGray"
         app:met_underlineColor="@color/lightGray" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/ch"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:alpha="0.85"
-        android:elevation="0dp"
-        android:scaleType="center"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/createlob_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.32"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addLobby_info"
-        app:layout_constraintVertical_bias="0.626"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/ch1_talk"
-        app:lottie_scale="0.125"
-        app:lottie_speed="0.5" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/fire_animation4"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="105dp"
-        android:alpha="0.85"
-        android:elevation="0dp"
-        android:scaleType="center"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/ch"
-        app:layout_constraintStart_toStartOf="@+id/ch"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/fire_animation"
-        app:lottie_scale="0.125"
-        app:lottie_speed="1" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/lobbyTitle"
@@ -82,7 +45,7 @@
         android:inputType="textShortMessage|textMultiLine|textCapSentences"
         android:maxLength="100"
         android:padding="6dp"
-        android:textSize="15sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +64,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:alpha="0.85"
         android:background="@android:color/transparent"
         android:onClick="createlobby_back"
@@ -115,8 +78,8 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="45dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="45dp"
-        android:layout_marginBottom="32dp"
         android:background="@drawable/ripple_bg"
         android:elevation="2dp"
         android:onClick="createLobby"
@@ -126,9 +89,9 @@
         android:textColor="@color/textColorGray"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addLobby_info" />
 
     <TextView
         android:id="@+id/createlobby_title"
@@ -148,11 +111,11 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/addLobby_info"
         android:textColor="@color/textColorGray"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/addLobby_info"
         app:layout_constraintTop_toBottomOf="@+id/lobbyTitle" />
@@ -165,17 +128,9 @@
         android:fontFamily="@font/roboto_medium"
         android:text="@string/addlobby_title"
         android:textColor="@color/textColorGray"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/lobbyTitle"
         app:layout_constraintTop_toBottomOf="@+id/createlobby_title" />
 
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="48dp"
-        android:layout_height="23dp"
-        android:alpha="0.85"
-        app:layout_constraintBottom_toTopOf="@+id/fire_animation4"
-        app:layout_constraintEnd_toEndOf="@+id/ch"
-        app:srcCompat="@drawable/ic_thinking" />
 </androidx.constraintlayout.widget.ConstraintLayout>

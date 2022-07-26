@@ -29,8 +29,7 @@ import java.util.Locale;
 
 import app.me.nightstory.R;
 import app.me.nightstory.home.MainActivity;
-import ir.samanjafari.easycountdowntimer.CountDownInterface;
-import ir.samanjafari.easycountdowntimer.EasyCountDownTextview;
+
 
 public class Closed extends AppCompatActivity {
 
@@ -75,24 +74,6 @@ public class Closed extends AppCompatActivity {
             int m = (int) timeDiff / (60 * 1000) % 60;
             int s = (int) timeDiff / 1000 % 60;
 
-            final EasyCountDownTextview countDownTextview = findViewById(R.id.easyCountDownTextview);
-            countDownTextview.setTime(d, h, m, s);
-            countDownTextview.startTimer();
-            countDownTextview.setOnTick(new CountDownInterface() {
-                @Override
-                public void onTick(long time) {
-
-                }
-                @Override
-                public void onFinish() {
-
-                    if (currentUser != null) {
-                        toHome();
-                    } else {
-                        toLogin();
-                    }
-                }
-            });
         }
 
 
@@ -110,16 +91,6 @@ public class Closed extends AppCompatActivity {
         Closed.this.finish();
     }
 
-    private void FadeOut(EasyCountDownTextview view){
-
-        Animation fadeOut = new AlphaAnimation(1, 0);
-        fadeOut.setInterpolator(new AccelerateInterpolator()); //and this
-        fadeOut.setStartOffset(100);
-        fadeOut.setDuration(500);
-
-        view.setAnimation(fadeOut);
-        view.setVisibility(View.INVISIBLE);
-    }
 
     public void adminEnter(View view){
 
