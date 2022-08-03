@@ -1,6 +1,7 @@
 package app.me.nightstory.lobby;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,23 +28,22 @@ public class RoomViewHolder extends RecyclerView.ViewHolder{
 
     public void setTitle(String text){
         TextView title_tv = mView.findViewById(R.id.lobbyL_title);
-        String newText = "\"" + text + "\"";
-        title_tv.setText(newText);
+        text = "제 직업은 " + text + "입니다. 뭐든지 물어봐요!";
+        title_tv.setText(text);
 
     }
 
     public void setCategory(String text){
-        TextView category = mView.findViewById(R.id.post_category);
-        category.setText(text);
+
     }
 
-    public void setCur_views(Long num){
+    public void setTot_Views(Long num){
         TextView cur_view = mView.findViewById(R.id.card_cur_views_tv);
         cur_view.setText(num+"");
     }
 
-    public void setProfilePicture(String text){
-        CircularImageView pp = mView.findViewById(R.id.live_PP);
+    public void setPicture(String text){
+        ImageView pp = mView.findViewById(R.id.post_pp);
             Glide.with(itemView).load(text).centerCrop().into(pp);
 
     }

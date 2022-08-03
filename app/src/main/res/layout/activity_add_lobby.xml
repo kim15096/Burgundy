@@ -4,133 +4,192 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
     android:fitsSystemWindows="true"
     tools:context=".lobby.AddLobbyActivity">
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/addLobby_info"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/et_bg"
-        android:ems="10"
-        android:hint="@string/addLobby_hint"
-        android:inputType="textShortMessage|textMultiLine|textCapSentences"
-        android:maxLength="500"
-        android:padding="6dp"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/lobbyTitle"
-        app:layout_constraintStart_toStartOf="@+id/lobbyTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:met_baseColor="@color/lightGray"
-        app:met_floatingLabel="none"
-        app:met_hideUnderline="true"
-        app:met_maxCharacters="500"
-        app:met_primaryColor="@color/colorPrimary"
-        app:met_textColor="@color/textColorGray"
-        app:met_textColorHint="@color/lightGray"
-        app:met_underlineColor="@color/lightGray" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/lobbyTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="50dp"
-        android:background="@drawable/et_bg"
-        android:ems="10"
-        android:hint="@string/addLobby_hint"
-        android:inputType="textShortMessage|textMultiLine|textCapSentences"
-        android:maxLength="100"
-        android:padding="6dp"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:met_baseColor="@color/lightGray"
-        app:met_floatingLabel="none"
-        app:met_hideUnderline="true"
-        app:met_maxCharacters="100"
-        app:met_primaryColor="@color/colorPrimary"
-        app:met_textColor="@color/textColorGray"
-        app:met_textColorHint="@color/lightGray"
-        app:met_underlineColor="@color/lightGray" />
+        <ImageButton
+            android:id="@+id/createlobby_back"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="24dp"
+            android:alpha="0.85"
+            android:background="@android:color/transparent"
+            android:onClick="createlobby_back"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_round_keyboard_backspace_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageButton
-        android:id="@+id/createlobby_back"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:alpha="0.85"
-        android:background="@android:color/transparent"
-        android:onClick="createlobby_back"
-        android:scaleType="fitXY"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_round_close_24" />
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
 
-    <Button
-        android:id="@+id/createlob_btn"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="45dp"
-        android:background="@drawable/ripple_bg"
-        android:elevation="2dp"
-        android:onClick="createLobby"
-        android:stateListAnimator="@null"
-        android:text="@string/addLobby_btn"
-        android:textAllCaps="false"
-        android:textColor="@color/textColorGray"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addLobby_info" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/createlobby_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="@string/start_your_campfire"
-        android:textColor="@color/textColorGray"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/createlobby_back"
-        app:layout_constraintStart_toEndOf="@+id/createlobby_back"
-        app:layout_constraintTop_toTopOf="@+id/createlobby_back" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="@string/addLobby_info"
-        android:textColor="@color/textColorGray"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/addLobby_info"
-        app:layout_constraintTop_toBottomOf="@+id/lobbyTitle" />
+                <TextView
+                    android:id="@+id/createlobby_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="직업 소개하기"
+                    android:textColor="@color/textColorBlack"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.25"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="65dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="@string/addlobby_title"
-        android:textColor="@color/textColorGray"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/lobbyTitle"
-        app:layout_constraintTop_toBottomOf="@+id/createlobby_title" />
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="직업이 뭔가요?"
+                    android:textColor="@color/textColorBlack"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/lobbyTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/createlobby_title" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/lobbyTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="50dp"
+                    android:background="@drawable/et_bg"
+                    android:ems="10"
+                    android:hint="예: 놀이공원 안내원"
+                    android:inputType="textShortMessage|textMultiLine|textCapSentences"
+                    android:maxLength="10"
+                    android:padding="6dp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                    app:met_baseColor="@color/lightGray"
+                    app:met_floatingLabel="none"
+                    app:met_hideUnderline="true"
+                    app:met_maxCharacters="10"
+                    app:met_primaryColor="@color/colorPrimary"
+                    app:met_textColor="@color/textColorBlack"
+                    app:met_textColorHint="@color/lightGray"
+                    app:met_underlineColor="@color/lightGray" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="간단한 소개"
+                    android:textColor="@color/textColorBlack"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/lobbyTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/lobbyTitle" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/addLobby_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/et_bg"
+                    android:ems="10"
+                    android:hint="@string/addLobby_hint"
+                    android:inputType="textShortMessage|textMultiLine|textCapSentences"
+                    android:maxLength="500"
+                    android:padding="6dp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/lobbyTitle"
+                    app:layout_constraintStart_toStartOf="@+id/lobbyTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    app:met_baseColor="@color/lightGray"
+                    app:met_floatingLabel="none"
+                    app:met_hideUnderline="true"
+                    app:met_maxCharacters="500"
+                    app:met_primaryColor="@color/colorPrimary"
+                    app:met_textColor="@color/textColorBlack"
+                    app:met_textColorHint="@color/lightGray"
+                    app:met_underlineColor="@color/lightGray" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="증명 및 관련 사진"
+                    android:textColor="@color/textColorBlack"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/addLobby_info"
+                    app:layout_constraintTop_toBottomOf="@+id/addLobby_info" />
+
+                <Button
+                    android:id="@+id/createlob_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="45dp"
+                    android:layout_marginBottom="100dp"
+                    android:background="@drawable/ripple_bg"
+                    android:onClick="createLobby"
+                    android:stateListAnimator="@null"
+                    android:text="@string/addLobby_btn"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="16dp"
+                    android:clickable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:onClick="addPhoto"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:layout_constraintStart_toStartOf="@+id/textView13"
+                    app:layout_constraintTop_toBottomOf="@+id/textView13">
+
+                    <ImageView
+                        android:id="@+id/add_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerInside"
+                        android:scaleX="1.5"
+                        android:scaleY="1.5"
+                        app:srcCompat="@drawable/ic_round_add_photo_alternate_24" />
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

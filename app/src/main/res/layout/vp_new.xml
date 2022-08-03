@@ -6,25 +6,26 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <app.me.nightstory.MyRecyclerView
         android:id="@+id/rv_fresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@android:color/transparent"
         android:clipToPadding="false"
+        android:fadingEdgeLength="30dp"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:layoutAnimation="@anim/layout_animation"
         android:nestedScrollingEnabled="false"
         android:overScrollMode="never"
-        android:paddingTop="55dp"
-        android:paddingBottom="16dp"
+        android:paddingBottom="50dp"
+        android:requiresFadingEdge="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp">
 
-    </androidx.recyclerview.widget.RecyclerView>
+    </app.me.nightstory.MyRecyclerView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

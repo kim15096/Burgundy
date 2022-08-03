@@ -4,12 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkmodeBG"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/btm_settings"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="32dp"
+            android:alpha="0.75"
+            android:src="@drawable/ic_round_settings_24"
+            app:layout_constraintBottom_toBottomOf="@+id/textView12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView12" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:text="MY 프로필"
+            android:textColor="@color/textColorBlack"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
 
         <TextView
             android:id="@+id/profile_username"
@@ -21,8 +52,8 @@
             android:padding="8dp"
             android:text="Username"
             android:textAlignment="viewStart"
-            android:textColor="@color/textColorGray"
-            android:textSize="18sp"
+            android:textColor="@color/textColorBlack"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/profile_image"
             app:layout_constraintStart_toEndOf="@+id/profile_image"
@@ -30,10 +61,10 @@
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/profile_image"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
             app:civ_background_color="@color/darkClrBg"
             app:civ_border="false"
             app:civ_border_color="@color/Gray"
@@ -69,29 +100,10 @@
             android:includeFontPadding="false"
             android:paddingLeft="16dp"
             android:text="닉네임 변경"
-            android:textColor="@color/textColorGray"
+            android:textColor="@color/textColorBlack"
             android:textSize="14sp"
             android:textStyle="bold" />
 
-        <View
-            android:id="@+id/view2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:visibility="visible"
-            tools:visibility="visible" />
-
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="12dp"
-            android:alpha="0.85"
-            android:text="14일 남았습니다"
-            android:textColor="@color/textColorGray"
-            android:textSize="12sp"
-            android:visibility="invisible" />
     </LinearLayout>
 
     <LinearLayout
@@ -120,29 +132,10 @@
             android:includeFontPadding="false"
             android:paddingLeft="16dp"
             android:text="프로필 사진 변경"
-            android:textColor="@color/textColorGray"
+            android:textColor="@color/textColorBlack"
             android:textSize="14sp"
             android:textStyle="bold" />
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:visibility="visible"
-            tools:visibility="visible" />
-
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="12dp"
-            android:alpha="0.85"
-            android:text="14일 남았습니다"
-            android:textColor="@color/textColorGray"
-            android:textSize="12sp"
-            android:visibility="invisible" />
     </LinearLayout>
 
     <LinearLayout
@@ -171,41 +164,10 @@
             android:includeFontPadding="false"
             android:paddingLeft="16dp"
             android:text="내 게시물"
-            android:textColor="@color/textColorGray"
+            android:textColor="@color/textColorBlack"
             android:textSize="14sp"
             android:textStyle="bold" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/profile_settingsLL"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:orientation="horizontal"
-        android:padding="8dp">
-
-        <ImageView
-            android:id="@+id/imageView13"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="12dp"
-            android:alpha="0.75"
-            android:src="@drawable/ic_round_settings_24" />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:includeFontPadding="false"
-            android:paddingLeft="16dp"
-            android:text="계정 설정"
-            android:textColor="@color/textColorGray"
-            android:textSize="14sp"
-            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>

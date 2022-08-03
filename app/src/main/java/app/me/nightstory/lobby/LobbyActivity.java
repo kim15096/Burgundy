@@ -1,6 +1,7 @@
 package app.me.nightstory.lobby;
 
 import android.animation.Animator;
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
@@ -27,6 +28,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.L;
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieComposition;
 import com.airbnb.lottie.LottieCompositionFactory;
@@ -61,7 +63,7 @@ public class LobbyActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private DocumentReference userRef, lobbyRef;
-    private String hostID, fireBaseID;
+    private String hostID, fireBaseID, URL;
     private TextView lobby_title, host_name, cur_views, lobby_desc;
     private AlertDialog alertDialog;
     private EditText chat_et;
@@ -80,12 +82,13 @@ public class LobbyActivity extends AppCompatActivity {
     private ConstraintLayout emojiPopup;
     private LottieResult<LottieComposition> lottieResult2;
 
-    private ImageView sendBtn;
+    private ImageView sendBtn, lobbyPhoto;
     private LottieAnimationView ch1;
     private CircularImageView pp1;
     private Boolean emojipop = false;
     private Long cur_view;
     private CardView chatCardView, viewCardView;
+    private AlertDialog photoDialog;
 
     public static String lobbyIDLocal = "";
 
@@ -102,25 +105,28 @@ public class LobbyActivity extends AppCompatActivity {
         MainActivity.setLocale(this,"ko");
         setContentView(R.layout.activity_lobby);
 
+        photoDialog = new AlertDialog.Builder(LobbyActivity.this).create();
+        View v = getLayoutInflater().inflate(R.layout.lobby_photo, null);
+        photoDialog.setView(v);
+
+        lobbyPhoto = v.findViewById(R.id.lobbyPhoto);
+
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         fireBaseID = firebaseUser.getUid();
 
-
         userRef = firestore.collection("Users").document(fireBaseID);
         lobbyRef = firestore.collection("Lobbies").document(MainActivity.inLobbyID);
 
         lobbyIDLocal = MainActivity.inLobbyID;
-
-
         viewCardView = findViewById(R.id.viewLobbyCard);
         lobby_title = findViewById(R.id.lobby_title);
         lobby_desc = findViewById(R.id.lobby_desc);
-        host_name = findViewById(R.id.host_name);
         sendBtn = findViewById(R.id.viewer_sendBtn);
         chat_et = findViewById(R.id.chat_view_et);
         cur_views = findViewById(R.id.cur_views_tv);
+
 
         lobbyRef.addSnapshotListener(LobbyActivity.this, new EventListener<DocumentSnapshot>() {
                 @Override
@@ -129,27 +135,15 @@ public class LobbyActivity extends AppCompatActivity {
                     String lobbyTitle = value.get("title").toString();
                     String hostName = value.get("hostName").toString();
                     String hostIDa = value.get("hostID").toString();
+                    URL = value.get("imageURL").toString();
                     String active = value.get("active").toString();
                     String lobbyDesc = value.get("desc").toString();
                     hostID = value.get("hostID").toString();
-                    cur_view = value.getLong("cur_views");
+                    lobbyTitle = "제 직업은 " + lobbyTitle + "입니다. 뭐든지 물어봐요!";
 
-
-                    if (!hostID.equals(fireBaseID) && active.equals("false")) {
-
-                        userRef.update("inLobby", "").addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(LobbyActivity.this, R.string.main_closedNotice, Toast.LENGTH_SHORT).show();
-                                LobbyActivity.this.finish();
-
-                            }
-                        });
-                    }
-                    host_name.setText(hostName);
                     lobby_title.setText(lobbyTitle);
                     lobby_desc.setText(lobbyDesc);
-                    cur_views.setText(cur_view.toString());
+
 
 
                 }
@@ -234,45 +228,20 @@ public class LobbyActivity extends AppCompatActivity {
 
     }
 
+    public void showPhoto(View view){
+        Glide.with(LobbyActivity.this).load(URL).centerCrop().into(lobbyPhoto);
+        photoDialog.show();
+        photoDialog.getWindow().setLayout(700,700);
+    }
+
     @Override
     public void onBackPressed() {
-        if (hostID.equals(fireBaseID)) {
+        lobbyRef.update("cur_views", FieldValue.increment(-1)).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                LobbyActivity.super.onBackPressed();
 
-            new AlertDialog.Builder(this, R.style.dialogTheme)
-                    .setTitle(R.string.lobby_exit)
-                    .setPositiveButton(R.string.lobby_exitBtn, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            lobbyRef.update("active", "false").addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    userRef.update("inLobby", "");
-                                            LobbyActivity.this.finish();
-
-                                }
-                            });
-                        }
-                    })
-
-                    .setNegativeButton(R.string.lobby_stay, null)
-                    .show();
-
-        } else {
-            new AlertDialog.Builder(this, R.style.dialogTheme)
-                    .setTitle(R.string.lobby_exit)
-                    .setPositiveButton(R.string.lobby_exitBtn, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            userRef.update("inLobby", "").addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    lobbyRef.update("cur_views", FieldValue.increment(-1));
-                                    LobbyActivity.super.onBackPressed();
-                                }
-                            });
-                        }
-                    })
-
-                    .setNegativeButton(R.string.lobby_stay, null)
-                    .show();
-        }
+            }
+        });
     }
 }

@@ -6,29 +6,37 @@ import java.util.Date;
 
 public class LobbyPostModel {
 
-    public String active, desc, title, lobbyID, hostName, hostID;
+    public String active, desc, title, lobbyID, hostName, hostID, imageURL;
     public Date timestamp;
-    public Long cur_views, tot_views;
+    public Long tot_views;
 
     public LobbyPostModel() {
     }
 
 
 
-    public LobbyPostModel(String active, String desc, String title, String lobbyID, String hostID, String hostName, Timestamp timestamp, Long cur_views, Long tot_views) {
+    public LobbyPostModel(String active, String imageURL, String desc, String title, String lobbyID, String hostID, String hostName, Timestamp timestamp, Long tot_views) {
         this.desc = desc;
         this.timestamp = timestamp.toDate();
         this.title = title;
+        this.imageURL = imageURL;
         this.lobbyID = lobbyID;
         this.active = active;
         this.hostID = hostID;
         this.hostName = hostName;
-        this.cur_views = cur_views;
         this.tot_views = tot_views;
     }
 
     public String getDesc() {
         return desc;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public void setDesc(String desc) {
@@ -81,14 +89,6 @@ public class LobbyPostModel {
 
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
-    }
-
-    public Long getCur_views() {
-        return cur_views;
-    }
-
-    public void setCur_views(Long cur_views) {
-        this.cur_views = cur_views;
     }
 
     public Long getTot_views() {

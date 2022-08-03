@@ -83,7 +83,7 @@ public class Login extends AppCompatActivity {
 
                     enterButton.getBackground().setColorFilter(null);
                     enterButton.setEnabled(true);
-                    enterButton.setTextColor(getResources().getColor(R.color.textColorGray));
+                    enterButton.setTextColor(Color.WHITE);
 
                 }
                 else {
@@ -100,13 +100,15 @@ public class Login extends AppCompatActivity {
                if (isChecked==true && !username.getText().toString().equals("")){
                    enterButton.getBackground().setColorFilter(null);
                    enterButton.setEnabled(true);
-                   enterButton.setTextColor(getResources().getColor(R.color.textColorGray));
+                   enterButton.setTextColor(Color.WHITE);
+
 
                }
                else {
                    enterButton.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
                    enterButton.setEnabled(false);
                    enterButton.setTextColor(Color.GRAY);
+
 
                }
             }

@@ -4,101 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkClrBg"
     android:clickable="true"
     android:fitsSystemWindows="true"
     android:focusable="true"
     tools:context=".lobby.LobbyActivity">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/story_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:clickable="true"
-        android:clipToPadding="false"
-        android:elevation="2dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:overScrollMode="never"
-        android:paddingTop="8dp"
-        android:paddingBottom="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/viewLobbyCard"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/viewLobbyCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="0dp"
-        app:cardElevation="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:visibility="visible">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/darkmodeBG">
-
-            <EditText
-                android:id="@+id/chat_view_et"
-                android:layout_width="0dp"
-                android:layout_height="42dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/et_bg3"
-                android:ems="10"
-                android:hint="@string/lobby_type"
-                android:inputType="textShortMessage|textMultiLine|textCapSentences"
-                android:maxLength="30"
-                android:maxLines="3"
-                android:padding="10dp"
-                android:paddingStart="12dp"
-                android:textColor="@color/textColorGray"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/viewer_sendBtn"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/viewer_sendBtn"
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:layout_marginEnd="16dp"
-                android:clickable="true"
-                app:fabCustomSize="38dp"
-                app:fabSize="mini"
-                app:layout_constraintBottom_toBottomOf="@+id/chat_view_et"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/chat_view_et"
-                app:maxImageSize="22dp"
-                app:srcCompat="@drawable/ic_round_send_24" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/host_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_medium"
-        android:textColor="@color/textColorGray"
-        android:textSize="11sp"
-        tools:layout_editor_absoluteX="76dp"
-        tools:layout_editor_absoluteY="207dp"
-        tools:text="xelovex" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:background="@color/darkmodeBG"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp">
 
@@ -109,36 +24,77 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="152dp"
             android:includeFontPadding="false"
-            android:textColor="@color/textColorGray"
+            android:textColor="@color/textColorBlack"
             android:textSize="12sp"
             android:textStyle="bold"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="5" />
 
-        <Button
-            android:id="@+id/quitBtn"
-            android:layout_width="85dp"
-            android:layout_height="36dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="1.8"
-            android:background="@drawable/loginbtnbg"
-            android:elevation="2dp"
-            android:fontFamily="@font/roboto"
-            android:gravity="center"
-            android:includeFontPadding="false"
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="24dp"
             android:onClick="lobby_back"
-            android:text="나가기"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_round_keyboard_backspace_24" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:onClick="showPhoto"
+            android:padding="4dp"
+            android:text="사진보기"
+            android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/viewer_sendBtn"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="12dp"
+        android:clickable="true"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabCustomSize="38dp"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="@+id/chat_view_et"
+        app:layout_constraintEnd_toEndOf="@+id/chat_view_et"
+        app:layout_constraintTop_toTopOf="@+id/chat_view_et"
+        app:maxImageSize="22dp"
+        app:srcCompat="@drawable/ic_round_send_24" />
+
+    <EditText
+        android:id="@+id/chat_view_et"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/et_bg3"
+        android:elevation="3dp"
+        android:ems="10"
+        android:hint="@string/lobby_type"
+        android:inputType="textShortMessage|textMultiLine|textCapSentences"
+        android:maxLength="30"
+        android:maxLines="3"
+        android:padding="16dp"
+        android:paddingStart="16dp"
+        android:textColor="@color/textColorBlack"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -155,18 +111,16 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/post_bg">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/lobby_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
                 android:fontFamily="@font/roboto_medium"
-                android:textColor="@color/textColorGray"
+                android:textColor="@color/textColorBlack"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -182,7 +136,7 @@
                 android:layout_marginBottom="16dp"
                 android:alpha="0.85"
                 android:text="Hello my name is Jerry and im the developer of this app. This section is for brief introduction"
-                android:textColor="@color/textColorGray"
+                android:textColor="@color/textColorBlack"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/lobby_title"
                 app:layout_constraintStart_toStartOf="@+id/lobby_title"
@@ -190,5 +144,16 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <app.me.nightstory.MyRecyclerView
+        android:id="@+id/story_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:fadingEdgeLength="30dp"
+        android:paddingBottom="30dp"
+        android:requiresFadingEdge="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/chat_view_et"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,7 @@
         android:ems="10"
         android:hint="Enter code here"
         android:inputType="textPersonName"
-        android:textColor="@color/textColorGray"
+        android:textColor="@color/textColorBlack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
@@ -27,7 +27,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Enter your 6-digit invitation code"
-        android:textColor="@color/textColorGray"
+        android:textColor="@color/textColorBlack"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

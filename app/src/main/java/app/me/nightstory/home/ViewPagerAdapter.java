@@ -21,12 +21,12 @@ class ViewPagerAdapter extends FragmentPagerAdapter {
         switch(position) {
 
             case 0:
-                ViewLive viewLive = new ViewLive();
-                return viewLive;
+                ViewHot viewHot = new ViewHot();
+                return viewHot;
 
             case 1:
-                ViewJoin viewJoin = new ViewJoin();
-                return  viewJoin;
+                ViewNew viewNew = new ViewNew();
+                return viewNew;
 
             default:
                 return null;

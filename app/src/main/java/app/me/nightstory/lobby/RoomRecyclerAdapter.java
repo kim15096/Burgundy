@@ -1,6 +1,5 @@
 package app.me.nightstory.lobby;
 
-import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -8,12 +7,10 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.LinearInterpolator;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.common.io.Resources;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -22,7 +19,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import app.me.nightstory.R;
 import app.me.nightstory.home.MainActivity;
-import app.me.nightstory.login.Login;
 
 public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel, RoomViewHolder> {
 
@@ -47,24 +43,17 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
     @Override
     protected void onBindViewHolder(RoomViewHolder holder, final int position, final LobbyPostModel model) {
         holder.setTitle(model.getTitle());
-        holder.setCur_views(model.getCur_views());
+        holder.setTot_Views(model.getTot_views());
         holder.setUsername(model.getHostName());
+        //holder.setPicture(model.getImageURL());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final ProgressDialog pd = new ProgressDialog(context, R.style.MyGravity);
                 pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                pd.setMessage("방 참여중...");
                 pd.setCancelable(false);
                 pd.show();
-
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        userRef.update("inLobby", model.getLobbyID()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
 
                                 db.collection("Lobbies").document(model.getLobbyID()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                     @Override
@@ -72,38 +61,15 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
                                         Long tot_views = documentSnapshot.getLong("tot_views");
                                         tot_views = tot_views + 1;
 
-                                        Long cur_views = documentSnapshot.getLong("cur_views");
-                                        cur_views = cur_views + 1;
 
                                         db.collection("Lobbies").document(model.getLobbyID()).update("tot_views", tot_views);
-                                        db.collection("Lobbies").document(model.getLobbyID()).update("cur_views", cur_views);
 
                                         MainActivity.inLobbyID = model.getLobbyID();
                                         Intent i1 = new Intent(context, LobbyActivity.class);
                                         context.startActivity(i1);
                                         pd.dismiss();
-
                                     }
-                                });
-
-
-                            }
-
                         });
-
-                    }
-                }, 1000);
-            }
-        });
-
-        db.collection("Users").document(model.getHostID()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (!(documentSnapshot.get("imageURL") == null)) {
-                    String imageUrl = documentSnapshot.get("imageURL").toString();
-                    holder.setProfilePicture(imageUrl);
-                }
-
             }
         });
 

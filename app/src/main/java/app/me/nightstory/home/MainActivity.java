@@ -8,10 +8,9 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,7 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
-import com.canhub.cropper.CropImageView;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -41,14 +39,14 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.mikhaellopez.circularimageview.CircularImageView;
-import com.canhub.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -56,10 +54,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import app.me.nightstory.R;
-import app.me.nightstory.article.AddPost;
 import app.me.nightstory.lobby.AddLobbyActivity;
 import app.me.nightstory.lobby.LobbyActivity;
-import app.me.nightstory.login.Closed;
 import app.me.nightstory.login.Sign;
 import app.me.nightstory.slidinglayer.SlidingLayer;
 
@@ -106,8 +102,6 @@ public class MainActivity extends AppCompatActivity {
         ppSmall = findViewById(R.id.main_pp);
         viewPager = findViewById(R.id.test_vp);
         tabLayout = findViewById(R.id.tabLayout);
-        slideLayer = findViewById(R.id.slideView);
-
 
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
@@ -116,27 +110,14 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setInlineLabel(true);
         //tabLayout.getTabAt(0).setIcon(R.drawable.ic_hot);
-        tabLayout.getTabAt(0).setText("Open");
-        tabLayout.getTabAt(1).setText("Join");
+        tabLayout.getTabAt(0).setText("추천");
+        tabLayout.getTabAt(1).setText("최근");
         //tabLayout.getTabAt(1).setIcon(R.drawable.ic_round_trending_up_24);
+
 
 
         //adminDeleteUsers
         //adminDeleteUsers();
-
-
-        userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                inLobbyID = documentSnapshot.get("inLobby").toString();
-
-                if (!inLobbyID.equals("")) {
-                    Intent mainIntent = new Intent(MainActivity.this, LobbyActivity.class);
-                    MainActivity.this.startActivity(mainIntent);
-
-                }
-            }
-        });
 
 
         userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -223,19 +204,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        LinearLayout settingsLay = profileBtmSheet.findViewById(R.id.profile_settingsLL);
         LinearLayout ppLay = profileBtmSheet.findViewById(R.id.profile_ppLL);
         LinearLayout myPosts = profileBtmSheet.findViewById(R.id.profile_postsLL);
+        ImageView settingsLay = profileBtmSheet.findViewById(R.id.btm_settings);
 
         profileTv.setText(nickname);
 
-        myPosts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent mainIntent = new Intent(MainActivity.this, MyPostsActivity.class);
-                MainActivity.this.startActivity(mainIntent);
-            }
-        });
 
         ppLay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -325,20 +299,11 @@ public class MainActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     firebaseAuth.signOut();
 
-                    SimpleDateFormat time = new SimpleDateFormat("k");
-                    Date currentTime = Calendar.getInstance().getTime();
-                    String timeRN = time.format(currentTime);
-                    final int timeINT = Integer.parseInt(timeRN);
-
-                    if ((0 <= timeINT && timeINT <= 4) || (timeINT <= 24 && timeINT >= 18)) {
                         Intent mainIntent = new Intent(MainActivity.this, Sign.class);
                         MainActivity.this.startActivity(mainIntent);
                         MainActivity.this.finish();
-                    } else {
-                        Intent mainIntent = new Intent(MainActivity.this, Closed.class);
-                        MainActivity.this.startActivity(mainIntent);
-                        MainActivity.this.finish();
-                    }
+
+
 
                 }
 
@@ -367,20 +332,11 @@ public class MainActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     firebaseAuth.signOut();
 
-                                    SimpleDateFormat time = new SimpleDateFormat("k");
-                                    Date currentTime = Calendar.getInstance().getTime();
-                                    String timeRN = time.format(currentTime);
-                                    final int timeINT = Integer.parseInt(timeRN);
 
-                                    if ((0 <= timeINT && timeINT <= 4) || (timeINT <= 24 && timeINT >= 18)) {
                                         Intent mainIntent = new Intent(MainActivity.this, Sign.class);
                                         MainActivity.this.startActivity(mainIntent);
                                         MainActivity.this.finish();
-                                    } else {
-                                        Intent mainIntent = new Intent(MainActivity.this, Closed.class);
-                                        MainActivity.this.startActivity(mainIntent);
-                                        MainActivity.this.finish();
-                                    }
+
 
                                 }
                             }
@@ -395,14 +351,9 @@ public class MainActivity extends AppCompatActivity {
         final View vw = getLayoutInflater().inflate(R.layout.nicknamelayout, null);
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(this, R.style.dialogTheme);
-
         alert.setTitle("닉네임 변경");
-
-        final EditText input = vw.findViewById(R.id.nameET);
-
-// Set an EditText view to get user input
         alert.setView(vw);
-
+        final EditText input = vw.findViewById(R.id.nameET);
         alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             public void onClick(final DialogInterface dialog, int whichButton) {
 
@@ -422,7 +373,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        alert.show();
+        AlertDialog alertDialog = alert.create();
+
+        alertDialog.show();
+        alertDialog.getWindow().setLayout(800, 600);
+
+
+
+// Set an EditText view to get user input
+
     }
 
     public static void setLocale(Activity activity, String languageCode) {

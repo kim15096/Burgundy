@@ -4,264 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkClrBg"
     android:fitsSystemWindows="true">
 
-
-    <app.me.nightstory.slidinglayer.SlidingLayer
-        android:id="@+id/slideView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:elevation="6dp"
-        android:translationZ="15dp"
-        app:stickTo="right"
-        tools:visibility="gone">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/darkClrBg"
-            android:fitsSystemWindows="true">
-
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:background="@color/darkmodeBG"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"
-                app:layout_constraintTop_toTopOf="parent"
-                app:navigationIcon="@drawable/ic_back"
-                app:title="글" />
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="8dp"
-                        app:cardBackgroundColor="@android:color/transparent">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/post_bg">
-
-                            <Button
-                                android:id="@+id/button3"
-                                style="@style/Widget.AppCompat.Button.Small"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_marginTop="24dp"
-                                android:layout_marginEnd="16dp"
-                                android:layout_marginBottom="12dp"
-                                android:background="@drawable/loginbtnbg"
-                                android:paddingStart="4dp"
-                                android:paddingEnd="4dp"
-                                android:stateListAnimator="@null"
-                                android:text="👍 0"
-                                android:textColor="@color/textColorGray"
-                                android:textSize="13sp"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/textView19" />
-
-                            <Button
-                                android:id="@+id/button5"
-                                style="@style/Widget.AppCompat.Button.Small"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_marginEnd="8dp"
-                                android:background="@drawable/loginbtnbg"
-                                android:paddingStart="4dp"
-                                android:paddingEnd="4dp"
-                                android:stateListAnimator="@null"
-                                android:text="😥 0"
-                                android:textColor="@color/textColorGray"
-                                android:textSize="13sp"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="@+id/button3"
-                                app:layout_constraintEnd_toStartOf="@+id/button3"
-                                app:layout_constraintTop_toTopOf="@+id/button3" />
-
-                            <Button
-                                android:id="@+id/button6"
-                                style="@style/Widget.AppCompat.Button.Small"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_marginEnd="8dp"
-                                android:background="@drawable/loginbtnbg"
-                                android:paddingStart="4dp"
-                                android:paddingEnd="4dp"
-                                android:stateListAnimator="@null"
-                                android:text="😂 0"
-                                android:textColor="@color/textColorGray"
-                                android:textSize="13sp"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="@+id/button3"
-                                app:layout_constraintEnd_toStartOf="@+id/button5"
-                                app:layout_constraintTop_toTopOf="@+id/button3" />
-
-                            <TextView
-                                android:id="@+id/textView18"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginTop="12dp"
-                                android:layout_marginEnd="16dp"
-                                android:text="This is the title"
-                                android:textColor="@color/textColorGray"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                tools:text="This is the title" />
-
-                            <TextView
-                                android:id="@+id/textView19"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:alpha="0.85"
-                                android:text="THi sia sdfaskdfa sldkf ajskldf aksdfj ak lsdf jklsdfjksldf skdjfkls dfjsdk fjlksd fjlskd fjksldf jklsd fskdjfsdkf sdlkf sdklf "
-                                android:textColor="@color/textColorGray"
-                                android:textSize="16sp"
-                                app:layout_constraintEnd_toEndOf="@+id/textView18"
-                                app:layout_constraintStart_toStartOf="@+id/textView18"
-                                app:layout_constraintTop_toBottomOf="@+id/textView18"
-                                tools:text="This is the content for the post there will be information here asdjfjh asdfasdj faklsdjf alksdfj aslkdf kalsdf jaklsdf jkalsdf jklasd jfakls fkalsd fjalsdfasdlfjas dfjasldkf askdlf asdklfj " />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <com.mikhaellopez.circularimageview.CircularImageView
-                            android:id="@+id/postmore_pp"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="16dp"
-                            app:civ_background_color="@color/Gray"
-                            app:civ_border="true"
-                            app:civ_border_color="@color/Gray"
-                            app:civ_border_width="1.5dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/textView15"
-                            app:layout_constraintTop_toBottomOf="@+id/textView15" />
-
-                        <TextView
-                            android:id="@+id/textView15"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="32dp"
-                            android:text="글 올린이"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/textColorGray"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/textView21"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="24dp"
-                            android:text="댓글"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/textColorGray"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@+id/textView21" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </LinearLayout>
-            </ScrollView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/viewLobbyCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@android:color/transparent"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="2dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:visibility="visible">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/darkmodeBG">
-
-                    <EditText
-                        android:id="@+id/postmore_et"
-                        android:layout_width="0dp"
-                        android:layout_height="42dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="12dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/et_bg3"
-                        android:ems="10"
-                        android:hint="@string/lobby_type"
-                        android:inputType="textShortMessage|textMultiLine|textCapSentences"
-                        android:maxLength="30"
-                        android:maxLines="3"
-                        android:padding="10dp"
-                        android:paddingStart="12dp"
-                        android:textColor="@color/textColorGray"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/postmore_comment"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/postmore_comment"
-                        android:layout_width="38dp"
-                        android:layout_height="38dp"
-                        android:layout_marginEnd="16dp"
-                        android:clickable="true"
-                        app:fabCustomSize="38dp"
-                        app:fabSize="mini"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:maxImageSize="22dp"
-                        app:srcCompat="@drawable/ic_round_send_24" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </app.me.nightstory.slidinglayer.SlidingLayer>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/test_vp"
@@ -269,94 +13,117 @@
         android:layout_height="0dp"
         android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainHead"
-        tools:layout_editor_absoluteX="1dp">
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp">
 
     </androidx.viewpager.widget.ViewPager>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainHead"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@color/darkClrBg"
+        android:layout_height="65dp"
         android:elevation="2dp"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
 
-        <FrameLayout
-            android:id="@+id/frameLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="0.75dp"
-            android:alpha="0.5"
-            android:background="@color/Gray"
-            android:visibility="invisible"
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="12dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="@+id/main_pp"
+            app:layout_constraintEnd_toStartOf="@+id/main_pp"
+            app:layout_constraintTop_toTopOf="@+id/main_pp"
+            app:srcCompat="@drawable/ic_baseline_search_24" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/roboto"
+            android:text="zigsaw"
+            android:textColor="@color/Gray"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="3dp">
-
-        </FrameLayout>
-
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            style="@style/tab_text"
-            android:layout_width="160dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/main_pp"
-            app:tabIndicator="@drawable/tab_indicator"
-            app:tabIndicatorColor="@color/colorPrimary"
-            app:tabIndicatorGravity="bottom"
-            app:tabIndicatorHeight="1.5dp"
-            app:tabPaddingEnd="-5dp"
-            app:tabPaddingStart="-5dp"
-            app:tabRippleColor="@android:color/transparent"
-            app:tabTextAppearance="@style/tab_text">
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Live" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Join" />
-        </com.google.android.material.tabs.TabLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/main_pp"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="16dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="24dp"
             app:civ_background_color="@color/darkClrBg"
-            app:civ_border="true"
+            app:civ_border="false"
             app:civ_border_color="@color/Gray"
             app:civ_border_width="1.5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tabLayout" />
-
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="75dp"
-            android:layout_height="32dp"
-            android:background="@drawable/ripple_bg"
-            android:fontFamily="@font/roboto_medium"
-            android:onClick="createRoom"
-            android:padding="8dp"
-            android:text="방 만들기"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tabLayout"
+            app:layout_constraintBottom_toBottomOf="@+id/textView4"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.85"
-            app:layout_constraintStart_toEndOf="@+id/tabLayout"
-            app:layout_constraintTop_toTopOf="@+id/tabLayout" />
+            app:layout_constraintTop_toTopOf="@+id/textView4" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginEnd="24dp"
+        android:alpha="0.65"
+        android:background="@color/lightGray"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/tabLayout"
+        app:layout_constraintEnd_toStartOf="@+id/floatingActionButton"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </FrameLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        style="@style/tab_text"
+        android:layout_width="140dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainHead"
+        app:tabIndicator="@drawable/tab_indicator"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabIndicatorGravity="bottom"
+        app:tabIndicatorHeight="2dp"
+        app:tabPaddingEnd="-5dp"
+        app:tabPaddingStart="-5dp"
+        app:tabRippleColor="@android:color/transparent"
+        app:tabSelectedTextColor="@color/textColorBlack"
+        app:tabTextAppearance="@style/tab_text">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Live" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Join" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_marginEnd="24dp"
+        android:clickable="true"
+        android:onClick="createRoom"
+        android:scaleType="center"
+        app:layout_constraintBottom_toTopOf="@+id/test_vp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/test_vp"
+        app:srcCompat="@drawable/ic_round_add_28" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

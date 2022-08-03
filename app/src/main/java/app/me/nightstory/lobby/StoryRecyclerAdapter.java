@@ -36,12 +36,7 @@ public class StoryRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public int getItemViewType(int position) {
 
-        if(position > 1 && chatList.get(position).getUserID()!=null && chatList.get(position).getUserID().equals(chatList.get(position-1).getUserID())){
-            return VIEW_TYPES.Continued;
-        }
-        else {
-            return VIEW_TYPES.User;
-        }
+        return VIEW_TYPES.User;
 
 
     }

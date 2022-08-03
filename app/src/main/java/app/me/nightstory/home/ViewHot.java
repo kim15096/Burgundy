@@ -1,22 +1,14 @@
 package app.me.nightstory.home;
 
 
-import android.graphics.Rect;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.LinearInterpolator;
 import android.widget.VideoView;
 
-import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
@@ -34,7 +26,7 @@ import app.me.nightstory.lobby.RoomViewHolder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ViewLive extends Fragment {
+public class ViewHot extends Fragment {
 
     private RecyclerView rv_live;
     private FirestoreRecyclerAdapter<LobbyPostModel, RoomViewHolder> mAdapter;
@@ -43,7 +35,7 @@ public class ViewLive extends Fragment {
     private VideoView bgVid;
 
 
-    public ViewLive() {
+    public ViewHot() {
         // Required empty public constructor
     }
 
@@ -53,22 +45,21 @@ public class ViewLive extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.vp_live, container, false);
+        View view = inflater.inflate(R.layout.vp_hot, container, false);
 
         mainToolbar = getActivity().findViewById(R.id.mainHead);
 
         rv_live = view.findViewById(R.id.rv_live);
+
 
         ((SimpleItemAnimator) rv_live.getItemAnimator()).setSupportsChangeAnimations(false);
 
 
         rv_live.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        bgVid = view.findViewById(R.id.videoBG);
-
         LobbyQuery = FirebaseFirestore.getInstance()
                 .collection("Lobbies")
-                .orderBy("timestamp");
+                .orderBy("tot_views", Query.Direction.DESCENDING);
 
         // Set up Recycler Adapter
         FirestoreRecyclerOptions<LobbyPostModel> recyclerOptions = new FirestoreRecyclerOptions.Builder<LobbyPostModel>()

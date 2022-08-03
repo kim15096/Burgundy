@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import app.me.nightstory.home.ViewLive;
+import app.me.nightstory.home.ViewHot;
 
 class ViewPagerAdapter2 extends FragmentPagerAdapter {
 
@@ -22,8 +22,8 @@ class ViewPagerAdapter2 extends FragmentPagerAdapter {
 
         switch(position) {
             case 2:
-                ViewLive viewLive = new ViewLive();
-                return viewLive;
+                ViewHot viewHot = new ViewHot();
+                return viewHot;
 
 
             default:

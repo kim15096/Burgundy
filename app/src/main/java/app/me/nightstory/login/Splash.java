@@ -38,16 +38,13 @@ public class Splash extends AppCompatActivity {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-        if ((0<=timeINT && timeINT<=4) || (timeINT<=24 && timeINT>=18)) {
-            if (currentUser != null) {
-                toHome();
-            } else {
-                toLogin();
-            }
-        }
-        else {
-            toClosed();
-        }
+
+                if (currentUser != null) {
+                    toHome();
+                } else {
+                    toLogin();
+                }
+
         }}, 1000);
     }
 
@@ -57,12 +54,6 @@ public class Splash extends AppCompatActivity {
         Splash.this.finish();
     }
 
-
-    private void toClosed() {
-        Intent mainIntent = new Intent(Splash.this, Closed.class);
-        Splash.this.startActivity(mainIntent);
-        Splash.this.finish();
-    }
 
     private void toLogin() {
         Intent mainIntent = new Intent(Splash.this, Sign.class);

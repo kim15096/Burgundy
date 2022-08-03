@@ -9,8 +9,8 @@
 
     <ImageButton
         android:id="@+id/login_back"
-        android:layout_width="30dp"
-        android:layout_height="32dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:background="@android:color/transparent"
@@ -19,7 +19,7 @@
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back" />
+        app:srcCompat="@drawable/ic_round_keyboard_backspace_24" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/username_et"
@@ -30,7 +30,7 @@
         android:fontFamily="@font/roboto"
         android:hint="@string/lobby_type"
         android:inputType="textEmailAddress"
-        android:maxLength="10"
+        android:maxLength="8"
         android:padding="6dp"
         android:textAlignment="textStart"
         android:textSize="18sp"
@@ -47,7 +47,7 @@
         app:met_floatingLabelTextSize="12sp"
         app:met_hideUnderline="true"
         app:met_maxCharacters="10"
-        app:met_textColor="@color/textColorGray"
+        app:met_textColor="@color/textColorBlack"
         app:met_textColorHint="@color/lightGray" />
 
     <Button
@@ -58,11 +58,10 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/ripple_bg"
-        android:elevation="2dp"
         android:fontFamily="@font/roboto"
         android:text="@string/login_btn"
         android:textAllCaps="false"
-        android:textColor="@color/textColorGray"
+        android:textColor="@android:color/white"
         android:textSize="16sp"
         android:textStyle="bold"
         android:visibility="visible"
@@ -71,37 +70,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_checkbox" />
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/fire_animation2"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="16dp"
-        android:alpha="0.75"
-        android:elevation="0dp"
-        android:scaleType="center"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/fire_animation"
-        app:lottie_scale="0.125"
-        app:lottie_speed="0.75" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/login_text"
-        android:textColor="@color/textColorGray"
-        android:textSize="30sp"
+        android:textColor="@color/textColorBlack"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/login_back"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.100000024" />
+        app:layout_constraintVertical_bias="0.16000003" />
 
     <CheckBox
         android:id="@+id/login_checkbox"
@@ -111,7 +92,7 @@
         android:layout_marginTop="32dp"
         android:buttonTint="#F44336"
         android:text="@string/login_terms"
-        android:textColor="@color/textColorGray"
+        android:textColor="@color/textColorBlack"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/username_et"
         app:layout_constraintStart_toStartOf="@+id/username_et"
