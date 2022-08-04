@@ -3,26 +3,24 @@ package app.me.nightstory.lobby;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.Continuation;
@@ -37,23 +35,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.jaredrummler.materialspinner.MaterialSpinner;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
-import com.yalantis.ucrop.UCrop;
+import com.opensooq.supernova.gligar.GligarPicker;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.File;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
 import app.me.nightstory.R;
 import app.me.nightstory.home.MainActivity;
+import io.grpc.Compressor;
 
 public class AddLobbyActivity extends AppCompatActivity {
 
@@ -73,7 +65,10 @@ public class AddLobbyActivity extends AppCompatActivity {
     private Boolean imgUploaded = false;
     private ProgressDialog pd;
     private ImageView img;
+    private TextView createView;
     private byte[] imageByte;
+
+    public static Integer PICKER_REQUEST_CODE = 1;
 
 
     @Override
@@ -89,10 +84,13 @@ public class AddLobbyActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        createView = findViewById(R.id.createTxt);
+        createView.setClickable(false);
+        createView.setTextColor(Color.GRAY);
 
-        createBtn.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+        /*createBtn.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
         createBtn.setEnabled(false);
-        createBtn.setTextColor(Color.GRAY);
+        createBtn.setTextColor(Color.GRAY);*/
 
         title.addTextChangedListener(new TextWatcher() {
             @Override
@@ -109,15 +107,14 @@ public class AddLobbyActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (title.getText().toString().equals("") || info.getText().toString().equals("") || imgUploaded == false){
 
-                    createBtn.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
-                    createBtn.setEnabled(false);
-                    createBtn.setTextColor(Color.GRAY);
+                    createView.setClickable(false);
+                    createView.setTextColor(Color.GRAY);
 
                 }
                 else {
-                    createBtn.getBackground().setColorFilter(null);
-                    createBtn.setEnabled(true);
-                    createBtn.setTextColor(Color.WHITE);
+
+                    createView.setClickable(true);
+                    createView.setTextColor(getResources().getColor(R.color.colorPrimary));
                 }
             }
         });
@@ -137,15 +134,12 @@ public class AddLobbyActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (title.getText().toString().equals("") || info.getText().toString().equals("") || imgUploaded == false){
 
-                    createBtn.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
-                    createBtn.setEnabled(false);
-                    createBtn.setTextColor(Color.GRAY);
-
+                    createView.setClickable(false);
+                    createView.setTextColor(Color.GRAY);
                 }
                 else {
-                    createBtn.getBackground().setColorFilter(null);
-                    createBtn.setEnabled(true);
-                    createBtn.setTextColor(Color.WHITE);
+                    createView.setClickable(true);
+                    createView.setTextColor(getResources().getColor(R.color.colorPrimary));
                 }
             }
         });
@@ -209,7 +203,7 @@ public class AddLobbyActivity extends AppCompatActivity {
         pd.show();
 
         filepath = storageRef.child("Posts").child(firebaseUser.getUid()).child(UUID.randomUUID().toString());
-        uploadTask = filepath.putBytes(imageByte);
+        uploadTask = filepath.putFile(resultUri);
 
         Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
@@ -238,43 +232,52 @@ public class AddLobbyActivity extends AppCompatActivity {
 
     public void addPhoto(View view){
 
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+        new GligarPicker().limit(1).requestCode(PICKER_REQUEST_CODE).withActivity(this).show();
 
 
-        /*CropImage.activity()
-                .setActivityTitle("Edit")
-                .setCropMenuCropButtonTitle("Crop")
-                .setGuidelines(CropImageView.Guidelines.ON)
-                .setCropShape(CropImageView.CropShape.RECTANGLE)
-                .setMinCropResultSize(256, 256) // update image quality
-                .setAspectRatio(1, 1)
-                .setInitialCropWindowPaddingRatio((float) 0.1)
-                .start(this);*/
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICKER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+
+            Log.e("onActivityResult", "successful");
+
+            String path[] = data.getExtras().getStringArray(GligarPicker.IMAGES_RESULT);
+            resultUri = Uri.fromFile(new File(path[0]));
+
+            ImageView photo = findViewById(R.id.add_photo);
+
+            photo.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            photo.setImageURI(resultUri);
+
+            imgUploaded = true;
+
+            if (!title.getText().toString().equals("") && !info.getText().toString().equals("")) {
+
+                createView.setClickable(true);
+                createView.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+            }
+        }
+        else {
+            return;
+        }
+    }
+
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
+        if (requestCode == PICKER_REQUEST_CODE && resultCode == RESULT_OK) {
 
             resultUri = data.getData();
 
-
-            InputStream imageStream = null;
-            try {
-                imageStream = getContentResolver().openInputStream(
-                        resultUri);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-
             Bitmap bmp = BitmapFactory.decodeStream(imageStream);
-
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
             bmp.compress(Bitmap.CompressFormat.JPEG, 25, stream);
+
             imageByte = stream.toByteArray();
 
             try {
@@ -287,7 +290,7 @@ public class AddLobbyActivity extends AppCompatActivity {
 
             ImageView photo = findViewById(R.id.add_photo);
 
-            photo.setImageBitmap(bmp);
+            photo.setImageBitmap(orientedBitmap);
 
 
             imgUploaded = true;
@@ -306,7 +309,7 @@ public class AddLobbyActivity extends AppCompatActivity {
 
                 }
 
-    }
+    }*/
 
 
     public void createlobby_back(View view){

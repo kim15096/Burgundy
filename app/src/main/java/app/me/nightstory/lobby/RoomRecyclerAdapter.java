@@ -45,7 +45,8 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
         holder.setTitle(model.getTitle());
         holder.setTot_Views(model.getTot_views());
         holder.setUsername(model.getHostName());
-        //holder.setPicture(model.getImageURL());
+        holder.setPicture(model.getImageURL());
+        holder.setTime(model.getTimestamp().getTime());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,12 +63,16 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
                                         tot_views = tot_views + 1;
 
 
-                                        db.collection("Lobbies").document(model.getLobbyID()).update("tot_views", tot_views);
+                                        db.collection("Lobbies").document(model.getLobbyID()).update("tot_views", tot_views).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                MainActivity.inLobbyID = model.getLobbyID();
+                                                Intent i1 = new Intent(context, LobbyActivity.class);
+                                                context.startActivity(i1);
+                                                pd.dismiss();
+                                            }
+                                        });
 
-                                        MainActivity.inLobbyID = model.getLobbyID();
-                                        Intent i1 = new Intent(context, LobbyActivity.class);
-                                        context.startActivity(i1);
-                                        pd.dismiss();
                                     }
                         });
             }

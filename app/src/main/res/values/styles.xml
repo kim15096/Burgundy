@@ -36,15 +36,14 @@
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
-
-
     </style>
 
-
-    <style name="SplashTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowFullscreen">false</item>
-        <item name="android:windowBackground">@drawable/splash</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <style name="Splash" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
 
     </style>
 

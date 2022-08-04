@@ -24,17 +24,14 @@
         <activity android:name=".lobby.AddLobbyActivity" />
         <activity
             android:name=".login.Splash"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.yalantis.ucrop.UCropActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
         <activity
             android:name=".home.MainActivity"
             android:screenOrientation="portrait"

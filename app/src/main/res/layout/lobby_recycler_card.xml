@@ -34,9 +34,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginBottom="1dp"
                 android:clickable="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
@@ -47,24 +45,23 @@
                 android:textColor="@color/textColorBlack"
                 android:textSize="15sp"
                 android:textStyle="bold"
+                app:autoSizeTextType="uniform"
                 app:layout_constraintBottom_toTopOf="@+id/lobbyL_username"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cardView2"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/cardView2" />
 
             <TextView
                 android:id="@+id/card_cur_views_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:alpha="0.85"
                 android:includeFontPadding="true"
-                android:textColor="@color/textColorBlack"
+                android:textColor="@color/gray2"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView3"
                 app:layout_constraintTop_toTopOf="@+id/imageView3"
                 tools:text="5" />
 
@@ -72,44 +69,48 @@
                 android:id="@+id/imageView3"
                 android:layout_width="17dp"
                 android:layout_height="13dp"
+                android:layout_marginStart="8dp"
                 android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="@+id/lobbyL_username"
-                app:layout_constraintEnd_toStartOf="@+id/card_cur_views_tv"
-                app:layout_constraintTop_toTopOf="@+id/lobbyL_username"
+                app:layout_constraintBottom_toBottomOf="@+id/card_Time"
+                app:layout_constraintStart_toEndOf="@+id/card_Time"
+                app:layout_constraintTop_toTopOf="@+id/card_Time"
                 app:srcCompat="@drawable/ic_views" />
 
             <TextView
                 android:id="@+id/lobbyL_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="1dp"
                 android:alpha="0.85"
+                android:includeFontPadding="false"
                 android:textColor="@color/gray2"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/cardView2"
-                app:layout_constraintStart_toStartOf="@+id/lobbyL_title"
+                app:layout_constraintBottom_toTopOf="@+id/card_Time"
+                app:layout_constraintStart_toEndOf="@+id/cardView2"
                 tools:text="username" />
 
             <TextView
-                android:id="@+id/asdf"
+                android:id="@+id/card_Time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:alpha="0.85"
-                android:text="방금전"
+                android:layout_marginStart="12dp"
+                android:includeFontPadding="false"
                 android:textColor="@color/gray2"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/lobbyL_username"
-                app:layout_constraintStart_toEndOf="@+id/lobbyL_username"
-                app:layout_constraintTop_toTopOf="@+id/lobbyL_username" />
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView2"
+                app:layout_constraintStart_toEndOf="@+id/cardView2"
+                tools:text="방금 전" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="8dp"
                 app:cardElevation="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -119,6 +120,8 @@
                     android:id="@+id/post_pp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minWidth="75dp"
+                    android:minHeight="75dp"
                     tools:srcCompat="@tools:sample/avatars" />
             </androidx.cardview.widget.CardView>
 

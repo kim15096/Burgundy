@@ -9,9 +9,11 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import app.me.nightstory.R;
+import app.me.nightstory.TimeCalc;
 
 public class RoomViewHolder extends RecyclerView.ViewHolder{
 
@@ -42,9 +44,16 @@ public class RoomViewHolder extends RecyclerView.ViewHolder{
         cur_view.setText(num+"");
     }
 
+    public void setTime(Long time){
+        TextView card_time = mView.findViewById(R.id.card_Time);
+        String timeAgo = TimeCalc.getTimeAgo(time);
+        card_time.setText(timeAgo);
+    }
+
+
     public void setPicture(String text){
         ImageView pp = mView.findViewById(R.id.post_pp);
-            Glide.with(itemView).load(text).centerCrop().into(pp);
+            Glide.with(itemView).load(text).apply(new RequestOptions().override(175, 175)).centerCrop().into(pp);
 
     }
 

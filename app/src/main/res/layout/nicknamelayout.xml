@@ -16,6 +16,7 @@
         android:gravity="start"
         android:hint="여기에 입력하세요"
         android:inputType="textMultiLine"
+        android:maxLength="8"
         android:maxLines="1"
         android:scrollbars="vertical"
         android:textColor="@color/textColorBlack"

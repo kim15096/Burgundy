@@ -5,12 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <FrameLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:alpha="0.65"
+        android:background="@color/lightGray"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </FrameLayout>
+
     <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/chat_pp"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="28dp"
         app:civ_background_color="@color/darkClrBg"
         app:civ_border="false"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,13 +37,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="32dp"
-        android:alpha="0.9"
+        android:alpha="0.8"
         android:maxWidth="300dp"
         android:paddingStart="4dp"
         android:paddingEnd="10dp"
         android:textAlignment="viewStart"
         android:textColor="@color/textColorBlack"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/chat_username"
@@ -49,16 +65,47 @@
         tools:text="jrerykim" />
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/see_reply_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"
         android:padding="4dp"
         android:text="답장보기"
-        android:textColor="@color/colorPrimary"
-        android:textSize="12sp"
+        android:textColor="@color/gray2"
+        android:textSize="14sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/chat_message"
         app:layout_constraintTop_toBottomOf="@+id/chat_message" />
+
+    <TextView
+        android:id="@+id/answer_reply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"
+        android:padding="4dp"
+        android:text="답장하기"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/see_reply_text"
+        app:layout_constraintTop_toBottomOf="@+id/chat_message" />
+
+    <TextView
+        android:id="@+id/lobby_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="방금 전"
+        android:textColor="@color/gray2"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/chat_username"
+        app:layout_constraintStart_toEndOf="@+id/chat_username"
+        app:layout_constraintTop_toTopOf="@+id/chat_username" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

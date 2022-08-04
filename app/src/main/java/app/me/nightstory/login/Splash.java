@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import app.me.nightstory.R;
 import app.me.nightstory.home.MainActivity;
 
 public class Splash extends AppCompatActivity {
@@ -22,6 +23,7 @@ public class Splash extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
 
         firebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
@@ -45,7 +47,7 @@ public class Splash extends AppCompatActivity {
                     toLogin();
                 }
 
-        }}, 1000);
+        }}, 2000);
     }
 
     private void toHome(){

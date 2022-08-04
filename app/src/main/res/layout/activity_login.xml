@@ -46,7 +46,7 @@
         app:met_floatingLabelText="@string/login_name"
         app:met_floatingLabelTextSize="12sp"
         app:met_hideUnderline="true"
-        app:met_maxCharacters="10"
+        app:met_maxCharacters="8"
         app:met_textColor="@color/textColorBlack"
         app:met_textColorHint="@color/lightGray" />
 
@@ -59,7 +59,7 @@
         android:layout_marginEnd="50dp"
         android:background="@drawable/ripple_bg"
         android:fontFamily="@font/roboto"
-        android:text="@string/login_btn"
+        android:text="후스크해 시작하기"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="16sp"

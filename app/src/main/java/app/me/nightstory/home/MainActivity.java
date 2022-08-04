@@ -1,5 +1,6 @@
   package app.me.nightstory.home;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -57,7 +58,6 @@ import app.me.nightstory.R;
 import app.me.nightstory.lobby.AddLobbyActivity;
 import app.me.nightstory.lobby.LobbyActivity;
 import app.me.nightstory.login.Sign;
-import app.me.nightstory.slidinglayer.SlidingLayer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private StorageReference storageRef = storage.getReference();
     public static String inLobbyID = "";
-    public static SlidingLayer slideLayer;
     public static String defaultPP =
             "https://firebasestorage.googleapis.com/v0/b/nightfall-alpha.appspot.com/o/Admin%2Fpngwing.com.png?alt=media&token=41da1f77-f4b1-4138-9ad3-9f9f59457fc7";
     public static String myPpURL = defaultPP;
@@ -85,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     private GoogleSignInClient googleSignInClient;
     private CircularImageView ppSmall, ppBig;
     public static String nickname = "";
+    private BottomSheetDialog profileBtmSheet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
         ppSmall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 showInfo(null);
             }
         });
@@ -186,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void showInfo(View view) {
 
-        final BottomSheetDialog profileBtmSheet = new BottomSheetDialog(MainActivity.this);
+        profileBtmSheet = new BottomSheetDialog(MainActivity.this);
         profileBtmSheet.setContentView(R.layout.bottom_sheet_profile);
 
         TextView profileTv = profileBtmSheet.findViewById(R.id.profile_username);
@@ -209,6 +210,14 @@ public class MainActivity extends AppCompatActivity {
         ImageView settingsLay = profileBtmSheet.findViewById(R.id.btm_settings);
 
         profileTv.setText(nickname);
+
+
+        myPosts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "아직 안만듬 ㅋㅋㅋ :P", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         ppLay.setOnClickListener(new View.OnClickListener() {
@@ -357,11 +366,19 @@ public class MainActivity extends AppCompatActivity {
         alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             public void onClick(final DialogInterface dialog, int whichButton) {
 
+                final ProgressDialog pd = new ProgressDialog(MainActivity.this, R.style.MyGravity);
+                pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                pd.setCancelable(false);
+                pd.show();
+
                 String username = input.getText().toString();
                 db.collection("Users").document(firebaseUser.getUid()).update("username", username).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         dialog.cancel();
+                        profileBtmSheet.dismiss();
+                        pd.dismiss();
+                        Toast.makeText(MainActivity.this, "닉네임을 변경했습니다!", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -376,7 +393,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alertDialog = alert.create();
 
         alertDialog.show();
-        alertDialog.getWindow().setLayout(800, 600);
+        alertDialog.getWindow().setLayout(800, ActionBar.LayoutParams.WRAP_CONTENT);
 
 
 
@@ -451,11 +468,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        if (slideLayer.isOpened()) {
-            slideLayer.closeLayer(true);
-        } else if (slideLayer.isClosed()) {
-            super.onBackPressed();
-        }
     }
 
     private void adminDeleteUsers() {

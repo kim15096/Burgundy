@@ -16,7 +16,6 @@
             android:layout_height="28dp"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="32dp"
-            android:alpha="0.75"
             android:src="@drawable/ic_round_settings_24"
             app:layout_constraintBottom_toBottomOf="@+id/textView12"
             app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +39,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp">
+        android:layout_height="110dp">
 
         <TextView
             android:id="@+id/profile_username"
@@ -64,7 +63,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             app:civ_background_color="@color/darkClrBg"
             app:civ_border="false"
             app:civ_border_color="@color/Gray"
@@ -89,8 +88,7 @@
             android:layout_height="24dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="12dp"
-            android:alpha="0.75"
-            android:src="@drawable/ic_round_edit_white" />
+            android:src="@drawable/ic_round_edit_24" />
 
         <TextView
             android:id="@+id/textView11"
@@ -121,7 +119,6 @@
             android:layout_height="24dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="12dp"
-            android:alpha="0.75"
             android:src="@drawable/ic_round_face_24" />
 
         <TextView
@@ -153,7 +150,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="12dp"
-            android:alpha="0.75"
             android:src="@drawable/ic_round_view_headline_24" />
 
         <TextView
@@ -169,5 +165,11 @@
             android:textStyle="bold" />
 
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
