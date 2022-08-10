@@ -87,7 +87,7 @@ public class LobbyActivity extends AppCompatActivity {
     private LottieResult<LottieComposition> lottieResult2;
 
     private ImageView sendBtn, lobbyPhoto;
-    private LottieAnimationView ch1;
+    private LottieAnimationView empty_anim;
     private CircularImageView pp1;
     private Boolean emojipop = false;
     private Long cur_view;
@@ -116,6 +116,8 @@ public class LobbyActivity extends AppCompatActivity {
 
         lobbyPhoto = v.findViewById(R.id.lobbyPhoto);
 
+        empty_anim = findViewById(R.id.anim_empty);
+
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -125,7 +127,6 @@ public class LobbyActivity extends AppCompatActivity {
         lobbyRef = firestore.collection("Lobbies").document(MainActivity.inLobbyID);
 
         lobbyIDLocal = MainActivity.inLobbyID;
-        viewCardView = findViewById(R.id.viewLobbyCard);
         lobby_title = findViewById(R.id.lobby_title);
         sendCardView = findViewById(R.id.lobbySendCV);
         lobby_desc = findViewById(R.id.lobby_desc);
@@ -201,13 +202,6 @@ public class LobbyActivity extends AppCompatActivity {
 
         story_recycler.setAdapter(storyRecyclerAdapter);
 
-
-       /* storyRecyclerAdapter = new StoryRecyclerAdapterFB(a);
-        story_recycler.setLayoutManager(new LinearLayoutManager(this));
-        story_recycler.setAdapter(storyRecyclerAdapter);
-        story_recycler.setHasFixedSize(true);
-        story_recycler.setNestedScrollingEnabled(false);*/
-        //((LinearLayoutManager)chat_recycler.getLayoutManager()).setStackFromEnd(true);
 
         story_recycler.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override

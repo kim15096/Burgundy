@@ -32,23 +32,20 @@
             android:id="@+id/imageView2"
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="16dp"
             android:scaleType="fitXY"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/main_pp"
             app:layout_constraintEnd_toStartOf="@+id/main_pp"
             app:layout_constraintTop_toTopOf="@+id/main_pp"
-            app:srcCompat="@drawable/ic_baseline_search_24" />
+            app:srcCompat="@drawable/ic_notification" />
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/main_pp"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginEnd="24dp"
-            app:civ_background_color="@color/darkClrBg"
+            android:layout_marginEnd="32dp"
             app:civ_border="false"
-            app:civ_border_color="@color/Gray"
-            app:civ_border_width="1.5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -79,18 +76,29 @@
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/imageView" />
 
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:text="0"
+            android:textColor="@android:color/white"
+            android:textSize="10sp"
+            android:translationY="-2dp"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:id="@+id/frameLayout2"
         android:layout_width="0dp"
-        android:layout_height="0.5dp"
-        android:layout_marginEnd="24dp"
-        android:alpha="0.65"
+        android:layout_height="1dp"
+        android:alpha="0.6"
         android:background="@color/lightGray"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/tabLayout"
-        app:layout_constraintEnd_toStartOf="@+id/floatingActionButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
     </FrameLayout>
@@ -98,13 +106,13 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         style="@style/tab_text"
-        android:layout_width="140dp"
+        android:layout_width="160dp"
         android:layout_height="45dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainHead"
         app:tabIndicator="@drawable/tab_indicator"
-        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabIndicatorColor="@color/Gray"
         app:tabIndicatorGravity="bottom"
         app:tabIndicatorHeight="2dp"
         app:tabPaddingEnd="-5dp"
@@ -117,13 +125,19 @@
             android:id="@+id/tabItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Live" />
+            android:text="추천" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabItem2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Join" />
+            android:text="인기" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="최근" />
     </com.google.android.material.tabs.TabLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -131,14 +145,14 @@
         android:layout_width="54dp"
         android:layout_height="54dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="50dp"
         android:clickable="true"
         android:onClick="createRoom"
         android:scaleType="fitCenter"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="normal"
-        app:layout_constraintBottom_toTopOf="@+id/test_vp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/test_vp"
         app:maxImageSize="28dp"
         app:srcCompat="@drawable/ic_round_add_28" />
 

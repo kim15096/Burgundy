@@ -3,20 +3,12 @@
 
     <color name="colorPrimary">#cb001c</color>
     <color name="colorPrimaryDark">#900020</color>
-    <color name="colorSecondary">#FFDE03</color>
     <color name="colorAccent">#cb001c</color>
     <color name="lightGray">#b6b6b6</color>
-    <color name="darkBG">#1f1f1f  </color>
-    <color name="darkerBG">#1f1f1f </color>
-    <color name= "blue">#E63490e9</color>
     <color name="Gray">#4f555c</color>
     <color name="textColor">#E5DA9A</color>
     <color name="textColorBlack">#191919</color>
-    <color name="bg1">#EB363447</color>
-    <color name="gray1">#514E61</color>
     <color name="gray2">#838996</color>
-    <color name="darkTrans">#BF20212B</color>
     <color name="darkClrBg">#212224</color>
-    <color name="darkmodeBG">#28292b</color>
 
 </resources>

@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     private StorageReference storageRef = storage.getReference();
     public static String inLobbyID = "";
     public static String defaultPP =
-            "https://firebasestorage.googleapis.com/v0/b/nightfall-alpha.appspot.com/o/Admin%2Fpngwing.com.png?alt=media&token=41da1f77-f4b1-4138-9ad3-9f9f59457fc7";
+            "https://firebasestorage.googleapis.com/v0/b/nightfall-alpha.appspot.com/o/Admin%2Fuser%20(3).png?alt=media&token=3649960e-e68d-4a7a-a037-b2ed85d2c3d7";
     public static String myPpURL = defaultPP;
     public static String myUserID;
 
@@ -106,13 +106,15 @@ public class MainActivity extends AppCompatActivity {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.setCurrentItem(0);
+        viewPager.setOffscreenPageLimit(3);
 
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setInlineLabel(true);
         //tabLayout.getTabAt(0).setIcon(R.drawable.ic_hot);
         tabLayout.getTabAt(0).setText("추천");
-        tabLayout.getTabAt(1).setText("최근");
-        //tabLayout.getTabAt(1).setIcon(R.drawable.ic_round_trending_up_24);
+        tabLayout.getTabAt(1).setText("인기");
+        tabLayout.getTabAt(2).setText("최근");
+
 
 
 
@@ -215,8 +217,9 @@ public class MainActivity extends AppCompatActivity {
         myPosts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "아직 안만듬 ㅋㅋㅋ :P", Toast.LENGTH_SHORT).show();
-            }
+                Intent toList = new Intent(MainActivity.this, MyListActivity.class);
+                MainActivity.this.startActivity(toList);
+                    }
         });
 
 

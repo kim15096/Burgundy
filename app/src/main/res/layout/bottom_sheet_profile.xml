@@ -12,11 +12,11 @@
 
         <ImageView
             android:id="@+id/btm_settings"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="32dp"
-            android:src="@drawable/ic_round_settings_24"
+            android:src="@drawable/ic_gear"
             app:layout_constraintBottom_toBottomOf="@+id/textView12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView12" />
@@ -60,22 +60,50 @@
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/profile_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
-            app:civ_background_color="@color/darkClrBg"
             app:civ_border="false"
-            app:civ_border_color="@color/Gray"
-            app:civ_border_width="2dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+        android:id="@+id/profile_postsLL"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="12dp"
+            android:src="@drawable/ic_list" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:paddingLeft="16dp"
+            android:text="내 게시물 보기"
+            android:textColor="@color/textColorBlack"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/profile_nicknameLL"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="60dp"
         android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:onClick="changeName"
@@ -84,11 +112,11 @@
 
         <ImageView
             android:id="@+id/imageView16"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="12dp"
-            android:src="@drawable/ic_round_edit_24" />
+            android:src="@drawable/ic_pencil" />
 
         <TextView
             android:id="@+id/textView11"
@@ -97,7 +125,7 @@
             android:layout_gravity="center_vertical"
             android:includeFontPadding="false"
             android:paddingLeft="16dp"
-            android:text="닉네임 변경"
+            android:text="닉네임 변경하기"
             android:textColor="@color/textColorBlack"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -107,7 +135,7 @@
     <LinearLayout
         android:id="@+id/profile_ppLL"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="60dp"
         android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:orientation="horizontal"
@@ -115,11 +143,11 @@
 
         <ImageView
             android:id="@+id/imageView15"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="12dp"
-            android:src="@drawable/ic_round_face_24" />
+            android:src="@drawable/ic_user__1_" />
 
         <TextView
             android:id="@+id/textView10"
@@ -128,38 +156,7 @@
             android:layout_gravity="center_vertical"
             android:includeFontPadding="false"
             android:paddingLeft="16dp"
-            android:text="프로필 사진 변경"
-            android:textColor="@color/textColorBlack"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/profile_postsLL"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:orientation="horizontal"
-        android:padding="8dp">
-
-        <ImageView
-            android:id="@+id/imageView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="12dp"
-            android:src="@drawable/ic_round_view_headline_24" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:includeFontPadding="false"
-            android:paddingLeft="16dp"
-            android:text="내 게시물"
+            android:text="프로필 사진 변경하기"
             android:textColor="@color/textColorBlack"
             android:textSize="14sp"
             android:textStyle="bold" />

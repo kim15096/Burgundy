@@ -90,7 +90,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:buttonTint="#F44336"
+        android:buttonTint="@color/colorPrimary"
         android:text="@string/login_terms"
         android:textColor="@color/textColorBlack"
         android:textSize="12sp"

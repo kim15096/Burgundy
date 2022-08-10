@@ -10,6 +10,19 @@
     tools:context=".lobby.LobbyActivity">
 
 
+    <FrameLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:alpha="0.7"
+        android:background="@color/lightGray"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </FrameLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
@@ -52,7 +65,7 @@
             android:padding="4dp"
             android:text="사진보기"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -100,10 +113,11 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="24dp"
                 android:alpha="0.85"
                 android:text="Hello my name is Jerry and im the developer of this app. This section is for brief introduction"
-                android:textColor="@color/textColorBlack"
+                android:textColor="@color/Gray"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -128,7 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="TextView"
+                android:text="loading..."
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/lobby_hostPP"
@@ -147,7 +161,9 @@
         android:paddingBottom="30dp"
         android:requiresFadingEdge="vertical"
         app:layout_constraintBottom_toTopOf="@+id/lobbySendCV"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/lobbySendCV"
@@ -198,6 +214,34 @@
                 app:maxImageSize="22dp"
                 app:srcCompat="@drawable/ic_round_send_24" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.cardview.widget.CardView>
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/anim_empty"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintVertical_bias="0.3"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/anim_empty" />
+
+    <TextView
+        android:id="@+id/lobb_empty_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="아직 질문이 없네"
+        android:textColor="@color/gray2"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/anim_empty"
+        app:layout_constraintStart_toStartOf="@+id/anim_empty"
+        app:layout_constraintTop_toBottomOf="@+id/anim_empty" />
 </androidx.constraintlayout.widget.ConstraintLayout>

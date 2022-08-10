@@ -92,7 +92,7 @@ public class Sign extends AppCompatActivity {
                                     final Map<String, Object> createUser = new HashMap<>();
                                     createUser.put("userID", user.getUid());
                                     createUser.put("inLobby", "");
-                                    createUser.put("imageURL", "https://firebasestorage.googleapis.com/v0/b/nightfall-alpha.appspot.com/o/Admin%2Fpngwing.com.png?alt=media&token=41da1f77-f4b1-4138-9ad3-9f9f59457fc7");
+                                    createUser.put("imageURL", "https://firebasestorage.googleapis.com/v0/b/nightfall-alpha.appspot.com/o/Admin%2Fuser%20(3).png?alt=media&token=3649960e-e68d-4a7a-a037-b2ed85d2c3d7");
                                     createUser.put("username", "Random User");
 
                                     FirebaseFirestore.getInstance().collection("Users").document(user.getUid()).set(createUser).addOnSuccessListener(new OnSuccessListener<Void>() {

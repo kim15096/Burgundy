@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".login.Login">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="내 게시물"
+        android:textAlignment="center"
+        android:textColor="@color/Gray"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/list_back"
+        app:layout_constraintStart_toEndOf="@+id/list_back"
+        app:layout_constraintTop_toTopOf="@+id/list_back" />
+
+    <app.me.nightstory.MyRecyclerView
+        android:id="@+id/rv_mylist"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:clipToPadding="false"
+        android:fadingEdgeLength="30dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layoutAnimation="@anim/layout_animation"
+        android:nestedScrollingEnabled="false"
+        android:overScrollMode="never"
+        android:paddingBottom="50dp"
+        android:requiresFadingEdge="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list_back"
+        tools:layout_editor_absoluteX="0dp">
+
+    </app.me.nightstory.MyRecyclerView>
+
+    <ImageButton
+        android:id="@+id/list_back"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:alpha="0.85"
+        android:background="@android:color/transparent"
+        android:onClick="listBack"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_round_keyboard_backspace_24" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

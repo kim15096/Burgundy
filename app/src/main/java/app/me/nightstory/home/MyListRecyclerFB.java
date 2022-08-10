@@ -1,29 +1,20 @@
-package app.me.nightstory.lobby;
+package app.me.nightstory.home;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
-import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
-import com.airbnb.lottie.LottieAnimationView;
-import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -33,9 +24,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import app.me.nightstory.R;
-import app.me.nightstory.home.MainActivity;
+import app.me.nightstory.lobby.LobbyActivity;
+import app.me.nightstory.lobby.StoryPostModel;
+import app.me.nightstory.lobby.StoryViewHolder;
 
-public class StoryRecyclerAdapterFB extends FirestoreRecyclerAdapter<StoryPostModel, StoryViewHolder> {
+public class MyListRecyclerFB extends FirestoreRecyclerAdapter<StoryPostModel, StoryViewHolder> {
 
     public Context context;
     private final String userID;
@@ -44,10 +37,8 @@ public class StoryRecyclerAdapterFB extends FirestoreRecyclerAdapter<StoryPostMo
     private final FirebaseUser firebaseUser;
     private String imageURL;
     private final DocumentReference userRef;
-    private LottieAnimationView anim_empty;
-    private TextView empt_txt;
 
-    public StoryRecyclerAdapterFB(FirestoreRecyclerOptions recyclerOptions) {
+    public MyListRecyclerFB(FirestoreRecyclerOptions recyclerOptions) {
         super(recyclerOptions);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -121,7 +112,6 @@ public class StoryRecyclerAdapterFB extends FirestoreRecyclerAdapter<StoryPostMo
 
     }
 
-
     @Override
     public StoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -129,17 +119,6 @@ public class StoryRecyclerAdapterFB extends FirestoreRecyclerAdapter<StoryPostMo
 
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.story_recycler_post, parent, false);
-        anim_empty =  ((LobbyActivity) parent.getContext()).findViewById(R.id.anim_empty);
-        empt_txt = ((LobbyActivity) parent.getContext()).findViewById(R.id.lobb_empty_txt);
-        if (getItemCount()==0){
-            anim_empty.setVisibility(View.VISIBLE);
-            empt_txt.setVisibility(View.VISIBLE);
-        }
-        else {
-            anim_empty.setVisibility(View.GONE);
-            empt_txt.setVisibility(View.GONE);
-
-        }
 
         return new StoryViewHolder(view);
     }

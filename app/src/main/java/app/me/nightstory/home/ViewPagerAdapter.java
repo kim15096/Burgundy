@@ -28,6 +28,10 @@ class ViewPagerAdapter extends FragmentPagerAdapter {
                 ViewNew viewNew = new ViewNew();
                 return viewNew;
 
+            case 2:
+                viewNew = new ViewNew();
+                return viewNew;
+
             default:
                 return null;
         }
@@ -35,7 +39,7 @@ class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     public CharSequence getPageTitle(int position){
