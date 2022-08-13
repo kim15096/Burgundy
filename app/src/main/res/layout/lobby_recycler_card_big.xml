@@ -9,9 +9,9 @@
         android:id="@+id/lobbyCardView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
         android:padding="5dp"
@@ -33,9 +33,9 @@
                 android:id="@+id/lobbyL_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginEnd="16dp"
                 android:clickable="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
@@ -44,10 +44,10 @@
                 android:longClickable="false"
                 android:text="text"
                 android:textColor="@color/textColorBlack"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/post_imgCV"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -79,47 +79,48 @@
                 android:id="@+id/lobbyL_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
                 android:alpha="0.85"
                 android:includeFontPadding="false"
                 android:textColor="@color/gray2"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/post_imgCV"
-                app:layout_constraintTop_toBottomOf="@+id/lobbyL_title"
+                app:layout_constraintStart_toStartOf="@+id/post_imgCV"
+                app:layout_constraintTop_toBottomOf="@+id/post_imgCV"
                 tools:text="username" />
 
             <TextView
                 android:id="@+id/card_Time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginBottom="8dp"
                 android:includeFontPadding="false"
                 android:textColor="@color/gray2"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/post_imgCV"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/lobbyL_username"
                 app:layout_constraintTop_toBottomOf="@+id/lobbyL_username"
                 tools:text="방금 전" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/post_imgCV"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:cardCornerRadius="8dp"
                 app:cardElevation="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/lobbyL_title">
+                app:layout_constraintTop_toBottomOf="@+id/lobbyL_title">
 
                 <ImageView
                     android:id="@+id/post_pp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="60dp"
-                    android:minHeight="60dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible"
                     tools:srcCompat="@tools:sample/avatars" />
 
             </androidx.cardview.widget.CardView>

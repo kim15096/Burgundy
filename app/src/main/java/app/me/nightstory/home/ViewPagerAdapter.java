@@ -21,15 +21,15 @@ class ViewPagerAdapter extends FragmentPagerAdapter {
         switch(position) {
 
             case 0:
+                ViewStar viewStar = new ViewStar();
+                return viewStar;
+
+            case 1:
                 ViewHot viewHot = new ViewHot();
                 return viewHot;
 
-            case 1:
-                ViewNew viewNew = new ViewNew();
-                return viewNew;
-
             case 2:
-                viewNew = new ViewNew();
+                ViewNew viewNew = new ViewNew();
                 return viewNew;
 
             default:

@@ -3,7 +3,6 @@ package app.me.nightstory.lobby;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AlertDialog;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -24,7 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import app.me.nightstory.R;
 import app.me.nightstory.home.MainActivity;
 
-public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel, RoomViewHolder> {
+public class RoomRecyclerAdapterStar extends FirestoreRecyclerAdapter<LobbyPostModel, RoomViewHolderStar> {
 
     public Context context;
     private final String userID;
@@ -32,10 +32,10 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
     private final FirebaseFirestore db;
     private final FirebaseUser firebaseUser;
     private AlertDialog photoDialog;
-    private ImageView imageView;
+    private ImageView imageView, pp;
     private final DocumentReference userRef;
 
-    public RoomRecyclerAdapter(FirestoreRecyclerOptions recyclerOptions) {
+    public RoomRecyclerAdapterStar(FirestoreRecyclerOptions recyclerOptions) {
         super(recyclerOptions);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -48,22 +48,13 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
     }
 
     @Override
-    protected void onBindViewHolder(RoomViewHolder holder, final int position, final LobbyPostModel model) {
+    protected void onBindViewHolder(RoomViewHolderStar holder, final int position, final LobbyPostModel model) {
         holder.setTitle(model.getTitle());
         holder.setTot_Views(model.getTot_views());
         holder.setUsername(model.getHostName());
         holder.setPicture(model.getImageURL());
         holder.setTime(model.getTimestamp().getTime());
 
-
-        holder.imgCV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Glide.with(context).load(model.getImageURL()).centerCrop().into(imageView);
-                photoDialog.show();
-                photoDialog.getWindow().setLayout(700,700);
-            }
-        });
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,12 +90,15 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
     }
 
     @Override
-    public RoomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RoomViewHolderStar onCreateViewHolder(ViewGroup parent, int viewType) {
 
         context = parent.getContext();
 
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.lobby_recycler_card, parent, false);
+                .inflate(R.layout.lobby_recycler_card_big, parent, false);
+
+        pp = view.findViewById(R.id.post_pp);
+
 
         photoDialog = new AlertDialog.Builder(context).create();
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -113,7 +107,7 @@ public class RoomRecyclerAdapter extends FirestoreRecyclerAdapter<LobbyPostModel
 
         imageView = v.findViewById(R.id.lobbyPhoto);
 
-        return new RoomViewHolder(view);
+        return new RoomViewHolderStar(view);
     }
 
 

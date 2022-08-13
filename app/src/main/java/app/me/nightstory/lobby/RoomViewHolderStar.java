@@ -10,17 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.mikhaellopez.circularimageview.CircularImageView;
 
 import app.me.nightstory.R;
 import app.me.nightstory.TimeCalc;
 
-public class RoomViewHolder extends RecyclerView.ViewHolder{
+public class RoomViewHolderStar extends RecyclerView.ViewHolder{
 
     private final View mView;
     public CardView cardView, imgCV;
 
-    public RoomViewHolder(@NonNull View itemView) {
+    public RoomViewHolderStar(@NonNull View itemView) {
 
         super(itemView);
         mView = itemView;
@@ -54,7 +53,7 @@ public class RoomViewHolder extends RecyclerView.ViewHolder{
 
     public void setPicture(String text){
         ImageView pp = mView.findViewById(R.id.post_pp);
-            Glide.with(itemView).load(text).apply(new RequestOptions().override(175, 175)).centerCrop().into(pp);
+            Glide.with(itemView).load(text).centerCrop().into(pp);
 
     }
 
