@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="app.me.nightstory">
+    package="app.burgundy.com">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -15,21 +16,22 @@
         android:theme="@style/AppTheme">
 
 
-        <activity android:name=".home.MyListActivity"
+        <activity android:name="app.burgundy.com.home.MyListActivity"
             android:theme="@style/AppTheme"
 
             />
-        <activity android:name=".login.Sign" />
+        <activity android:name="app.burgundy.com.login.Sign" />
         <activity
-            android:name=".login.Login"
+            android:name="app.burgundy.com.login.Login"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".lobby.LobbyActivity"
+            android:name="app.burgundy.com.lobby.LobbyActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".lobby.AddLobbyActivity" />
+        <activity android:name="app.burgundy.com.lobby.AddLobbyActivity" />
         <activity
-            android:name=".login.Splash"
+            android:name="app.burgundy.com.login.Splash"
+            android:exported="true"
             android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,7 +40,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".home.MainActivity"
+            android:name="app.burgundy.com.home.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize" />

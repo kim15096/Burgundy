@@ -130,7 +130,6 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_marginStart="8dp"
-                app:civ_background_color="@color/darkClrBg"
                 app:civ_border="false"
                 app:civ_border_color="@color/Gray"
                 app:civ_border_width="1.5dp"
@@ -152,7 +151,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-    <app.me.nightstory.MyRecyclerView
+    <app.burgundy.com.MyRecyclerView
         android:id="@+id/story_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"

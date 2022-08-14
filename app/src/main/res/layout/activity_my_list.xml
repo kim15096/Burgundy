@@ -21,7 +21,7 @@
         app:layout_constraintStart_toEndOf="@+id/list_back"
         app:layout_constraintTop_toTopOf="@+id/list_back" />
 
-    <app.me.nightstory.MyRecyclerView
+    <app.burgundy.com.MyRecyclerView
         android:id="@+id/rv_mylist"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/list_back"
         tools:layout_editor_absoluteX="0dp">
 
-    </app.me.nightstory.MyRecyclerView>
+    </app.burgundy.com.MyRecyclerView>
 
     <ImageButton
         android:id="@+id/list_back"

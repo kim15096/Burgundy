@@ -18,7 +18,7 @@
 
     </FrameLayout>
 
-    <app.me.nightstory.MyRecyclerView
+    <app.burgundy.com.MyRecyclerView
         android:id="@+id/rv_live"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -34,6 +34,6 @@
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="0dp">
 
-    </app.me.nightstory.MyRecyclerView>
+    </app.burgundy.com.MyRecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

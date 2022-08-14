@@ -1,42 +1,33 @@
 {
   "project_info": {
-    "project_number": "69136461367",
-    "firebase_url": "https://nightfall-alpha.firebaseio.com",
-    "project_id": "nightfall-alpha",
-    "storage_bucket": "nightfall-alpha.appspot.com"
+    "project_number": "413435128677",
+    "project_id": "burgundy-d61c9",
+    "storage_bucket": "burgundy-d61c9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:69136461367:android:0e7ffcdd4c7282499d99b2",
+        "mobilesdk_app_id": "1:413435128677:android:bceb2b7bd615c479268f8c",
         "android_client_info": {
-          "package_name": "app.me.nightstory"
+          "package_name": "app.burgundy.com"
         }
       },
       "oauth_client": [
         {
-          "client_id": "69136461367-c3orlf1lfu9h2krfelcpmlb9u4frovqi.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "app.me.nightstory",
-            "certificate_hash": "9e74db89908fd3692580639960f8abf667e3ff82"
-          }
-        },
-        {
-          "client_id": "69136461367-hbb3h9oe5uml44gei3jdosqpnan79t8e.apps.googleusercontent.com",
+          "client_id": "413435128677-uhi5gvogrgdl7lsn99smr7sb7fvnjk9s.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAKsV_IMDYXimvN-18HZLArGVtPE3cxV-A"
+          "current_key": "AIzaSyAxToL0Ts25QoaqmbaYhMSrgaRg-IGZGKs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "69136461367-hbb3h9oe5uml44gei3jdosqpnan79t8e.apps.googleusercontent.com",
+              "client_id": "413435128677-uhi5gvogrgdl7lsn99smr7sb7fvnjk9s.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
